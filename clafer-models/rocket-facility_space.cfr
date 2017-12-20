@@ -1,0 +1,96 @@
+abstract machine
+    cost -> integer
+        [ this >= 0 ]
+
+abstract Fabrication
+    machines
+        mill?
+        pressure_chamber?
+        cure_box?
+        sander?
+        buff?
+
+    xor max_size
+        length_5ft
+        length_10ft
+        length_15ft
+            [no Rocket.max_flight_regime.supersonic]
+
+abstract Rocket
+    xor motor_size
+        C
+        E
+        F
+    xor safety_requirements
+        student_launch
+        residential
+
+    xor max_flight_regime
+        subsonic
+        transonic
+        supersonic
+
+    xor material
+        fiberglass
+            [Fabrication.machines.pressure_chamber]
+        blue_tube
+        carbon_fiber
+            [Fabrication.machines.cure_box && Fabrication.machines.mill]
+        aluminum
+            [Fabrication.machines.mill]
+
+    xor surface_finish
+        regular_paint
+        smooth_paint
+            [Fabrication.machines.sander]
+        polished
+            [Fabrication.machines.sander && Fabrication.machines.buff]
+/*
+    nose_cone
+        [one nose_cone]
+        xor type //different common nose cone profiles
+            ogive
+            ellipsoid
+            power_series
+            parabolic_series
+            haack_series
+
+    body_tube
+        [one body_tube]
+        xor access_hatch_securement
+            tool_holes
+            screws
+            pins
+
+    fins
+        [one fins]
+        xor type
+            trapezoidal
+            elliptical
+            freeform
+
+    //graybeard constraints
+    [supersonic => no nose_cone.type.power_series]
+    [supersonic => no surface_finish.regular_paint]
+    [supersonic => no surface_finish.smooth_paint]
+    [supersonic => no body_tube.access_hatch_securement.screws]
+    [supersonic => no fins.type.elliptical]
+    [transonic => no surface_finish.regular_paint]
+    [subsonic => no nose_cone.type.ogive]
+*/
+
+TeamFacility : Fabrication
+    //facility constraints
+    [machines.mill]
+    [machines.pressure_chamber]
+    [machines.sander]
+    [no machines.cure_box]
+    [no machines.buff]
+
+TeamRocket : Rocket
+    //legal constraints
+    [student_launch => no max_flight_regime.supersonic]
+    [student_launch => no material.aluminum]
+    [student_launch => no motor_size.C]
+    [residential => no  motor_size.F]
+
