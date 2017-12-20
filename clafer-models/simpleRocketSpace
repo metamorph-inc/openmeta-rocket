@@ -1,0 +1,51 @@
+Rocket
+    nose_cone
+        [one nose_cone]
+        xor type //different common nose cone profiles
+            ogive
+            ellipsoid
+            power_series
+            parabolic_series
+            haack_series
+
+        xor material
+            fiberglass
+            glue_tube
+            carbon_fiber
+            aluminum
+
+        xor surface_finish
+            regular_paint
+            smooth_paint
+            polished
+
+    body_tube
+        [one body_tube]
+        xor material
+            fiberglass
+            glue_tube
+            carbon_fiber
+            aluminum
+
+        xor surface_finish
+            regular_paint
+            smooth_paint
+            polished
+
+    fins
+        [one fins]
+        xor type
+            trapezoidal
+            elliptical
+            freeform
+
+        xor material
+            fiberglass
+            glue_tube
+            carbon_fiber
+            aluminum
+
+        xor surface_finish
+            regular_paint
+            smooth_paint
+            polished
