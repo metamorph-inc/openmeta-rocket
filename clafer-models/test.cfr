@@ -1,0 +1,96 @@
+abstract Machine
+   cost -> real
+   // also allows for certian manufacturing methods
+
+abstract Option
+    cost -> real // Represents financial concern
+    benefit -> real // Represents engineering effects
+
+
+abstract Facility
+   machines
+       lathe : Machine? //dimensions in inches
+           max_length -> integer
+           max_diam -> integer
+           [cost = 150]
+
+       pressure_chamber : Machine?
+           max_height -> integer
+           max_width -> integer
+           max_length -> integer
+
+       cure_box : Machine? //dimensions in inches, temperature in F
+           max_height -> integer
+           max_width -> integer
+           max_length -> integer
+           max_temp -> integer
+
+       sander : Machine? // performance based on paper material
+           [surface_finish => smooth_paint]
+
+       buff : Machine? // performance based on head material
+           [surface_finish => polished]
+
+   storage_space
+       climate_control ?
+           humidity
+           temperature
+
+abstract Materials
+    density -> real
+    roughness -> integer
+    xor material
+       cardboard : Option
+           [cost = 0.01] // $/cm^2
+           [benefit = 5*2] // place holder
+           [density = 0.68] // g/cm^3
+       fiberglass: Option
+           [density = 1.85]
+       pvc: Option
+           [density = 1.39]
+       blue_tube: Option
+           [density = 1.2]
+       carbon_fiber: Option
+           [density = 2.0]
+
+    xor surface_finish
+        unfinished : Option
+            [cost = 0.0] //$/cm^2
+            [benefit = 0]
+            [roughness = 150] //micrometers
+        regular_paint : Option
+            [cost = 0.035] //$/cm^2
+            [benefit = 1]
+            [roughness = 60] //micrometers
+        smooth_paint : Option
+            [cost = 0.05] //$/cm^2
+            [benefit = 2]
+            [roughness = 20] //micrometers
+        polished : Option
+            [cost = 0.1] //$/cm^2
+            [benefit = 3]
+            [roughness = 2] //micrometers
+
+LipscombShop : Facility
+   [machines.lathe.max_length = 24]
+   [machines.lathe.max_diam = 12]
+
+   [machines.lathe]
+   [machines.sander]
+   [machines.buff]
+   [storage_space.climate_control]
+
+
+VanderbiltShop : Facility
+   [machines.lathe.max_length = 36]
+   [machines.lathe.max_diam = 12]
+   [machines.cure_box.max_height = 10]
+   [machines.cure_box.max_length = 48]
+   [machines.cure_box.max_width = 36]
+   [machines.cure_box.max_temp = 450]
+
+   [machines.cure_box]
+   [machines.lathe]
+   [machines.sander]
+   [machines.buff]
+   [storage_space.climate_control]

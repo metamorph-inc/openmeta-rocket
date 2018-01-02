@@ -1,0 +1,130 @@
+abstract Materials
+   xor material
+       cardboard
+           cardboard_density = 0.68 // g/cm^3
+       fiberglass
+           fiberglass_density = 1.85
+       pvc
+           pvc_density = 1.39
+       blue_tube
+           blue_tube_density = 1.2
+       carbon_fiber
+           carbon_fiber_density = 2.0
+           //[density => carbon_fiber_density]
+   xor surface_finish
+       regular_paint = 60 //micrometers
+       smooth_paint  = 20
+       polished  = 2
+
+abstract NoseCone
+   name -> string
+   length -> integer
+   base_diam -> integer
+   wall_thickness -> integer
+   xor shape
+       conical
+       ogive
+       ellipsoid
+       power_series
+       parabolic_series
+       haack_series
+
+   xor material : Materials
+
+abstract Facility
+   machines
+       lathe ? //dimensions in inches
+           max_length -> integer
+           max_diam -> integer
+
+       pressure_chamber ?
+           max_height -> integer
+           max_width -> integer
+           max_length -> integer
+
+       cure_box ? //dimensions in inches, temperature in F
+           max_height -> integer
+           max_width -> integer
+           max_length -> integer
+           max_temp -> integer
+
+       sander ? // performance based on paper material
+           [surface_finish => smooth_paint]
+
+       buff ? // performance based on head material
+           [surface_finish => polished]
+
+   storage_space
+       climate_control ?
+           humidity
+           temperature
+
+
+abstract Rocket
+   xor motor_size
+       C
+       E
+       F
+   xor safety_requirements
+       student_launch
+       residential
+
+   xor max_flight_regime
+       subsonic
+       transonic
+       supersonic
+
+   nose_cone
+       [one nose_cone]
+
+   body_tube
+       [one body_tube]
+       xor access_hatch_securement
+           tool_holes
+           screws
+           pins
+
+   fins
+       [one fins]
+       xor type
+           trapezoidal
+           elliptical
+           freeform
+
+   //graybeard constraints
+   [supersonic => no nose_cone.type.power_series]
+   [supersonic => no surface_finish.regular_paint]
+   [supersonic => no surface_finish.smooth_paint]
+   [supersonic => no body_tube.access_hatch_securement.screws]
+   [supersonic => no fins.type.elliptical]
+   [transonic => no surface_finish.regular_paint]
+   [subsonic => no nose_cone.type.ogive]
+
+//----------------------------------------------
+/*
+LipscombShop : Facility
+   [machines.lathe.max_length = 24]
+   [machines.lathe.max_diam = 12]
+
+   [machines.lathe]
+   [machines.sander]
+   [machines.buff]
+   [storage_space.climate_control]
+   [no machines.pressure_chamber]
+   [no machines.cure_box]
+
+VanderbiltShop : Facility
+   [machines.lathe.max_length = 36]
+   [machines.lathe.max_diam = 12]
+   [machines.cure_box.max_height = 10]
+   [machines.cure_box.max_length = 48]
+   [machines.cure_box.max_width = 36]
+   [machines.cure_box.max_temp = 450]
+
+   [no machines.pressure_chamber]
+   [no machines.cure_box]
+   [machines.lathe]
+   [machines.sander]
+   [machines.buff]
+   [storage_space.climate_control]
+*/
