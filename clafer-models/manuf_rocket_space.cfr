@@ -1,0 +1,56 @@
+abstract Facility
+    machines
+        mill?
+        pressure_chamber?
+        cure_box?
+        lathe?
+        sander?
+        buff?
+
+
+abstract Rocket
+    xor material
+        fiberglass
+            [Facility.machines.pressure_chamber]
+        blue_tube
+        carbon_fiber
+            [Facility.machines.cure_box && Facility.machines.mill]
+        aluminum
+            [Facility.machines.mill]
+
+    xor surface_finish
+        unfinished
+        regular_paint
+        smooth_paint
+            [Facility.machines.sander]
+        polished
+            [Facility.machines.sander && Facility.machines.buff]
+
+/*
+MetamorphShop : Facility
+    //facility constraints
+    [machines.mill]
+    [machines.pressure_chamber]
+    [machines.sander]
+    [machines.buff]
+    [machines.cure_box]
+    [machines.lathe]
+
+LipscombShop : Facility
+    [machines.mill]
+    [no machines.pressure_chamber]
+    [machines.sander]
+    [machines.buff]
+    [no machines.cure_box]
+    [machines.lathe]
+
+*/
+VanderbiltShop : Facility
+    [machines.mill]
+    [no machines.pressure_chamber]
+    [no machines.sander]
+    [machines.buff]
+    [machines.cure_box]
+    [machines.lathe]
+
+TeamRocket: Rocket

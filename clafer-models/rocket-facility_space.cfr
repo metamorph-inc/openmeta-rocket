@@ -93,4 +93,3 @@ TeamRocket : Rocket
     [student_launch => no material.aluminum]
     [student_launch => no motor_size.C]
     [residential => no  motor_size.F]
-
