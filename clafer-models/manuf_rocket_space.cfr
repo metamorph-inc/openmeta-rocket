@@ -1,56 +1,110 @@
 abstract Facility
     machines
-        mill?
+        laser_cutter?
         pressure_chamber?
         cure_box?
-        lathe?
+        waterjet_cutter?
+        cnc_mill?
+        mill?
         sander?
         buff?
 
+    tooling
+        molds?
+            semicircle?
+            fin_mold?
+        mandrels?
+            diam_6in?
+            diam_8in?
 
 abstract Rocket
+    body
+        xor connections
+            friction
+            epoxy
+                [no Rocket.material.aluminum] // does not work well on metal
+            screws
+                [Rocket.material.aluminum => Facility.machines.mill] // need to drill holes
+    fins
+        xor type
+            trapezoidal
+            elliptical
+                [Facility.machines.cnc_mill] // Complicated shape hard to do by hand
+            freeform
+
+        xor profile
+            flat
+                [Rocket.material.carbon_fiber => Facility.machines.waterjet_cutter || Facility.machines.laser_cutter] // can either laser cut or water jet
+                [Rocket.material.aluminum => Facility.machines.waterjet_cutter] // can't laser cut most aluminum
+            subsonic
+                [Facility.machines.mill] // to cut the leading and trailing edge
+            supersonic
+                [Facility.machines.mill] // to cut the leading and trailing edge
+
     xor material
         fiberglass
-            [Facility.machines.pressure_chamber]
-        blue_tube
+            [Facility.machines.cure_box && Facility.tooling.mandrels] // need cure box and mandrel
+            [Facility.machines.mill || Facility.tooling.molds.fin_mold] //fins can be molded or cut
         carbon_fiber
-            [Facility.machines.cure_box && Facility.machines.mill]
+            [Facility.machines.cure_box]
+            [Facility.machines.waterjet_cutter || Facility.machines.laser_cutter]
         aluminum
-            [Facility.machines.mill]
+            [Facility.machines.waterjet_cutter && Facility.tooling.molds.semicircle]
 
     xor surface_finish
         unfinished
+            [no Rocket.material.fiberglass] //safety hazard
         regular_paint
         smooth_paint
-            [Facility.machines.sander]
+            [Facility.machines.sander] // material below needs to be smooth
         polished
-            [Facility.machines.sander && Facility.machines.buff]
+            [Facility.machines.sander && Facility.machines.buff] //smooth material and buff gloss coat
 
-/*
+    xor max_flight_regime
+        subsonic
+            [no Rocket.surface_finish.polished]
+        transonic
+            [no Rocket.surface_finish.unfinished && no Rocket.surface_finish.regular_paint && no Rocket.fins.profile.subsonic && no Rocket.fins.profile.flat]
+        supersonic
+            [Rocket.surface_finish.polished && Rocket.fins.profile.supersonic]
+
+
 MetamorphShop : Facility
-    //facility constraints
     [machines.mill]
+    [no tooling.mandrels.diam_6in]
+    [machines.waterjet_cutter]
+    [no machines.cnc_mill]
+    [machines.laser_cutter]
     [machines.pressure_chamber]
     [machines.sander]
     [machines.buff]
     [machines.cure_box]
-    [machines.lathe]
-
+    [tooling.mandrels.diam_8in]
+    [tooling.molds.semicircle]
+    [tooling.molds.fin_mold]
+/*
 LipscombShop : Facility
     [machines.mill]
     [no machines.pressure_chamber]
     [machines.sander]
     [machines.buff]
     [no machines.cure_box]
-    [machines.lathe]
 
-*/
+
 VanderbiltShop : Facility
-    [machines.mill]
-    [no machines.pressure_chamber]
-    [no machines.sander]
+    //facility constraints
+    [no machines.mill]
+    [no tooling.mandrels.diam_6in]
+    [machines.waterjet_cutter]
+    [no machines.cnc_mill]
+    [machines.laser_cutter]
+    [machines.pressure_chamber]
+    [machines.sander]
     [machines.buff]
     [machines.cure_box]
-    [machines.lathe]
-
+    [tooling.mandrels.diam_8in]
+    [tooling.molds.semicircle]
+    [tooling.molds.fin_mold]
+*/
 TeamRocket: Rocket
+    [Rocket.max_flight_regime.transonic]
