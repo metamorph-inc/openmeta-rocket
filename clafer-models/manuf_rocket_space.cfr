@@ -11,8 +11,14 @@ abstract Facility
 
     tooling
         molds?
-            semicircle?
+            circular?
             fin_mold?
+            nosecone?
+                ogive?
+                parabolic?
+                haackman?
+            [Facility.machines.sander && Facility.machines.buff] // molds made from fiberglass
+            [Facility.machines.mill && Facility.machines.pressure_chamber] //molds made from fiberglass
         mandrels?
             diam_6in?
             diam_8in?
@@ -41,15 +47,25 @@ abstract Rocket
             supersonic
                 [Facility.machines.mill] // to cut the leading and trailing edge
 
+    cone
+        xor type
+            parabolic
+                [Rocket.max_flight_regime.subsonic]
+            haackman
+                [Rocket.max_flight_regime.transonic || Rocket.max_flight_regime.subsonic]
+            ogive
+
+
     xor material
         fiberglass
-            [Facility.machines.cure_box && Facility.tooling.mandrels] // need cure box and mandrel
+            [Facility.machines.pressure_chamber && Facility.tooling.mandrels] // need cure box and mandrel
             [Facility.machines.mill || Facility.tooling.molds.fin_mold] //fins can be molded or cut
+            [Facility.machines.sander && Facility.machines.buff]
         carbon_fiber
             [Facility.machines.cure_box]
             [Facility.machines.waterjet_cutter || Facility.machines.laser_cutter]
         aluminum
-            [Facility.machines.waterjet_cutter && Facility.tooling.molds.semicircle]
+            [Facility.machines.waterjet_cutter && Facility.tooling.molds.circular]
 
     xor surface_finish
         unfinished
@@ -68,43 +84,51 @@ abstract Rocket
         supersonic
             [Rocket.surface_finish.polished && Rocket.fins.profile.supersonic]
 
-
-MetamorphShop : Facility
+/*
+Perfect_Shop : Facility
     [machines.mill]
-    [no tooling.mandrels.diam_6in]
+    [machines.cnc_mill]
     [machines.waterjet_cutter]
-    [no machines.cnc_mill]
     [machines.laser_cutter]
     [machines.pressure_chamber]
     [machines.sander]
     [machines.buff]
     [machines.cure_box]
-    [tooling.mandrels.diam_8in]
-    [tooling.molds.semicircle]
+    [tooling.mandrels.diam_8in && tooling.mandrels.diam_6in]
+    [tooling.molds.circular]
     [tooling.molds.fin_mold]
-/*
+    [tooling.molds.nosecone.ogive && tooling.molds.nosecone.haackman && tooling.molds.nosecone.parabolic]
+*/
+
 LipscombShop : Facility
     [machines.mill]
-    [no machines.pressure_chamber]
+    [machines.cnc_mill]
+    [no machines.waterjet_cutter]
+    [machines.laser_cutter]
+    [machines.pressure_chamber]
     [machines.sander]
     [machines.buff]
     [no machines.cure_box]
+    [no tooling.mandrels.diam_8in && tooling.mandrels.diam_6in]
+    [no tooling.molds.circular]
+    [no tooling.molds.fin_mold]
+    [no tooling.molds.nosecone.ogive && no tooling.molds.nosecone.haackman && tooling.molds.nosecone.parabolic]
 
-
+/*
 VanderbiltShop : Facility
     //facility constraints
-    [no machines.mill]
-    [no tooling.mandrels.diam_6in]
+    [machines.mill]
+    [machines.cnc_mill]
     [machines.waterjet_cutter]
-    [no machines.cnc_mill]
-    [machines.laser_cutter]
-    [machines.pressure_chamber]
+    [no machines.laser_cutter]
+    [no machines.pressure_chamber]
     [machines.sander]
     [machines.buff]
     [machines.cure_box]
-    [tooling.mandrels.diam_8in]
-    [tooling.molds.semicircle]
-    [tooling.molds.fin_mold]
+    [tooling.mandrels.diam_8in && tooling.mandrels.diam_6in]
+    [tooling.molds.circular]
+    [no tooling.molds.fin_mold]
+    [tooling.molds.nosecone.ogive && tooling.molds.nosecone.haackman && no tooling.molds.nosecone.parabolic]
+
 */
 TeamRocket: Rocket
-    [Rocket.max_flight_regime.transonic]
