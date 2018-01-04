@@ -42,6 +42,7 @@ abstract Rocket
             flat
                 [Rocket.material.carbon_fiber => Facility.machines.waterjet_cutter || Facility.machines.laser_cutter] // can either laser cut or water jet
                 [Rocket.material.aluminum => Facility.machines.waterjet_cutter] // can't laser cut most aluminum
+                [Rocket.material.fiberglass || Rocket.material.carbon_fiber => Facility.tooling.molds.fin_mold]
             subsonic
                 [Facility.machines.mill] // to cut the leading and trailing edge
             supersonic
@@ -79,10 +80,12 @@ abstract Rocket
     xor max_flight_regime
         subsonic
             [no Rocket.surface_finish.polished]
+            [no Rocket.fins.profile.supersonic]
         transonic
             [no Rocket.surface_finish.unfinished && no Rocket.surface_finish.regular_paint && no Rocket.fins.profile.subsonic && no Rocket.fins.profile.flat]
         supersonic
             [Rocket.surface_finish.polished && Rocket.fins.profile.supersonic]
+            [no Rocket.body.connections.friction]
 
 /*
 Perfect_Shop : Facility
@@ -98,7 +101,7 @@ Perfect_Shop : Facility
     [tooling.molds.circular]
     [tooling.molds.fin_mold]
     [tooling.molds.nosecone.ogive && tooling.molds.nosecone.haackman && tooling.molds.nosecone.parabolic]
-*/
+
 
 LipscombShop : Facility
     [machines.mill]
@@ -113,15 +116,15 @@ LipscombShop : Facility
     [no tooling.molds.circular]
     [no tooling.molds.fin_mold]
     [no tooling.molds.nosecone.ogive && no tooling.molds.nosecone.haackman && tooling.molds.nosecone.parabolic]
+*/
 
-/*
 VanderbiltShop : Facility
     //facility constraints
     [machines.mill]
-    [machines.cnc_mill]
+    [no machines.cnc_mill]
     [machines.waterjet_cutter]
     [no machines.laser_cutter]
-    [no machines.pressure_chamber]
+    [machines.pressure_chamber]
     [machines.sander]
     [machines.buff]
     [machines.cure_box]
@@ -130,5 +133,5 @@ VanderbiltShop : Facility
     [no tooling.molds.fin_mold]
     [tooling.molds.nosecone.ogive && tooling.molds.nosecone.haackman && no tooling.molds.nosecone.parabolic]
 
-*/
 TeamRocket: Rocket
+    [Rocket.max_flight_regime.subsonic]
