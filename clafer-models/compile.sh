@@ -3,7 +3,7 @@
 for f in *.cfr
 do
     filename="${f%.*}"
-    ./clafer $f -m cvlgraph
-    perl -pi -e 's/rankdir=BT/rankdir=RL/g' $filename.cvl.dot
-    dot $filename.cvl.dot -Tpng -o $filename.cvl.dot.png
+    clafer $f -m cvlgraph
+    python remove_constraints.py $filename.cvl.dot
+    dot ${filename}_removed.cvl.dot -Tpng -o ${filename}_removed.dot.png
 done
