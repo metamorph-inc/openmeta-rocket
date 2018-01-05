@@ -51,9 +51,9 @@ abstract Rocket
     cone
         xor type
             parabolic
-                [Rocket.max_flight_regime.subsonic]
+                [Mission.max_flight_regime.subsonic]
             haackman
-                [Rocket.max_flight_regime.transonic || Rocket.max_flight_regime.subsonic]
+                [Mission.max_flight_regime.transonic || Mission.max_flight_regime.subsonic]
             ogive
 
 
@@ -77,6 +77,8 @@ abstract Rocket
         polished
             [Facility.machines.sander && Facility.machines.buff] //smooth material and buff gloss coat
 
+
+abstract Mission
     xor max_flight_regime
         subsonic
             [no Rocket.surface_finish.polished]
@@ -86,6 +88,30 @@ abstract Rocket
         supersonic
             [Rocket.surface_finish.polished && Rocket.fins.profile.supersonic]
             [no Rocket.body.connections.friction]
+    xor altitude
+        low
+        medium
+            [Mission.max_flight_regime.transonic || Mission.max_flight_regime.supersonic]
+        high
+            [Mission.max_flight_regime.supersonic]
+
+StartupShop : Facility
+    [machines.mill]
+    [machines.cnc_mill]
+    [machines.sander]
+    [machines.buff]
+
+TeamRocket: Rocket
+    [no surface_finish.regular_paint]
+    [body.connections.epoxy]
+    [fins.profile.flat && fins.type.trapezoidal]
+    [nosecone.type.parabolic]
+
+NSL: Mission
+    [max_flight_regime.subsonic && no Rocket.material.aluminum]
+    [altitude.low]
+
+
 
 /*
 Perfect_Shop : Facility
@@ -116,7 +142,6 @@ LipscombShop : Facility
     [no tooling.molds.circular]
     [no tooling.molds.fin_mold]
     [no tooling.molds.nosecone.ogive && no tooling.molds.nosecone.haackman && tooling.molds.nosecone.parabolic]
-*/
 
 VanderbiltShop : Facility
     //facility constraints
@@ -132,6 +157,4 @@ VanderbiltShop : Facility
     [tooling.molds.circular]
     [no tooling.molds.fin_mold]
     [tooling.molds.nosecone.ogive && tooling.molds.nosecone.haackman && no tooling.molds.nosecone.parabolic]
-
-TeamRocket: Rocket
-    [Rocket.max_flight_regime.subsonic]
+*/
