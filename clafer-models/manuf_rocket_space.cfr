@@ -48,7 +48,7 @@ abstract Rocket
             supersonic
                 [Facility.machines.mill] // to cut the leading and trailing edge
 
-    cone
+    nosecone
         xor type
             parabolic
                 [Mission.max_flight_regime.subsonic]
@@ -95,12 +95,6 @@ abstract Mission
         high
             [Mission.max_flight_regime.supersonic]
 
-StartupShop : Facility
-    [machines.mill]
-    [machines.cnc_mill]
-    [machines.sander]
-    [machines.buff]
-
 TeamRocket: Rocket
     [no surface_finish.regular_paint]
     [body.connections.epoxy]
@@ -113,7 +107,7 @@ NSL: Mission
 
 
 
-/*
+
 Perfect_Shop : Facility
     [machines.mill]
     [machines.cnc_mill]
@@ -128,6 +122,13 @@ Perfect_Shop : Facility
     [tooling.molds.fin_mold]
     [tooling.molds.nosecone.ogive && tooling.molds.nosecone.haackman && tooling.molds.nosecone.parabolic]
 
+/*
+
+StartupShop : Facility
+    [machines.mill]
+    [machines.cnc_mill]
+    [machines.sander]
+    [machines.buff]
 
 LipscombShop : Facility
     [machines.mill]
