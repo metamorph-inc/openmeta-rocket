@@ -21,7 +21,7 @@ abstract Facility
             [Facility.machines.mill && Facility.machines.pressure_chamber] //molds made from fiberglass
         mandrels?
             diam_6in?
-            diam_8in?
+            diam_4in?
 
 abstract Rocket
     body
@@ -97,17 +97,17 @@ abstract Mission
 
 TeamRocket: Rocket
     [no surface_finish.regular_paint]
-    [body.connections.epoxy]
-    [fins.profile.flat && fins.type.trapezoidal]
-    [nosecone.type.parabolic]
-
+    //[body.connections.epoxy]
+    //[fins.profile.flat && fins.type.trapezoidal]
+    //[nosecone.type.parabolic]
+/*
 NSL: Mission
     [max_flight_regime.subsonic && no Rocket.material.aluminum]
     [altitude.low]
+*/
 
 
-
-
+/*
 Perfect_Shop : Facility
     [machines.mill]
     [machines.cnc_mill]
@@ -117,12 +117,12 @@ Perfect_Shop : Facility
     [machines.sander]
     [machines.buff]
     [machines.cure_box]
-    [tooling.mandrels.diam_8in && tooling.mandrels.diam_6in]
+    [tooling.mandrels.diam_4in && tooling.mandrels.diam_6in]
     [tooling.molds.circular]
     [tooling.molds.fin_mold]
     [tooling.molds.nosecone.ogive && tooling.molds.nosecone.haackman && tooling.molds.nosecone.parabolic]
 
-/*
+
 
 StartupShop : Facility
     [machines.mill]
@@ -139,11 +139,11 @@ LipscombShop : Facility
     [machines.sander]
     [machines.buff]
     [no machines.cure_box]
-    [no tooling.mandrels.diam_8in && tooling.mandrels.diam_6in]
+    [no tooling.mandrels.diam_4in && tooling.mandrels.diam_6in]
     [no tooling.molds.circular]
     [no tooling.molds.fin_mold]
     [no tooling.molds.nosecone.ogive && no tooling.molds.nosecone.haackman && tooling.molds.nosecone.parabolic]
-
+*/
 VanderbiltShop : Facility
     //facility constraints
     [machines.mill]
@@ -154,8 +154,7 @@ VanderbiltShop : Facility
     [machines.sander]
     [machines.buff]
     [machines.cure_box]
-    [tooling.mandrels.diam_8in && tooling.mandrels.diam_6in]
+    [tooling.mandrels.diam_4in && tooling.mandrels.diam_6in]
     [tooling.molds.circular]
     [no tooling.molds.fin_mold]
     [tooling.molds.nosecone.ogive && tooling.molds.nosecone.haackman && no tooling.molds.nosecone.parabolic]
-*/
