@@ -1,0 +1,140 @@
+=== Instance 1 Begin ===
+
+c0_TeamRocket : c0_Rocket
+  c0_body
+    c0_connections
+      c0_epoxy
+  c0_fins
+    c0_type
+      c0_trapezoidal
+    c0_profile
+      c0_flat
+  c1_nosecone
+    c1_type
+      c1_parabolic
+  c0_material
+    c0_carbon_fiber
+  c0_surface_finish
+    c0_unfinished
+c0_NSL : c0_Mission
+  c0_max_flight_regime
+    c1_subsonic
+  c0_altitude
+    c0_low
+c0_Perfect_Shop : c0_Facility
+  c0_machines
+    c0_laser_cutter
+    c0_pressure_chamber
+    c0_cure_box
+    c0_waterjet_cutter
+    c0_cnc_mill
+    c0_mill
+    c0_sander
+    c0_buff
+  c0_tooling
+    c0_molds
+      c0_circular
+      c0_fin_mold
+      c0_nosecone
+        c0_ogive
+        c0_parabolic
+        c0_haackman
+    c0_mandrels
+      c0_diam_6in
+      c0_diam_8in
+
+--- Instance 1 End ---
+
+=== Instance 2 Begin ===
+
+c0_TeamRocket : c0_Rocket
+  c0_body
+    c0_connections
+      c0_epoxy
+  c0_fins
+    c0_type
+      c0_trapezoidal
+    c0_profile
+      c0_flat
+  c1_nosecone
+    c1_type
+      c1_parabolic
+  c0_material
+    c0_fiberglass
+  c0_surface_finish
+    c0_smooth_paint
+c0_NSL : c0_Mission
+  c0_max_flight_regime
+    c1_subsonic
+  c0_altitude
+    c0_low
+c0_Perfect_Shop : c0_Facility
+  c0_machines
+    c0_laser_cutter
+    c0_pressure_chamber
+    c0_cure_box
+    c0_waterjet_cutter
+    c0_cnc_mill
+    c0_mill
+    c0_sander
+    c0_buff
+  c0_tooling
+    c0_molds
+      c0_circular
+      c0_fin_mold
+      c0_nosecone
+        c0_ogive
+        c0_parabolic
+        c0_haackman
+    c0_mandrels
+      c0_diam_6in
+      c0_diam_8in
+
+--- Instance 2 End ---
+
+=== Instance 3 Begin ===
+
+c0_TeamRocket : c0_Rocket
+  c0_body
+    c0_connections
+      c0_epoxy
+  c0_fins
+    c0_type
+      c0_trapezoidal
+    c0_profile
+      c0_flat
+  c1_nosecone
+    c1_type
+      c1_parabolic
+  c0_material
+    c0_carbon_fiber
+  c0_surface_finish
+    c0_smooth_paint
+c0_NSL : c0_Mission
+  c0_max_flight_regime
+    c1_subsonic
+  c0_altitude
+    c0_low
+c0_Perfect_Shop : c0_Facility
+  c0_machines
+    c0_laser_cutter
+    c0_pressure_chamber
+    c0_cure_box
+    c0_waterjet_cutter
+    c0_cnc_mill
+    c0_mill
+    c0_sander
+    c0_buff
+  c0_tooling
+    c0_molds
+      c0_circular
+      c0_fin_mold
+      c0_nosecone
+        c0_ogive
+        c0_parabolic
+        c0_haackman
+    c0_mandrels
+      c0_diam_6in
+      c0_diam_8in
+
+--- Instance 3 End ---
