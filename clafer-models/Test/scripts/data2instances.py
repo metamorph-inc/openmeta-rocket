@@ -3,43 +3,51 @@ Author: Austin Tabulog
 Email: austin.tabulog@metamorphsoftware.com
 Date: 01/10/2018
 
-Ojective: create separate instance files for a *.cfr.data file
+Objective: take a clafer data file (*.cfr.data) and create a specific directory of
+           every individual instance from the data file without the claferIG tags
 
-Input: clafer data file (.cfr.data)
-
+Input: in the command terminal, path to the scripts directory and call this script
+       followed by the .cfr.data file ("python scripts/data2instances.py example_file.crf.data"
 Output: directory of individual .txt files for every instance
 """
+
 from sys import argv
 from os import path, mkdir, getcwd
 
 def separate_instances(data_file):
-    # Create new instance directory if necessary
-    inst_dir = getcwd()+'\Instances'
-    if not path.exists(inst_dir):
-        mkdir(inst_dir)
-
     # set variables
     instance = 1
-    filename = path.splitext(path.splitext(data_file)[0])[0]
+    ext = '.'
+    filename = data_file
+    while ext in filename:
+        filename = path.splitext(filename)[0]
     empty_line = '\n'
+
+    # Create new model directory if necessary
+    model_dir = getcwd()+'\{}'.format(filename)
+    if not path.exists(model_dir):
+        mkdir(model_dir)
+
+    # Create new instance directory if necessary
+    inst_dir = model_dir + '\Instances'
+    if not path.exists(inst_dir):
+        mkdir(inst_dir)
 
     # parse through *.cfr.data file looking for specific instances
     with open(data_file) as data:
         for line in data:
-            instance_start = "=== Instance {} Begin ===".format(instance) #looking for specific instance start lines
-            instance_end = "--- Instance {} End ---".format(instance) #looking for specific instance end lines
+            instance_start = "=== Instance {} Begin ===".format(instance) #specific instance start lines
+            instance_end = "--- Instance {} End ---".format(instance) #specific instance end lines
 
             # if line is an instance start, create a new file start writing to it
             if instance_start in line:
                 file = open(path.join(inst_dir, "{}_{}.{}".format(filename, instance,'txt')), 'w')
                 file.write(line)
-
             # if line is an instance end, write end line, close file, and up the instance counter
             elif instance_end in line:
                 file.write(line)
                 file.close()
                 instance += 1
-
             # for all other lines, clean up claferIG flags and avoid writing empty lines to instance files.
             # Writing empty lines will cause an I/O error inbetween instances
             else:
@@ -51,7 +59,7 @@ def separate_instances(data_file):
 
 # check if clafer flag is in line, and remove if so.
 def clean_line(line):
-    flag_list = ['c0_', 'c1_', 'c2_', 'c3_', 'c4_']
+    flag_list = ['c0_', 'c1_', 'c2_', 'c3_', 'c4_','c5_','c6_']
     for elem in flag_list:
         if elem in line:
             new_line = line.replace(elem,"")
@@ -59,7 +67,4 @@ def clean_line(line):
         else:
             new_line = line
     return new_line
-
-
 separate_instances(argv[1])
-# TODO: rewrite to be class based and reuse class variables for directories and other common variables

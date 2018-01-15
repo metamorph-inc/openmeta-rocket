@@ -31,10 +31,10 @@ class RocketXML:
         self.writefile.write('\t\t\t\t<name>Sustainer</name>\n')
         self.writefile.write('\t\t\t\t<subcomponents>\n')
 
-    def nosecone(self):
+    def build_end_tag(self):
         pass
 
-    def build_body(self, line):
+    def build_body(self, line, prevline):
         self.line = line
         catch_body = '  body\n'
         if line == catch_body:
@@ -45,6 +45,12 @@ class RocketXML:
             self.writefile.write('\t\t\t\t    <length>0.2</length>\n')
             self.writefile.write('\t\t\t\t    <thickness>0.002</thickness>\n')
             self.writefile.write('\t\t\t\t    <radius>auto</radius>\n')
+
+    def build_nosecone(self):
+        pass
+
+    def build_fins(self):
+        pass
 
 def listXML(instance_dir):
     # Create new XML directory if necessary
@@ -70,12 +76,26 @@ def populateXML(readfile, writefile):
     with open(readfile) as read:
         #import pdb; pdb.set_trace()
         catch_body = "  body\n"
+        catch_material = "  material\n"
+        catch_nosecone = "  nosecone\n"
+        catch_material = "  material\n"
+        catch_surface_finish = "  surface_finish\n"
+        counter = 1 # will be used to keep track of previous line
         for line in read:
-            #import pdb; pdb.set_trace()
+            if counter = 1:
+                prevline = line
+            counter += 1
             if line == catch_body:
-                RocketXML.build_body(instance, line)
-            else:
-                pass
+                RocketXML.build_body(instance, line, prevline)
+            elif line == catch_material:
+                RocketXML.build_material(instance, line, prevline)
+            elif line == catch_nosecone:
+                RocketXML.build_nosecone(instance, line, prevline)
+            elif line == catch_material:
+                RocketXML.build_material(instance, line, prevline)
+            elif line == catch_surface_finish:
+                RocketXML.build_surface_finish(instance, line, prevline)
+            prevline = line
 
 #reference clafer components with subcomponents to a rocket builder class
 
