@@ -82,7 +82,7 @@ def populateXML(readfile, writefile):
         catch_surface_finish = "  surface_finish\n"
         counter = 1 # will be used to keep track of previous line
         for line in read:
-            if counter = 1:
+            if counter == 1:
                 prevline = line
             counter += 1
             if line == catch_body:
@@ -99,4 +99,4 @@ def populateXML(readfile, writefile):
 
 #reference clafer components with subcomponents to a rocket builder class
 
-listXML(getcwd()+'\Instances')
+listXML(getcwd()+'\TestRocket')

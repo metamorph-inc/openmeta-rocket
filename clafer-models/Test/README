@@ -1,0 +1,11 @@
+Instructions on creating XML rocket files.
+
+1. Create clafer data file
+    from claferMOO visualizer web tool (http://t3-necsis.cs.uwaterloo.ca:8092/) run optimization and safe
+    instances as a data file (*.cfr.data)
+
+2. run the data2instances.py script in command window with data file. ex. Python data2instances.py example.cfr.data
+    this will create an instances folder full of individual clafer instances
+
+3. run instace2xml.py in a command window
+    this should generate xml files for all instances in the instance folder
