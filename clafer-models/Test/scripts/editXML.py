@@ -1,4 +1,5 @@
 from xml.etree import ElementTree as ET
+from xml.dom import minidom
 from os import path, mkdir, listdir
 from sys import argv
 """
@@ -14,6 +15,7 @@ Output: a new OpenRocket file containing all clafer decisions
 """
 
 def gen_XMLdir(cl_instance_filepath, basedir):
+    """ Checks if an instance XML directory exists, if not creates one, then calls cledit_ork."""
     XMLdir = cl_instance_filepath+"\\XML"
     CFRdir = cl_instance_filepath+"\\Instances"
     if not path.exists(XMLdir):
@@ -21,22 +23,48 @@ def gen_XMLdir(cl_instance_filepath, basedir):
     cledit_ORK(CFRdir,XMLdir, basedir)
 
 def cledit_ORK(read_dir, write_dir, format_dir):
-    facility_tag = ": Facility"
+    """ creates corresponding instance XML file, pulls format from existing XML, then fills in cfr data."""
+    mission_tag = ": Mission"
     rocket_tag = ": Rocket"
-    #import pdb; pdb.set_trace()
     for file in listdir(read_dir):
         if path.splitext(file)[1] == '.txt':
             with open(read_dir+'\\'+file,'r') as CFR:
                 tree = ET.parse(format_dir+'\\original.ork')
                 root = tree.getroot()
+                children = root.getchildren()
+                print children[1]
+                with open(write_dir+'\\'+path.splitext(file)[0]+'.ork','w') as XML:
 
-                for line in CFR:
-                    with open(write_dir+'\\'+path.splitext(file)[0]+'.ork','w') as XML:
-                        XML.write(tree)
-                        if facility_tag in line:
-                            XML.close()
-                            CFR.close()
-                            break
+                    for line in CFR:
+                        if 'fins' in line:
+                            component = 'fins'
+                        elif 'nosecone' in line:
+                            component = 'nosecone'
+                        elif 'material' in line:
+                            component = 'material'
+                        elif 'surface_finish' in line:
+                            component = 'surface_finish'
+                        elif 'type' in line:
+                            attrib = 'type'
+                        elif 'profile' in line:
+                            attrib = 'profile'
 
+                        if 'trapezoidal' in line:
+                            if attrib == 'type' and component == 'fins':
+                                for ellipticalfinset in root.findall('ellipticalfinset'):
+                                    children.remove(ellipticalfinset)
+                                for freeformfinset in root.findall('freeformfinset'):
+                                    children.remove(freeformfinset)
+                                for line in children:
+                                    print(line)
+                        if mission_tag in line:
+                            pass
+                            #XML.close()
+                            #CFR.close()
+                            #break
+
+                    rough_string = ET.tostring(root)
+                    reparsed_string = minidom.parseString(rough_string)
+                    XML.write('\n'.join([line for line in reparsed_string.toprettyxml(indent='    ').split('\n') if line.strip()]))
 
 gen_XMLdir(argv[1], argv[2])
