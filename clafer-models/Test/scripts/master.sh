@@ -9,7 +9,7 @@ do
     python scripts/data2instances.py $datafiles
 
     path="$PWD""/""${filename%.*}"
-    python scripts/editXML.py $path $BASEDIR/..
+    python scripts/invert_editXML.py $path $BASEDIR/..
 
 done
 $SHELL

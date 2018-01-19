@@ -31,8 +31,6 @@ def cledit_ORK(read_dir, write_dir, format_dir):
             with open(read_dir+'\\'+file,'r') as CFR:
                 tree = ET.parse(format_dir+'\\original.ork')
                 root = tree.getroot()
-                children = root.getchildren()
-                print children[1]
                 with open(write_dir+'\\'+path.splitext(file)[0]+'.ork','w') as XML:
 
                     for line in CFR:
@@ -51,12 +49,27 @@ def cledit_ORK(read_dir, write_dir, format_dir):
 
                         if 'trapezoidal' in line:
                             if attrib == 'type' and component == 'fins':
-                                for ellipticalfinset in root.findall('ellipticalfinset'):
-                                    children.remove(ellipticalfinset)
+                                for child in root.iter():
+                                    print(child.tag, child.attrib)
+                                    if child.tag == 'ellipticalfinset':
+                                        import pdb; pdb.set_trace()
+                                        root.remove(child)
+
+                                """
+                                for child in root.iter():
+                                    print(child.tag, child.attrib)
+                                    if child.tag == 'ellipticalfinset':
+                                        import pdb; pdb.set_trace()
+                                        root.remove(child)
+                                """
+                                """
+                                for ellipticalfinset in root.iter(root.findall('ellipticalfinset')):
+                                    print('ellipticalfinset')
+                                    root.remove(ellipticalfinset)
                                 for freeformfinset in root.findall('freeformfinset'):
-                                    children.remove(freeformfinset)
-                                for line in children:
-                                    print(line)
+                                    print('freeformfinset')
+                                    root.remove(freeformfinset)
+                                """
                         if mission_tag in line:
                             pass
                             #XML.close()
