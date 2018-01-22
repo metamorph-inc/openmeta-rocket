@@ -37,17 +37,17 @@ def separate_instances(data_file):
     with open(data_file) as data:
         for line in data:
             instance_start = "=== Instance {} Begin ===".format(instance) #specific instance start lines
-            instance_end = "--- Instance {} End ---".format(instance) #specific instance end lines
 
             # if line is an instance start, create a new file start writing to it
             if instance_start in line:
                 file = open(path.join(inst_dir, "{}_{}.{}".format(filename, instance,'txt')), 'w')
-                file.write(line)
-            # if line is an instance end, write end line, close file, and up the instance counter
-            elif instance_end in line:
-                file.write(line)
+
+            # if line is no longer about rocket object, close file, and up the instance counter
+            elif 'Facility' in line:
                 file.close()
                 instance += 1
+                break
+
             # for all other lines, clean up claferIG flags and avoid writing empty lines to instance files.
             # Writing empty lines will cause an I/O error inbetween instances
             else:
