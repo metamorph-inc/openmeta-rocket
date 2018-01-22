@@ -22,7 +22,6 @@ def build_nosecone(XML_elem, cl_file, read_dir):
                 component = 'nosecone'
             elif 'type' in line:
                 attrib = 'type'
-
 #-----------------------------------------------------------------------
 # Nosecone-Shape
             if 'parabolic' in line and component == 'nosecone' and attrib == 'type':
@@ -57,15 +56,30 @@ def build_nosecone(XML_elem, cl_file, read_dir):
                         child.text = 'aluminum'
                         child.set('type','bulk')
                         child.set('density','2700.0')
+#-----------------------------------------------------------------------
+# Nosecone-surface_finish
+            if 'unfinished' in line:
+                for child in XML_elem:
+                    if child.tag == 'finish':
+                        child.text = 'unfinished'
+            if 'regular_paint' in line:
+                for child in XML_elem:
+                    if child.tag == 'finish':
+                        child.text = 'normal'
+            if 'smooth_paint' in line:
+                for child in XML_elem:
+                    if child.tag == 'finish':
+                        child.text = 'smooth'
+            if 'polished' in line:
+                for child in XML_elem:
+                    if child.tag == 'finish':
+                        child.text = 'polished'
 
 "======================================================================"
 def build_bodytube(XML_elem, cl_file, read_dir):
     "Build bodytube and all subcomponents like fins and motors ."
     with open(read_dir+'\\'+cl_file,'r') as read_file:
         for line in read_file:
-#----------------------------------------------------------------------
-# Body: to come, not supported in clafer design space yet.
-
 #----------------------------------------------------------------------
 # Fins
             if 'fins' in line:
@@ -120,7 +134,7 @@ def build_bodytube(XML_elem, cl_file, read_dir):
                                 if child.tag == 'crosssection':
                                     child.text = 'airfoil'
 #----------------------------------------------------------------------
-# Fins-material
+# Body/Fins-material
             if 'carbon_fiber' in line:
                 for bt_sub_comp in XML_elem:
                     if bt_sub_comp.tag == 'subcomponents':
@@ -130,7 +144,12 @@ def build_bodytube(XML_elem, cl_file, read_dir):
                                     child.text = 'carbon fiber'
                                     child.set('type','bulk')
                                     child.set('density','6100.0')
-            if 'fiberglass' in line:
+                for child in XML_elem:
+                    if child.tag == 'material':
+                        child.text = 'carbon fiber'
+                        child.set('type','bulk')
+                        child.set('density','6100.0')
+            if 'fiberglass' in line and component == 'fins':
                 for bt_sub_comp in XML_elem:
                     if bt_sub_comp.tag == 'subcomponents':
                         for fins in bt_sub_comp:
@@ -139,7 +158,12 @@ def build_bodytube(XML_elem, cl_file, read_dir):
                                     child.text = 'fiberglass'
                                     child.set('type','bulk')
                                     child.set('density','1850.0')
-            if 'aluminum' in line:
+                for child in XML_elem:
+                    if child.tag == 'material':
+                        child.text = 'fiberglass'
+                        child.set('type','bulk')
+                        child.set('density','1850.0')
+            if 'aluminum' in line and component == 'fins':
                 for bt_sub_comp in XML_elem:
                     if bt_sub_comp.tag == 'subcomponents':
                         for fins in bt_sub_comp:
@@ -148,11 +172,55 @@ def build_bodytube(XML_elem, cl_file, read_dir):
                                     child.text = 'aluminum'
                                     child.set('type','bulk')
                                     child.set('density','2700.0')
+                for child in XML_elem:
+                    if child.tag == 'material':
+                        child.text = 'aluminum'
+                        child.set('type','bulk')
+                        child.set('density','2700.0')
 
 #----------------------------------------------------------------------
-# Fins-surface_finish
-            
-
+# Body/Fins-surface_finish
+            if 'unfinished' in line:
+                for bt_sub_comp in XML_elem:
+                    if bt_sub_comp.tag == 'subcomponents':
+                        for fins in bt_sub_comp:
+                            for child in fins:
+                                if child.tag == 'finish':
+                                    child.text = 'unfinished'
+                for child in XML_elem:
+                    if child.tag == 'finish':
+                        child.text = 'unfinished'
+            if 'regular_paint' in line:
+                for bt_sub_comp in XML_elem:
+                    if bt_sub_comp.tag == 'subcomponents':
+                        for fins in bt_sub_comp:
+                            for child in fins:
+                                if child.tag == 'finish':
+                                    child.text = 'normal'
+                for child in XML_elem:
+                    if child.tag == 'finish':
+                        child.text = 'normal'
+            if 'smooth_paint' in line:
+                for bt_sub_comp in XML_elem:
+                    if bt_sub_comp.tag == 'subcomponents':
+                        for fins in bt_sub_comp:
+                            for child in fins:
+                                if child.tag == 'finish':
+                                    child.text = 'smooth'
+                for child in XML_elem:
+                    if child.tag == 'finish':
+                        child.text = 'smooth'
+            if 'polished' in line:
+                for bt_sub_comp in XML_elem:
+                    if bt_sub_comp.tag == 'subcomponents':
+                        for fins in bt_sub_comp:
+                            for child in fins:
+                                if child.tag == 'finish':
+                                    child.text = 'polished'
+                for child in XML_elem:
+                    if child.tag == 'finish':
+                        child.text = 'polished'
+                        
 "======================================================================"
 def gen_XMLdir(cl_instance_filepath, basedir):
     """ Checks if an instance XML directory exists, if not creates one, then calls cledit_ork."""
