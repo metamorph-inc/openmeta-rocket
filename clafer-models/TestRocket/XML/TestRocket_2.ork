@@ -1,0 +1,104 @@
+<?xml version="1.0" ?>
+<openrocket creator="OpenRocket 15.03" version="1.4">
+    <rocket>
+        <name>Rocket</name>
+        <motorconfiguration configid="ba3b9766-f5f7-405d-970b-7f9104328ab8" default="true"/>
+        <referencetype>maximum</referencetype>
+        <subcomponents>
+            <stage>
+                <name>Sustainer</name>
+                <subcomponents>
+                    <nosecone>
+                        <name>Nose cone</name>
+                        <finish>smooth</finish>
+                        <material density="1850.0" type="bulk">fiberglass</material>
+                        <length>0.15000000000000002</length>
+                        <thickness>0.002</thickness>
+                        <shape>parabolic</shape>
+                        <shapeparameter>1.0</shapeparameter>
+                        <aftradius>auto</aftradius>
+                        <aftshoulderradius>0.0</aftshoulderradius>
+                        <aftshoulderlength>0.0</aftshoulderlength>
+                        <aftshoulderthickness>0.0</aftshoulderthickness>
+                        <aftshouldercapped>false</aftshouldercapped>
+                    </nosecone>
+                    <bodytube>
+                        <name>Body tube</name>
+                        <finish>smooth</finish>
+                        <material density="1850.0" type="bulk">fiberglass</material>
+                        <length>0.2</length>
+                        <thickness>0.002</thickness>
+                        <radius>auto</radius>
+                        <subcomponents>
+                            <trapezoidfinset>
+                                <name>Trapezoidal fin set</name>
+                                <position type="bottom">0.0</position>
+                                <finish>smooth</finish>
+                                <material density="1850.0" type="bulk">fiberglass</material>
+                                <fincount>3</fincount>
+                                <rotation>0.0</rotation>
+                                <thickness>0.003</thickness>
+                                <crosssection>square</crosssection>
+                                <cant>0.0</cant>
+                                <filletradius>0.0</filletradius>
+                                <filletmaterial density="680.0" type="bulk">Cardboard</filletmaterial>
+                                <rootchord>0.05</rootchord>
+                                <tipchord>0.05</tipchord>
+                                <sweeplength>0.025</sweeplength>
+                                <height>0.03</height>
+                            </trapezoidfinset>
+                            <innertube>
+                                <name>Inner Tube</name>
+                                <position type="bottom">0.0</position>
+                                <material density="1850.0" type="bulk">fiberglass</material>
+                                <length>0.07</length>
+                                <radialposition>0.0</radialposition>
+                                <radialdirection>0.0</radialdirection>
+                                <outerradius>0.0095</outerradius>
+                                <thickness>5.000000000000004E-4</thickness>
+                                <clusterconfiguration>single</clusterconfiguration>
+                                <clusterscale>1.0</clusterscale>
+                                <clusterrotation>0.0</clusterrotation>
+                                <motormount>
+                                    <ignitionevent>automatic</ignitionevent>
+                                    <ignitiondelay>0.0</ignitiondelay>
+                                    <overhang>0.0</overhang>
+                                    <motor configid="ba3b9766-f5f7-405d-970b-7f9104328ab8">
+                                        <type>single</type>
+                                        <manufacturer>Apogee</manufacturer>
+                                        <digest>d0278be4688e025928dc14efd36ededd</digest>
+                                        <designation>A2</designation>
+                                        <diameter>0.011</diameter>
+                                        <length>0.058</length>
+                                        <delay>3.0</delay>
+                                    </motor>
+                                </motormount>
+                            </innertube>
+                        </subcomponents>
+                    </bodytube>
+                </subcomponents>
+            </stage>
+        </subcomponents>
+    </rocket>
+    <simulations>
+        <simulation status="notsimulated">
+            <name>Simulation 1</name>
+            <simulator>RK4Simulator</simulator>
+            <calculator>BarrowmanCalculator</calculator>
+            <conditions>
+                <configid>ba3b9766-f5f7-405d-970b-7f9104328ab8</configid>
+                <launchrodlength>1.0</launchrodlength>
+                <launchrodangle>0.0</launchrodangle>
+                <launchroddirection>90.0</launchroddirection>
+                <windaverage>2.0</windaverage>
+                <windturbulence>0.1</windturbulence>
+                <launchaltitude>0.0</launchaltitude>
+                <launchlatitude>28.61</launchlatitude>
+                <launchlongitude>-80.6</launchlongitude>
+                <geodeticmethod>spherical</geodeticmethod>
+                <atmosphere model="isa"/>
+                <timestep>0.05</timestep>
+            </conditions>
+        </simulation>
+    </simulations>
+</openrocket>

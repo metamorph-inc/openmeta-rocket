@@ -1,0 +1,21 @@
+TeamRocket : Rocket
+  body
+    connections
+      epoxy
+  fins
+    type
+      trapezoidal
+    profile
+      flat
+  nosecone
+    type
+      parabolic
+  material
+    fiberglass
+  surface_finish
+    smooth_paint
+NSL : Mission
+  max_flight_regime
+    subsonic
+  altitude
+    low
