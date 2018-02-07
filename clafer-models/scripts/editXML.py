@@ -220,22 +220,15 @@ def build_bodytube(XML_elem, cl_file, read_dir):
                 for child in XML_elem:
                     if child.tag == 'finish':
                         child.text = 'polished'
-                        
-"======================================================================"
-def gen_XMLdir(cl_instance_filepath, basedir):
-    """ Checks if an instance XML directory exists, if not creates one, then calls cledit_ork."""
-    XMLdir = cl_instance_filepath+"\\XML"
-    CFRdir = cl_instance_filepath+"\\Instances"
-    if not path.exists(XMLdir):
-        mkdir(XMLdir)
-    cledit_ORK(CFRdir,XMLdir, basedir)
+
 
 "======================================================================"
 def cledit_ORK(read_dir, write_dir, format_dir):
+    #import pdb; pdb.set_trace()
     """ creates corresponding instance XML file, pulls format from existing XML, then ckecks cfr for correct generation."""
     # init xml creation for every instance file
     for file in listdir(read_dir):
-        if path.splitext(file)[1] == '.txt':
+        if path.splitext(file)[1] == '.data':
             #create xml in memory
             tree = ET.parse(format_dir+'\\template.ork')
             root = tree.getroot()
@@ -259,4 +252,4 @@ def cledit_ORK(read_dir, write_dir, format_dir):
             reparsed_string = minidom.parseString(rough_string)
             XML.write('\n'.join([line for line in reparsed_string.toprettyxml(indent='    ').split('\n') if line.strip()]))
 
-gen_XMLdir(argv[1], argv[2])
+cledit_ORK(argv[1], argv[1].replace("Instances","XML"), argv[0].replace("\\editXML.py",""))

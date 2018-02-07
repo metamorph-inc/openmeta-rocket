@@ -100,11 +100,11 @@ TeamRocket: Rocket
     //[body.connections.epoxy]
     //[fins.profile.flat && fins.type.trapezoidal]
     //[nosecone.type.parabolic]
-/*
+
 NSL: Mission
     [max_flight_regime.subsonic && no Rocket.material.aluminum]
     [altitude.low]
-*/
+
 
 
 /*
