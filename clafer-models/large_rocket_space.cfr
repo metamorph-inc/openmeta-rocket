@@ -108,7 +108,7 @@ NSL: Mission
 
 
 
-Perfect_Shop : Facility
+Perfect_Shop: Facility
     [machines.mill]
     [machines.cnc_mill]
     [machines.waterjet_cutter]

@@ -4,11 +4,9 @@
     <name>Rocket</name>
     <motorconfiguration configid="ba3b9766-f5f7-405d-970b-7f9104328ab8" default="true"/>
     <referencetype>maximum</referencetype>
-
     <subcomponents>
       <stage>
         <name>Sustainer</name>
-
         <subcomponents>
           <nosecone>
             <name>Nose cone</name>
@@ -24,7 +22,6 @@
             <aftshoulderthickness>0.0</aftshoulderthickness>
             <aftshouldercapped>false</aftshouldercapped>
           </nosecone>
-
           <bodytube>
             <name>Body tube</name>
             <finish>normal</finish>
@@ -32,7 +29,6 @@
             <length>0.2</length>
             <thickness>0.002</thickness>
             <radius>auto</radius>
-
             <subcomponents>
               <trapezoidfinset>
                 <name>Trapezoidal fin set</name>
@@ -51,7 +47,6 @@
                 <sweeplength>0.025</sweeplength>
                 <height>0.03</height>
               </trapezoidfinset>
-
               <ellipticalfinset>
                 <name>Elliptical fin set</name>
                 <position type="bottom">0.0</position>
@@ -67,7 +62,6 @@
                 <rootchord>0.05</rootchord>
                 <height>0.05</height>
               </ellipticalfinset>
-
               <freeformfinset>
                 <name>Freeform fin set</name>
                 <position type="bottom">0.0</position>
@@ -87,7 +81,6 @@
                   <point x="0.05" y="0.0"/>
                 </finpoints>
               </freeformfinset>
-
               <innertube>
                 <name>Inner Tube</name>
                 <position type="bottom">0.0</position>

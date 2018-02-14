@@ -41,17 +41,15 @@ do
     if [ ! "$counter"=0 ]; then
         python $SCRIPTDIR/rename_instances.py $BASEDIR"/"$filename"/""Instances" $counter
     fi
-
-
+    python $SCRIPTDIR/cl_abstract.py $f
     cd $BASEDIR"/"$filename"/""Instances"
     # clean up clafer instance, rename it, and delete old instance
     for datafiles in *.data
     do
-        python $SCRIPTDIR/clean_clinstance.py $datafiles
+        python $SCRIPTDIR/clean_clinstance.py $datafiles $counter $csv
     done
         # generate XML from instance
-        #python $SCRIPTDIR/editXML.py $BASEDIR"/"$filename"/""Instances"
+        #python $SCRIPTDIR/editXMLXYZ.py $BASEDIR"/"$filename"/""Instances"
 
 done
-
 $SHELL
