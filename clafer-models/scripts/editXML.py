@@ -31,7 +31,7 @@ def build_nosecone(XML_elem, cl_file, read_dir):
             if 'hackmaan' in line and component == 'nosecone' and attrib == 'type':
                 for child in XML_elem:
                     if child.tag == 'shape':
-                        child.text = 'haackman'
+                        child.text = 'conical'
             if 'ogive' in line and component == 'nosecone' and attrib == 'type':
                 for child in XML_elem:
                     if child.tag == 'shape':

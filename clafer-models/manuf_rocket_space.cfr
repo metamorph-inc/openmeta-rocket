@@ -16,7 +16,7 @@ abstract Facility
             nosecone?
                 ogive?
                 parabolic?
-                haackman?
+                conical?
             [Facility.machines.sander && Facility.machines.buff] // molds made from fiberglass
             [Facility.machines.mill && Facility.machines.pressure_chamber] //molds made from fiberglass
         mandrels?
@@ -52,7 +52,7 @@ abstract Rocket
         xor type
             parabolic
                 [Mission.max_flight_regime.subsonic]
-            haackman
+            conical
                 [Mission.max_flight_regime.transonic || Mission.max_flight_regime.subsonic]
             ogive
 
@@ -120,7 +120,7 @@ Perfect_Shop : Facility
     [tooling.mandrels.diam_4in && tooling.mandrels.diam_6in]
     [tooling.molds.circular]
     [tooling.molds.fin_mold]
-    [tooling.molds.nosecone.ogive && tooling.molds.nosecone.haackman && tooling.molds.nosecone.parabolic]
+    [tooling.molds.nosecone.ogive && tooling.molds.nosecone.conical && tooling.molds.nosecone.parabolic]
 
 
 
@@ -142,7 +142,7 @@ LipscombShop : Facility
     [no tooling.mandrels.diam_4in && tooling.mandrels.diam_6in]
     [no tooling.molds.circular]
     [no tooling.molds.fin_mold]
-    [no tooling.molds.nosecone.ogive && no tooling.molds.nosecone.haackman && tooling.molds.nosecone.parabolic]
+    [no tooling.molds.nosecone.ogive && no tooling.molds.nosecone.conical && tooling.molds.nosecone.parabolic]
 */
 VanderbiltShop : Facility
     //facility constraints
@@ -157,4 +157,4 @@ VanderbiltShop : Facility
     [tooling.mandrels.diam_4in && tooling.mandrels.diam_6in]
     [tooling.molds.circular]
     [no tooling.molds.fin_mold]
-    [tooling.molds.nosecone.ogive && tooling.molds.nosecone.haackman && no tooling.molds.nosecone.parabolic]
+    [tooling.molds.nosecone.ogive && tooling.molds.nosecone.conical && no tooling.molds.nosecone.parabolic]

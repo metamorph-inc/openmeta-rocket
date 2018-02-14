@@ -19,6 +19,7 @@ do
         rm -r *.cvl.dot
     fi
 
+
     #Create clafer instances folders
     orig_filename=$filename
     while [ "$flag" -lt 0 ]; do
@@ -40,6 +41,7 @@ do
     if [ ! "$counter"=0 ]; then
         python $SCRIPTDIR/rename_instances.py $BASEDIR"/"$filename"/""Instances" $counter
     fi
+
 
     cd $BASEDIR"/"$filename"/""Instances"
     # clean up clafer instance, rename it, and delete old instance

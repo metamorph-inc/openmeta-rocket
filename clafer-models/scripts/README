@@ -1,11 +1,28 @@
+Dependencies: Install the following programs before attempting to run the master.sh script
+------------
+OpenRocket 15.03  -> http://openrocket.info/
+Java 8+ JDK (32 bit required if using windows) -> http://www.oracle.com/technetwork/java/javase/downloads/index.html
+Desktop Clafer -> https://github.com/gsdlab/clafer
+GraphViz -> https://graphviz.gitlab.io/download/
+------------
+
 Instructions on creating XML rocket files.
 
-1. Create clafer data file
-    from claferMOO visualizer web tool (http://t3-necsis.cs.uwaterloo.ca:8092/) run optimization and safe
-    instances as a data file (*.cfr.data)
+1. Create a clafer design space (*.cfr). Tutorials can be found here: http://t3-necsis.cs.uwaterloo.ca:8091/#learning-clafer
+    The clafer MOOVisualizer is a valuable tool during the debugging process. This allows
+    the user to quickly test files and see if the constraints added produce expected outcomes.
+    This tool also shows the user how many instances there are in the space, and can be found here:
+    http://www.clafer.org/p/software.html
 
-2. run the data2instances.py script in command window with data file. ex. Python data2instances.py example.cfr.data
-    this will create an instances folder full of individual clafer instances
+    NOTE: The MOOVisualizer does not perform well with large instance spaces (> 1500)
 
-3. run instace2xml.py in a command window
-    this should generate xml files for all instances in the instance folder
+2. Execute master.sh
+    The master.sh script does several things. The 1st block creates an image depicting the design
+    space in a tree form using GraphViz. This is helpful when trying to understand and demonstrate the complexity
+    of larger design spaces. The second block of the master.sh code runs a desktop version of the
+    clafer instance generator (ClaferIG) and saves these instances to a directory based on the name
+    of the clafer.cfr file read. This will create instances for every *.cfr file in the Clafer-models
+    folder so try to keep files in development in the WIP folder. The third block of code will take all of these new instance file and create corresponding
+    XML files for use in OpenRocket.
+
+TODO: Future developments will also simulate these instances inside of OpenRocket and save the data.
