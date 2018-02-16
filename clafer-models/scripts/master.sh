@@ -1,24 +1,29 @@
 #!/usr/bin/env bash
 
+#set base and scripts directories
 SCRIPTDIR=$(dirname "$0")
 BASEDIR="$(dirname "$SCRIPTDIR")"
 
+# change to BASEDIR
 cd ..
 
+# for every clafer file in clafer_models directory
 for f in *.cfr
 do
+    #set variables and make sure in correct directory
     cd $BASEDIR
     counter=0
     flag=-1
+
     # Create design space tree images if none exist
     filename="${f%.*}"
     if [ ! -e $filename.dot.png ]; then
         clafer $f -m cvlgraph
+        echo 'Creating design space tree image...'
         python scripts/remove_constraints.py $filename.cvl.dot
         dot ${filename}_removed.cvl.dot -Tpng -o ${filename}.dot.png
         rm -r *.cvl.dot
     fi
-
 
     #Create clafer instances folders
     orig_filename=$filename
@@ -36,20 +41,29 @@ do
             flag=1
         fi
     done
+
     #Generate clafer instances
-    claferig $f --all=10000 --savedir=$BASEDIR"/"$filename"/""Instances"
+    echo "Building clafer instances, this may take some time."
+    echo "    Space limited to 1000 instances."
+    claferig $f --all=1000 --savedir=$BASEDIR"/"$filename"/""Instances"
     if [ ! "$counter"=0 ]; then
         python $SCRIPTDIR/rename_instances.py $BASEDIR"/"$filename"/""Instances" $counter
     fi
-    python $SCRIPTDIR/cl_abstract.py $f
-    cd $BASEDIR"/"$filename"/""Instances"
+
     # clean up clafer instance, rename it, and delete old instance
-    for datafiles in *.data
+    python $SCRIPTDIR/cl_abstract.py $f $filename
+    cd $BASEDIR"/"$filename
+    for csv_file in *.csv
     do
-        python $SCRIPTDIR/clean_clinstance.py $datafiles $counter $csv
+        csv=$csv_file
     done
-        # generate XML from instance
-        #python $SCRIPTDIR/editXMLXYZ.py $BASEDIR"/"$filename"/""Instances"
+    echo "Cleaning up clafer instances..."
+    python $SCRIPTDIR/clean_clinstance.py $BASEDIR"/"$filename"/""Instances" 
+
+    # generate XML from instance
+    echo 'Creating .ork files'
+    #python $SCRIPTDIR/editXMLXYZ.py $BASEDIR"/"$filename"/""Instances"
 
 done
+echo 'Completed execution'
 $SHELL

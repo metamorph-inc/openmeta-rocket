@@ -108,7 +108,7 @@ NSL: Mission
 
 
 /*
-Perfect_Shop : Facility
+Perfect_Shop: Facility
     [machines.mill]
     [machines.cnc_mill]
     [machines.waterjet_cutter]
@@ -124,13 +124,13 @@ Perfect_Shop : Facility
 
 
 
-StartupShop : Facility
+StartupShop: Facility
     [machines.mill]
     [machines.cnc_mill]
     [machines.sander]
     [machines.buff]
 
-LipscombShop : Facility
+LipscombShop: Facility
     [machines.mill]
     [machines.cnc_mill]
     [no machines.waterjet_cutter]
@@ -144,7 +144,7 @@ LipscombShop : Facility
     [no tooling.molds.fin_mold]
     [no tooling.molds.nosecone.ogive && no tooling.molds.nosecone.conical && tooling.molds.nosecone.parabolic]
 */
-VanderbiltShop : Facility
+VanderbiltShop: Facility
     //facility constraints
     [machines.mill]
     [no machines.cnc_mill]
@@ -157,4 +157,4 @@ VanderbiltShop : Facility
     [tooling.mandrels.diam_4in && tooling.mandrels.diam_6in]
     [tooling.molds.circular]
     [no tooling.molds.fin_mold]
-    [tooling.molds.nosecone.ogive && tooling.molds.nosecone.conical && no tooling.molds.nosecone.parabolic]
+    [tooling.molds.nosecone.ogive && tooling.molds.nosecone.conical && tooling.molds.nosecone.parabolic]

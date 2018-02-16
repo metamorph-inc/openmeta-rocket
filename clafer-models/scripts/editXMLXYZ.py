@@ -16,6 +16,6 @@ def pull_ORK(read_dir, write_dir, template_dir):
             #create template xml in memory
             tree = ET.parse(template_dir+'\\template.ork')
             root = tree.getroot()
-            
+
 'argv[1].replace("Instances","XML"),'
-pull_ORK(argv[1], argv[0].replace("/editXMLXYZ.py",""))
+pull_ORK(argv[1], argv[1].replace("Instances","XML"), argv[0].replace("/editXMLXYZ.py",""))

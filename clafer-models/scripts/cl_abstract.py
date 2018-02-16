@@ -1,6 +1,5 @@
 from sys import argv
 from os import path
-from csv import writer
 
 """ Looks through *.cfr and orders all the instances and abstracts together as a *.csv."""
 with open(argv[1], 'r') as file:
@@ -16,8 +15,17 @@ with open(argv[1], 'r') as file:
                 dict[abstract].append(instance)
             else:
                 dict[abstract]=instance
-
-with open(argv[0].replace("scripts/cl_abstract.py","{}_abstracts.csv".format(ds_name)),'wb') as write_file:
-    writer = writer(write_file)
+#import pdb; pdb.set_trace()
+with open(argv[0].replace("scripts/cl_abstract.py","{}/{}_abstracts.csv".format(argv[2], ds_name)),'w') as write_file:
     for key, value in dict.items():
-        writer.writerow([key, value])
+        counter = 0
+        line = str(key)
+        if len(value) > 1:
+            while counter < len(value):
+                str_val = str(value[counter])
+                line = line + ",{}".format(str_val)
+                counter += 1
+        else:
+            line = line + ",{}".format(str(value[counter]))
+        line = line+'\n'
+        write_file.write(line)

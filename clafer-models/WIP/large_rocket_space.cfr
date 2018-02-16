@@ -32,11 +32,16 @@ abstract Rocket
             screws
                 [Rocket.material.aluminum => Facility.machines.mill] // need to drill holes
     fins
+        xor number
+            three
+            four
+
         xor type
             trapezoidal
             elliptical
                 [Facility.machines.cnc_mill] // Complicated shape hard to do by hand
             freeform
+                [Facility.machines.cnc_mill || Facility.machines.laser_cutter]
 
         xor profile
             flat
@@ -56,6 +61,26 @@ abstract Rocket
                 [Mission.max_flight_regime.transonic || Mission.max_flight_regime.subsonic]
             ogive
 
+    motor
+        xor model
+            i200W
+                [Rocket.motor.manufacturer.aeroTech && Rocket.motor.class.i]
+            j250WL
+                [Rocket.motor.manufacturer.aeroTech && Rocket.motor.class.j]
+            k456DM_14A
+                [Rocket.motor.manufacturer.aeroTech && Rocket.motor.class.k]
+            l1000
+                [Rocket.motor.manufacturer.aeroTech && Rocket.motor.class.l]
+
+        xor manufacturer
+            aeroTech
+            animalMotorWorks
+            cesaroni
+        xor class
+            i
+            j
+            k
+            l
 
     xor material
         fiberglass
