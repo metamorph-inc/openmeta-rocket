@@ -2,11 +2,18 @@
 <openrocket version="1.4" creator="OpenRocket 15.03">
   <rocket>
     <name>Rocket</name>
-    <motorconfiguration configid="ba3b9766-f5f7-405d-970b-7f9104328ab8" default="true"/>
+    <motorconfiguration configid="834985d8-f315-485c-bb3f-477ac24808ef"><name>[{motors}]J1</name></motorconfiguration>
+    <motorconfiguration configid="32b1ea4b-0f6c-40bc-9dac-a7ed363b81e3"><name>[{motors}]J2</name></motorconfiguration>
+    <motorconfiguration configid="fe0d7f7c-fbe8-488b-bf92-cc11c1a3b797"><name>[{motors}]K1</name></motorconfiguration>
+    <motorconfiguration configid="9db118b4-37ec-4446-9596-1bc638fb638a"><name>[{motors}]K2</name></motorconfiguration>
+    <motorconfiguration configid="55ea014c-32a4-4eb5-93f9-4013e06ef0fb"><name>[{motors}]L1</name></motorconfiguration>
+    <motorconfiguration configid="ea906b7a-971f-4f9a-b590-d3a51d667571" default="true"><name>[{motors}]L2</name></motorconfiguration>
     <referencetype>maximum</referencetype>
+
     <subcomponents>
       <stage>
         <name>Sustainer</name>
+
         <subcomponents>
           <nosecone>
             <name>Nose cone</name>
@@ -22,6 +29,7 @@
             <aftshoulderthickness>0.0</aftshoulderthickness>
             <aftshouldercapped>false</aftshouldercapped>
           </nosecone>
+
           <bodytube>
             <name>Body tube</name>
             <finish>normal</finish>
@@ -29,6 +37,7 @@
             <length>0.2</length>
             <thickness>0.002</thickness>
             <radius>auto</radius>
+
             <subcomponents>
               <trapezoidfinset>
                 <name>Trapezoidal fin set</name>
@@ -47,6 +56,79 @@
                 <sweeplength>0.025</sweeplength>
                 <height>0.03</height>
               </trapezoidfinset>
+
+              <innertube>
+                <name>Inner Tube</name>
+                <position type="bottom">0.0</position>
+                <material type="bulk" density="680.0">Cardboard</material>
+                <length>0.07</length>
+                <radialposition>0.0</radialposition>
+                <radialdirection>0.0</radialdirection>
+                <outerradius>0.0095</outerradius>
+                <thickness>5.000000000000004E-4</thickness>
+                <clusterconfiguration>single</clusterconfiguration>
+                <clusterscale>1.0</clusterscale>
+                <clusterrotation>0.0</clusterrotation>
+                <motormount>
+                  <ignitionevent>automatic</ignitionevent>
+                  <ignitiondelay>0.0</ignitiondelay>
+                  <overhang>0.0</overhang>
+                  <motor configid="834985d8-f315-485c-bb3f-477ac24808ef">
+                    <type>reload</type>
+                    <manufacturer>Cesaroni Technology</manufacturer>
+                    <digest>9d3b2a0bbc3b1524571d426ade3c235f</digest>
+                    <designation>644-J94-MY</designation>
+                    <diameter>0.038</diameter>
+                    <length>0.367</length>
+                    <delay>0.0</delay>
+                  </motor>
+                  <motor configid="32b1ea4b-0f6c-40bc-9dac-a7ed363b81e3">
+                    <type>reload</type>
+                    <manufacturer>Cesaroni Technology</manufacturer>
+                    <digest>c2faf5d908e5ede30378a9aea669a836</digest>
+                    <designation>1266-J760-WT-19A</designation>
+                    <diameter>0.054</diameter>
+                    <length>0.329</length>
+                    <delay>8.0</delay>
+                  </motor>
+                  <motor configid="fe0d7f7c-fbe8-488b-bf92-cc11c1a3b797">
+                    <type>reload</type>
+                    <manufacturer>Loki Research</manufacturer>
+                    <digest>eb0005cb20588803f124aa5944edcc15</digest>
+                    <designation>K1127LB</designation>
+                    <diameter>0.038</diameter>
+                    <length>0.6255</length>
+                    <delay>none</delay>
+                  </motor>
+                  <motor configid="9db118b4-37ec-4446-9596-1bc638fb638a">
+                    <manufacturer>AeroTech</manufacturer>
+                    <digest>82fc51183f7423ed72e47ffb2cb84ddf</digest>
+                    <designation>K250W</designation>
+                    <diameter>0.054</diameter>
+                    <length>0.673</length>
+                    <delay>none</delay>
+                  </motor>
+                  <motor configid="55ea014c-32a4-4eb5-93f9-4013e06ef0fb">
+                    <type>reload</type>
+                    <manufacturer>Animal Motor Works</manufacturer>
+                    <digest>f3ae28bf4b0f2f09293ead4465bd1b25</digest>
+                    <designation>L1100SM</designation>
+                    <diameter>0.054</diameter>
+                    <length>0.728</length>
+                    <delay>none</delay>
+                  </motor>
+                  <motor configid="ea906b7a-971f-4f9a-b590-d3a51d667571">
+                    <type>reload</type>
+                    <manufacturer>AeroTech</manufacturer>
+                    <digest>a6a45005d9b540bf7679c406a438a703</digest>
+                    <designation>L952W</designation>
+                    <diameter>0.098</diameter>
+                    <length>0.443</length>
+                    <delay>none</delay>
+                  </motor>
+                </motormount>
+              </innertube>
+
               <ellipticalfinset>
                 <name>Elliptical fin set</name>
                 <position type="bottom">0.0</position>
@@ -62,6 +144,7 @@
                 <rootchord>0.05</rootchord>
                 <height>0.05</height>
               </ellipticalfinset>
+
               <freeformfinset>
                 <name>Freeform fin set</name>
                 <position type="bottom">0.0</position>
@@ -81,33 +164,17 @@
                   <point x="0.05" y="0.0"/>
                 </finpoints>
               </freeformfinset>
-              <innertube>
-                <name>Inner Tube</name>
-                <position type="bottom">0.0</position>
+
+              <launchlug>
+                <name>Launch lug</name>
+                <position type="middle">0.0</position>
+                <finish>normal</finish>
                 <material type="bulk" density="680.0">Cardboard</material>
-                <length>0.07</length>
-                <radialposition>0.0</radialposition>
+                <radius>0.005</radius>
+                <length>0.03</length>
+                <thickness>0.001</thickness>
                 <radialdirection>0.0</radialdirection>
-                <outerradius>0.0095</outerradius>
-                <thickness>5.000000000000004E-4</thickness>
-                <clusterconfiguration>single</clusterconfiguration>
-                <clusterscale>1.0</clusterscale>
-                <clusterrotation>0.0</clusterrotation>
-                <motormount>
-                  <ignitionevent>automatic</ignitionevent>
-                  <ignitiondelay>0.0</ignitiondelay>
-                  <overhang>0.0</overhang>
-                  <motor configid="ba3b9766-f5f7-405d-970b-7f9104328ab8">
-                    <type>single</type>
-                    <manufacturer>Apogee</manufacturer>
-                    <digest>d0278be4688e025928dc14efd36ededd</digest>
-                    <designation>A2</designation>
-                    <diameter>0.011</diameter>
-                    <length>0.058</length>
-                    <delay>3.0</delay>
-                  </motor>
-                </motormount>
-              </innertube>
+              </launchlug>
             </subcomponents>
           </bodytube>
         </subcomponents>
@@ -121,7 +188,107 @@
       <simulator>RK4Simulator</simulator>
       <calculator>BarrowmanCalculator</calculator>
       <conditions>
-        <configid>ba3b9766-f5f7-405d-970b-7f9104328ab8</configid>
+        <configid>834985d8-f315-485c-bb3f-477ac24808ef</configid>
+        <launchrodlength>1.0</launchrodlength>
+        <launchrodangle>0.0</launchrodangle>
+        <launchroddirection>90.0</launchroddirection>
+        <windaverage>2.0</windaverage>
+        <windturbulence>0.1</windturbulence>
+        <launchaltitude>0.0</launchaltitude>
+        <launchlatitude>28.61</launchlatitude>
+        <launchlongitude>-80.6</launchlongitude>
+        <geodeticmethod>spherical</geodeticmethod>
+        <atmosphere model="isa"/>
+        <timestep>0.05</timestep>
+      </conditions>
+    </simulation>
+
+    <simulation status="notsimulated">
+      <name>Simulation 2</name>
+      <simulator>RK4Simulator</simulator>
+      <calculator>BarrowmanCalculator</calculator>
+      <conditions>
+        <configid>32b1ea4b-0f6c-40bc-9dac-a7ed363b81e3</configid>
+        <launchrodlength>1.0</launchrodlength>
+        <launchrodangle>0.0</launchrodangle>
+        <launchroddirection>90.0</launchroddirection>
+        <windaverage>2.0</windaverage>
+        <windturbulence>0.1</windturbulence>
+        <launchaltitude>0.0</launchaltitude>
+        <launchlatitude>28.61</launchlatitude>
+        <launchlongitude>-80.6</launchlongitude>
+        <geodeticmethod>spherical</geodeticmethod>
+        <atmosphere model="isa"/>
+        <timestep>0.05</timestep>
+      </conditions>
+    </simulation>
+
+    <simulation status="notsimulated">
+      <name>Simulation 3</name>
+      <simulator>RK4Simulator</simulator>
+      <calculator>BarrowmanCalculator</calculator>
+      <conditions>
+        <configid>fe0d7f7c-fbe8-488b-bf92-cc11c1a3b797</configid>
+        <launchrodlength>1.0</launchrodlength>
+        <launchrodangle>0.0</launchrodangle>
+        <launchroddirection>90.0</launchroddirection>
+        <windaverage>2.0</windaverage>
+        <windturbulence>0.1</windturbulence>
+        <launchaltitude>0.0</launchaltitude>
+        <launchlatitude>28.61</launchlatitude>
+        <launchlongitude>-80.6</launchlongitude>
+        <geodeticmethod>spherical</geodeticmethod>
+        <atmosphere model="isa"/>
+        <timestep>0.05</timestep>
+      </conditions>
+    </simulation>
+
+    <simulation status="notsimulated">
+      <name>Simulation 4</name>
+      <simulator>RK4Simulator</simulator>
+      <calculator>BarrowmanCalculator</calculator>
+      <conditions>
+        <configid>9db118b4-37ec-4446-9596-1bc638fb638a</configid>
+        <launchrodlength>1.0</launchrodlength>
+        <launchrodangle>0.0</launchrodangle>
+        <launchroddirection>90.0</launchroddirection>
+        <windaverage>2.0</windaverage>
+        <windturbulence>0.1</windturbulence>
+        <launchaltitude>0.0</launchaltitude>
+        <launchlatitude>28.61</launchlatitude>
+        <launchlongitude>-80.6</launchlongitude>
+        <geodeticmethod>spherical</geodeticmethod>
+        <atmosphere model="isa"/>
+        <timestep>0.05</timestep>
+      </conditions>
+    </simulation>
+
+    <simulation status="notsimulated">
+      <name>Simulation 5</name>
+      <simulator>RK4Simulator</simulator>
+      <calculator>BarrowmanCalculator</calculator>
+      <conditions>
+        <configid>55ea014c-32a4-4eb5-93f9-4013e06ef0fb</configid>
+        <launchrodlength>1.0</launchrodlength>
+        <launchrodangle>0.0</launchrodangle>
+        <launchroddirection>90.0</launchroddirection>
+        <windaverage>2.0</windaverage>
+        <windturbulence>0.1</windturbulence>
+        <launchaltitude>0.0</launchaltitude>
+        <launchlatitude>28.61</launchlatitude>
+        <launchlongitude>-80.6</launchlongitude>
+        <geodeticmethod>spherical</geodeticmethod>
+        <atmosphere model="isa"/>
+        <timestep>0.05</timestep>
+      </conditions>
+    </simulation>
+
+    <simulation status="notsimulated">
+      <name>Simulation 6</name>
+      <simulator>RK4Simulator</simulator>
+      <calculator>BarrowmanCalculator</calculator>
+      <conditions>
+        <configid>ea906b7a-971f-4f9a-b590-d3a51d667571</configid>
         <launchrodlength>1.0</launchrodlength>
         <launchrodangle>0.0</launchrodangle>
         <launchroddirection>90.0</launchroddirection>
