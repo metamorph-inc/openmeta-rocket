@@ -45,6 +45,7 @@ do
     #Generate clafer instances
     echo "Building clafer instances, this may take some time."
     echo "    Space limited to 1000 instances."
+    echo ""
     claferig $f --all=1000 --savedir=$BASEDIR"/"$filename"/""Instances"
     if [ ! "$counter"=0 ]; then
         python $SCRIPTDIR/rename_instances.py $BASEDIR"/"$filename"/""Instances" $counter
@@ -58,11 +59,13 @@ do
         csv=$csv_file
     done
     echo "Cleaning up clafer instances..."
-    python $SCRIPTDIR/clean_clinstance.py $BASEDIR"/"$filename"/""Instances" 
+    echo ""
+    python $SCRIPTDIR/clean_clinstance.py $BASEDIR"/"$filename"/""Instances"
 
     # generate XML from instance
     echo 'Creating .ork files'
-    #python $SCRIPTDIR/editXMLXYZ.py $BASEDIR"/"$filename"/""Instances"
+    echo ""
+    python $SCRIPTDIR/editXMLXYZ.py $BASEDIR"/"$filename"/""Instances"
 
 done
 echo 'Completed execution'

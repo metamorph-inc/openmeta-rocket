@@ -24,6 +24,11 @@ abstract Facility
             diam_4in?
 
 abstract Rocket
+    motor
+        xor class
+            j
+            k
+            l
     body
         xor connections
             friction

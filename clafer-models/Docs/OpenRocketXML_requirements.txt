@@ -1,0 +1,346 @@
+*************
+All children
+*************
+
+Rocket
+    --------------------
+    name
+    --------------------
+    motorconfiguration
+        configid
+        name
+    --------------------
+    referencetype
+    --------------------
+    subcomponents
+        stage
+            --------------------
+            name
+            --------------------
+            subcomponents
+                --------------------
+                nosecone
+                name
+                finish
+                material
+                length
+                thickness
+                shape
+                shapeparameter
+                aftradius
+                aftshoulderradius
+                aftshoulderlength
+                aftshoulderthickness
+                aftshouldercapped
+                --------------------
+                bodytube
+                    --------------------
+                    name
+                    finish
+                    material
+                    length
+                    thickness
+                    radius
+                    --------------------
+                    subcomponents
+                        --------------------
+                        trapezoidfinset
+                            name
+                            position
+                                type
+                            finish
+                            material
+                                type
+                                density
+                            fincount
+                            rotation
+                            thickness
+                            crosssection
+                            cant
+                            filletradius
+                            filletmaterial
+                            rootchord
+                            tipchord
+                            sweeplength
+                            height
+                        --------------------
+                        ellipticalfinset
+                            name
+                            position
+                                type
+                            finish
+                            material
+                                type
+                                density
+                            fincount
+                            rotation
+                            thickness
+                            crosssection
+                            cant
+                            filletradius
+                            filletmaterial
+                            rootchord
+                            height
+                        --------------------
+                        freeformfinset
+                            name
+                            position
+                                type
+                            finish
+                            material
+                                type
+                                density
+                            fincount
+                            rotation
+                            thickness
+                            crosssection
+                            cant
+                            filletradius
+                            filletmaterial
+                            finpoints
+                                point
+                                    x
+                                    y
+                        --------------------
+                        innertube
+                            name
+                            position
+                                type
+                            material
+                                bulk
+                            length
+                            radialposition
+                            radialdirection
+                            outerradius
+                            thickness
+                            clusterconfiguration
+                            clusterscale
+                            clusterrotation
+                            motormount
+                                ignitionevent
+                                ignitiondelay
+                                overhang
+                                motor
+                                    configid
+                                    type
+                                    manufacturer
+                                    digest
+                                    designation
+                                    diameter
+                                    length
+                                    delay
+                        --------------------
+                        launchlug
+                            name
+                            position
+                                type
+                            finish
+                            material
+                                type
+                                density
+                            radius
+                            length
+                            thickness
+                            radialdirection
+--------------------------------------------------------------------------------
+
+**********************
+All discrete children
+**********************
+
+Rocket
+    --------------------
+    name
+    --------------------
+    motorconfiguration
+        configid
+        name
+    --------------------
+    referencetype
+    --------------------
+    subcomponents
+        stage
+            --------------------
+            name
+            --------------------
+            subcomponents
+                nosecone
+                    name
+                    finish
+                    material
+                    shape
+                    aftshouldercapped
+                --------------------
+                bodytube
+                    name
+                    finish
+                    --------------------
+                    material
+                        type
+                        density
+                    --------------------
+                    subcomponents
+                        --------------------
+                        trapezoidfinset
+                            name
+                            finish
+                            material
+                                type
+                                density
+                            crosssection
+                            filletmaterial
+                                type
+                                density
+                        --------------------
+                        ellipticalfinset
+                            name
+                            finish
+                            material
+                                type
+                                density
+                            crosssection
+                            filletmaterial
+                                type
+                                density
+                        --------------------
+                        freeformfinset
+                            name
+                            finish
+                            material
+                                type
+                                density
+                            crosssection
+                            filletmaterial
+                            finpoints
+                                point
+                        --------------------
+                        innertube
+                            name
+                            material
+                                type
+                            clusterconfiguration
+                            motormount
+                                ignitionevent
+                                motor
+                                    configid
+                                    type
+                                    manufacturer
+                                    digest
+                                    designation
+                        --------------------
+                        launchlug
+                            name
+                            finish
+                            material
+                                type
+                                density
+--------------------------------------------------------------------------------
+
+*******************************
+All specific discrete children
+*******************************
+Rocket
+    name
+    motorconfiguration
+    referencetype
+    subcomponents
+        stage
+            name
+            nosecone
+            bodytube
+                subcomponents
+                    trapezoidfinset
+                    ellipticalfinset
+                    freeformfinset
+                    innertube
+                    launchlug
+--------------------------------------------------------------------------------
+
+**************************************
+simplified specific discrete children
+**************************************
+Rocket
+    general
+    motor
+    subcomponents
+        stage
+            general
+            nosecone
+            bodytube
+                general
+                subcomponents
+                    fins
+                    innertube
+                    launchlug
+--------------------------------------------------------------------------------
+
+**************************************
+simplified explicit discrete children
+**************************************
+Rocket
+    motor
+    stage
+        nosecone
+        bodytube
+            fins
+            innertube
+            launchlug
+--------------------------------------------------------------------------------
+
+***********
+Functions:
+***********
+BuildRocket
+    name, BuildMotormount, BuildStage
+
+BuildMotormount
+    designation, configid
+
+BuildStage
+    name, BuildNosecone, BuildBodytube
+
+BuildNosecone
+    name, finish, material, shape, aftshouldercapped
+
+BuildBodytube
+    name, finish, material, BuildFins, BuildInnertube, BuildLaunchlug
+
+BuildFins
+    name, finish, material, finnumber, crosssection, filletmaterial
+
+BuildInnertube
+    name, finish, material, motormount
+
+BuildLaunchlug
+    name, finish, material
+--------------------------------------------------------------------------------
+
+**********************
+Simplified Functions: (This does not consider continuous decisions, but it needs to.)
+**********************
+BuildRocket
+    BuildMotormount, BuildStage
+
+BuildMotormount
+    designation, configid
+
+BuildStage
+    BuildNosecone, BuildBodytube
+
+BuildNosecone
+    finish, material, shape
+
+BuildBodytube
+    finish, material, BuildFins, BuildInnertube, BuildLaunchlug
+
+BuildFins
+    finish, material, finnumber, crosssection, filletmaterial
+
+BuildInnertube
+    finish, material, BuildMotormount
+
+BuildLaunchlug
+    finish, material
+
+If all repeating values are the same, the inputs become:
+designation (motor), configid (motor), finish, material, shape (nosecone), finnumber (fins), crosssection (fins), filletmaterial (fins)
