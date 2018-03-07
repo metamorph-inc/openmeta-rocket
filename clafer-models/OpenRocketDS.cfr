@@ -1,0 +1,41 @@
+abstract Rocket
+    nosecone
+        xor finish
+            normal
+            smooth
+            polished
+
+        xor material
+            fiberglass
+            carbonFiber
+            bluetube
+
+        xor shape
+            conical
+            parabolic
+            ogive
+
+        subcomponents?
+            payload
+                altimeter
+                avionics?
+
+    bodytube
+        xor finish
+            normal
+            smooth
+            polished
+
+        xor material
+            fiberglass
+            carbonFiber
+            bluetube
+
+        subcomponents
+            motor
+                xor class
+                    j
+                    k
+                    l
+
+R1: Rocket
