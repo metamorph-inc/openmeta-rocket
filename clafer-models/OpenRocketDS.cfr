@@ -1,41 +1,145 @@
+abstract Comparrison
+   tier -> integer
+   relWeight -> integer
+
+abstract Feature
+   relCost -> integer
+
 abstract Rocket
-    nosecone
-        xor finish
-            normal
-            smooth
-            polished
+   nosecone
+       xor finish
+           [tier = 4]
+           [relWeight = 4]
+           normal
+               [relCost = 1]
+           smooth
+               [relCost = 2]
+           polished
+               [relCost = 3]
 
-        xor material
-            fiberglass
-            carbonFiber
-            bluetube
+       xor material
+           [tier = 3]
+           [relWeight = 3]
+           fiberglass
+               [relCost = 2]
+           carbonFiber
+               [relCost = 3]
+           bluetube
+               [relCost = 1]
 
-        xor shape
-            conical
-            parabolic
-            ogive
+       xor shape
+           [tier = 2]
+           [relWeight = 1]
+           conical
+               [relCost = 1]
+           parabolic
+               [relCost = 2]
+           ogive
+               [relCost = 2]
 
-        subcomponents?
-            payload
-                altimeter
-                avionics?
+       subcomponents?
+           payload
+               [tier = 1]
+               [relWeight = 2]
+               altimeter
+                   [relCost = 1]
+               avionics?
+                   [relCost = 2]
 
-    bodytube
-        xor finish
-            normal
-            smooth
-            polished
+   bodytube
+       xor finish
+           [tier = 4]
+           [relWeight = 2]
+           normal
+               [relCost = 1]
+           smooth
+               [relCost = 2]
+           polished
+               [relCost = 3]
 
-        xor material
-            fiberglass
-            carbonFiber
-            bluetube
+       xor material
+           [tier = 3]
+           [relWeight = 1]
+           fiberglass
+               [relCost = 2]
+           carbonFiber
+               [relCost = 3]
+           bluetube
+               [relCost = 1]
 
-        subcomponents
-            motor
-                xor class
-                    j
-                    k
-                    l
+       subcomponents
+           motor
+               xor class
+                   [tier = 1]
+                   [relWeight = 1]
+                   j
+                       [relCost = 1]
+                   k
+                       [relCost = 2]
+                   l
+                       [relCost = 3]
+
+           finset
+               xor finish
+                   [tier = 4]
+                   [relWeight = 3]
+                   normal
+                       [relCost = 1]
+                   smooth
+                       [relCost = 2]
+                   polished
+                       [relCost = 3]
+
+               xor material
+                   [tier = 3]
+                   [relWeight = 2]
+                   fiberglass
+                       [relCost = 2]
+                   carbonFiber
+                       [relCost = 3]
+                   bluetube
+                       [relCost = 1]
+
+               xor type
+                   [relWeight = 2]
+                   [tier = 2]
+                   trapezoidal
+                       [relCost = 1]
+                   elliptical
+                       [relCost = 2]
+                   freeform
+                       [relCost = 3]
+
+               xor crosssection
+                   [tier = 4]
+                   [relWeight = 1]
+                   square
+                       [relCost = 1]
+                   rounded
+                       [relCost = 2]
+                   airfoil
+                       [relCost = 3]
+
+           launchlug
+               [tier = 4]
+               [relWeight = 5]
+               xor finish
+                   normal
+                       [relCost = 1]
+                   smooth
+                       [relCost = 2]
+                   polished
+                       [relCost = 3]
+
+               xor material
+                   [tier = 3]
+                   [relWeight = 4]
+                   fiberglass
+                       [relCost = 2]
+                   carbonFiber
+                       [relCost = 3]
+                   bluetube
+                       [relCost = 1]
 
 R1: Rocket
+    [Rocket.nosecone.material]
