@@ -1,0 +1,217 @@
+<project name="OpenRocket" basedir=".">
+
+	<property file="build.properties" />
+	
+	<property name="src.dir"    	value="src"/>		<!-- Source directory -->
+	<property name="src-test.dir"	value="test"/>		<!-- Test directory -->
+	<property name="build.dir"   	value="build"/>		<!-- Build directory -->
+	<property name="build-test.dir" value="build/test"/><!-- Build directory -->
+		
+	<!-- Distribution directory, from which stuff is jar'ed -->
+	<property name="dist.dir"    	value="${build.dir}/dist"/> 
+	<property name="dist-test.dir"	value="${build.dir}/dist-test"/>
+	
+	<property name="classes.dir" value="${dist.dir}"/>	<!-- Directory for classes -->
+	<property name="jar.dir"     value="${build.dir}/jar"/>	<!-- Directory for built jar's -->
+	<property name="lib.dir"     value="lib"/>				<!-- Library source directory -->
+
+	<property name="pkgname"     value="${ant.project.name}-${build.version}"/>
+	
+	<property name="jar.file"    value="${jar.dir}/${ant.project.name}.jar"/>
+	<property name="dist.bin"    value="${jar.dir}/${pkgname}.jar"/>
+	<property name="dist.src"    value="${jar.dir}/${pkgname}-src.zip"/>
+	
+	<!-- The main class of the application -->
+	<property name="main-class"  value="net.sf.openrocket.startup.Startup"/>
+
+	
+	<!-- Classpath definitions -->
+	<path id="classpath">
+		<fileset dir="${lib.dir}" includes="**/*.jar"/>
+	</path>
+	
+	<path id="test-classpath">
+		<path refid="classpath"/>
+		<pathelement location="${basedir}"/>
+		<pathelement location="${build-test.dir}"/>
+		<pathelement location="${classes.dir}"/>
+		<pathelement location="${src-test.dir}"/>
+		<fileset dir="lib-test/" includes="*.jar"/>
+	</path>
+	
+
+	
+	<!-- CLEAN -->
+	<target name="clean">
+		<delete dir="${build.dir}"/>
+		<delete dir="tmp/"/>
+	</target>
+		
+	
+	<!-- BUILD -->
+	<target name="build">
+		<mkdir dir="${classes.dir}"/>
+		<echo level="info">Compiling main classes</echo>
+		<javac debug="true" srcdir="${src.dir}" destdir="${classes.dir}" classpathref="classpath"/>
+		<echo level="info">Copying build.properties</echo>
+		<copy file="build.properties" todir="${dist.dir}"/>
+	</target>
+	
+	
+	<!-- JAR -->
+	<target name="jar" depends="build">
+		<copy todir="${dist.dir}/">
+			<fileset dir="." includes="LICENSE.TXT README.TXT ChangeLog ReleaseNotes build.properties fileformat.txt" />
+			<fileset dir="." includes="datafiles/ pix/ l10n/" />
+			<fileset dir="src/" includes="META-INF/" />
+		</copy>
+		<mkdir dir="${jar.dir}"/>
+		<jar destfile="${jar.file}" basedir="${dist.dir}">
+			<manifest>
+				<attribute name="Main-Class" value="${main-class}"/>
+				<attribute name="SplashScreen-Image" value="pix/splashscreen.png"/>
+			</manifest>
+			<zipfileset src="lib/miglayout15-swing.jar" />
+			<zipfileset src="lib/jcommon-1.0.16.jar" />
+			<zipfileset src="lib/jfreechart-1.0.13.jar" />
+			<zipfileset src="lib/iText-5.0.2.jar" />
+		</jar>
+	</target>
+	
+	
+	<!-- DIST-SRC -->
+	<target name="dist-src">
+		<echo>			
+		Building source distribution
+		</echo>
+		<mkdir dir="${build.dir}/${pkgname}"/>
+		<mkdir dir="${jar.dir}"/>
+		<copy todir="${build.dir}/${pkgname}">
+			<fileset dir="." includes="*" excludes="*.log">
+				<type type="file"/>
+			</fileset>
+			<fileset dir="." includes="datafiles/ lib/ lib-test/ pix/ src/ test/ l10n/"/>
+		</copy>
+		<zip destfile="${dist.src}" basedir="${build.dir}" includes="${pkgname}/"/>
+		<delete dir="${build.dir}/${pkgname}"/>
+	</target>
+	
+	
+	<!-- DIST-SRC-TEST -->
+	<target name="dist-src-test" depends="dist-src">
+		<echo>
+		Testing source distribution
+		</echo>
+		<delete dir="${dist-test.dir}"/>
+		<mkdir dir="${dist-test.dir}"/>
+		<unzip dest="${dist-test.dir}" src="${dist.src}"/>
+		<ant dir="${dist-test.dir}/${pkgname}" antfile="build.xml" target="jar"/>
+		<ant dir="${dist-test.dir}/${pkgname}" antfile="build.xml" target="unittest"/>
+		<delete dir="${dist-test.dir}"/>
+		<echo>
+		Source distribution test successful
+		</echo>
+	</target>	
+	
+	
+	<!-- DIST-BIN -->
+	<target name="dist-bin" depends="check,clean,unittest,jar">
+		<move file="${jar.file}" tofile="${dist.bin}"/>
+	</target>
+
+	
+	<!-- DIST -->
+	<target name="dist" depends="dist-bin,dist-src,dist-src-test">
+		<echo>Distribution ${build.version} (${build.source}) built into directory ${jar.dir}</echo>
+	</target>
+	
+	
+	<!-- CHECK -->
+	<target name="check" depends="checktodo,checkascii"/>
+	
+	<!-- CHECK TODOs -->
+	<target name="todo" depends="checktodo"/>
+	<target name="checktodo">
+		<tempfile property="todo.file" prefix="checktodo-"/>
+		<echo>Checking project for FIXMEs.</echo>
+		<concat destfile="${todo.file}">
+			<fileset dir="${src.dir}">
+			    <include name="**/*.java"/>
+			</fileset>
+			<fileset dir="${src-test.dir}">
+			    <include name="**/*.java"/>
+			</fileset>
+			<filterchain>
+				<linecontainsregexp>
+					<regexp pattern="(FIXME|TODO:.*CRITICAL)"/>
+				</linecontainsregexp>
+			</filterchain>
+		</concat>
+		<loadfile srcfile="${todo.file}" property="criticaltodos"/>
+		<delete file="${todo.file}"/>
+		<fail if="criticaltodos">CRITICAL TODOs exist in project:
+${criticaltodos}</fail>
+		<echo>No critical TODOs in project.</echo>
+	</target>
+	
+	
+	<!-- CHECK TODOs -->
+	<target name="ascii" depends="checkascii"/>
+	<target name="checkascii">
+		<tempfile property="ascii.file" prefix="checkascii-"/>
+		<echo>Checking project for non-ASCII characters.</echo>
+		<concat destfile="${ascii.file}">
+			<fileset dir="${src.dir}">
+			    <include name="**/*.java"/>
+			</fileset>
+			<fileset dir="${src-test.dir}">
+			    <include name="**/*.java"/>
+			</fileset>
+			<filterchain>
+				<linecontainsregexp>
+					<regexp pattern="\P{ASCII}"/>
+				</linecontainsregexp>
+			</filterchain>
+		</concat>
+		<loadfile srcfile="${ascii.file}" property="nonascii"/>
+		<delete file="${ascii.file}"/>
+		<fail if="nonascii">Non-ASCII characters exist in project:
+${nonascii}</fail>
+		<echo>No non-ASCII characters in project.</echo>
+	</target>
+	
+	
+	<!--  Unit tests  -->
+	<target name="unittest" description="Execute unit tests" depends="build">
+		<echo>Building unit tests</echo>
+		<mkdir dir="${build-test.dir}"/>
+		<javac debug="true" srcdir="${src-test.dir}" destdir="${build-test.dir}" classpathref="test-classpath"/>
+		
+		<echo>Running unit tests</echo>
+		<mkdir dir="tmp/rawtestoutput"/>
+		<junit fork="yes" forkmode="once" printsummary="false" failureproperty="junit.failure">
+			<classpath>
+				<path refid="test-classpath"/>
+				<path location="${basedir}"/>
+			</classpath>
+			<batchtest todir="tmp/rawtestoutput">
+				<fileset dir="${build-test.dir}">
+					<include name="**/Test*.class" />
+					<include name="**/*Test.class" />
+					<exclude name="**/*$*.class" />
+					<exclude name="Test.class" />
+				</fileset>
+				<formatter type="xml"/>
+			</batchtest>
+		</junit>
+		<junitreport todir="tmp">
+			<fileset dir="tmp/rawtestoutput"/>
+			<report todir="tmp/test-reports"/>
+		</junitreport>
+		<fail if="junit.failure" message="Unit test(s) failed.  See report in ${basedir}/tmp/test-reports/index.html"/>
+		<echo>
+	Unit tests passed successfully.
+		</echo>
+ 	</target>
+    
+</project>
