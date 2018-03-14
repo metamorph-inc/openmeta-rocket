@@ -2,12 +2,12 @@
 <openrocket version="1.4" creator="OpenRocket 15.03">
   <rocket>
     <name>Rocket</name>
-    <motorconfiguration configid="834985d8-f315-485c-bb3f-477ac24808ef"><name>[{motors}]J1</name></motorconfiguration>
-    <motorconfiguration configid="32b1ea4b-0f6c-40bc-9dac-a7ed363b81e3"><name>[{motors}]J2</name></motorconfiguration>
-    <motorconfiguration configid="fe0d7f7c-fbe8-488b-bf92-cc11c1a3b797"><name>[{motors}]K1</name></motorconfiguration>
-    <motorconfiguration configid="9db118b4-37ec-4446-9596-1bc638fb638a"><name>[{motors}]K2</name></motorconfiguration>
-    <motorconfiguration configid="55ea014c-32a4-4eb5-93f9-4013e06ef0fb"><name>[{motors}]L1</name></motorconfiguration>
-    <motorconfiguration configid="ea906b7a-971f-4f9a-b590-d3a51d667571" default="true"><name>[{motors}]L2</name></motorconfiguration>
+    <motorconfiguration configid="834985d8-f315-485c-bb3f-477ac24808ef"><name>J1</name></motorconfiguration>
+    <motorconfiguration configid="32b1ea4b-0f6c-40bc-9dac-a7ed363b81e3"><name>J2</name></motorconfiguration>
+    <motorconfiguration configid="fe0d7f7c-fbe8-488b-bf92-cc11c1a3b797"><name>K1</name></motorconfiguration>
+    <motorconfiguration configid="9db118b4-37ec-4446-9596-1bc638fb638a"><name>K2</name></motorconfiguration>
+    <motorconfiguration configid="55ea014c-32a4-4eb5-93f9-4013e06ef0fb"><name>L1</name></motorconfiguration>
+    <motorconfiguration configid="ea906b7a-971f-4f9a-b590-d3a51d667571" default="true"><name>L2</name></motorconfiguration>
     <referencetype>maximum</referencetype>
 
     <subcomponents>
