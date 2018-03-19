@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<openrocket version="1.4" creator="OpenRocket 15.03">
+<openrocket version="1.0" creator="OpenRocket 0.9.7pre">
   <rocket>
     <name>Rocket</name>
     <motorconfiguration configid="834985d8-f315-485c-bb3f-477ac24808ef"><name>J1</name></motorconfiguration>
