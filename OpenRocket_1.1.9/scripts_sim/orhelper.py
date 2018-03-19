@@ -9,7 +9,7 @@ class OpenRocketInstance(object):
         JVM will always be shutdown.
     """
 
-    def __init__(self, jar_path, log_level='VBOSE'):
+    def __init__(self, jar_path, log_level='ERROR'):
         """ jar_path is the full path of the OpenRocket .jar file to use
             log_level can be either ERROR, WARN, USER, INFO, DEBUG or VBOSE
         """
@@ -49,7 +49,6 @@ class Helper(object):
     def load_doc(self, or_filename):
         """ Loads a .ork file and returns the corresponding openrocket document """
         or_java_file = java.io.File(or_filename)
-        print or_java_file
         loader = self.orp.file.GeneralRocketLoader()
         doc = loader.load(or_java_file)
         return doc
