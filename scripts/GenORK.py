@@ -30,7 +30,7 @@ class ORKfile(Component):
         """ find results folder for this run, create ORK folder, add file for each run."""
         counter=1
         temp_path = "test.ork"
-        tempXML.write(temp_path)
+        tempXML.write(temp_path, "utf-8", True)
         #temp_path = dir.replace("scripts\\{}".format(__file__), "")
 
     def edit_nosecone(self, tempXML, coneshape, material, density, finish):
