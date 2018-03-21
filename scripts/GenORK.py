@@ -19,6 +19,9 @@ class ORKfile(Component):
         self.add_param('density', val=0.0, description='density of material [kg/m^3]', pass_by_obj=True)
         self.add_param('finish', val=0.0, description='finish used', pass_by_obj=True)
 
+        # Output: ORK File
+        self.add_output('ORK_File', FileRef('test.ork'), binary=True)
+
     def pull_template(self):
         """ locates template.ork file, loads it into memory for use."""
         dir = path.dirname(path.realpath(__file__))
