@@ -1,5 +1,5 @@
 from __future__ import print_function
-from openmdao.api import Component
+from openmdao.api import Component, FileRef
 from pprint import pprint
 from os import listdir, path
 from xml.etree import ElementTree as ET
