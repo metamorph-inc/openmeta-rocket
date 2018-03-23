@@ -14,7 +14,7 @@ class OpenRocketInstance(object):
             log_level can be either ERROR, WARN, USER, INFO, DEBUG or VBOSE
         """
 
-
+        print(getDefaultJVMPath())
         startJVM(getDefaultJVMPath(), "-Djava.class.path=%s" % jar_path)
         orp = JPackage("net").sf.openrocket
         orp.startup.Startup.initializeLogging()

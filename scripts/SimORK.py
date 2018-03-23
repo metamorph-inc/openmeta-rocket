@@ -13,7 +13,7 @@ class SimOR(Component):
 
                 # Input File
                 # self.add_param('x', val=0.0)
-                self.add_param('rocketFile', FileRef('rocket.ork'), binary=True)
+                self.add_param('rocketFile', FileRef('rocket.ork'), binary=True, pass_by_obj=True)
 
                 # Output Flight Metrics
                 self.add_output('MotorIgnition', shape=1)
@@ -27,30 +27,37 @@ class SimOR(Component):
                 self.add_output('Apogee', shape=1)
                 self.add_output('MotorBurnout', shape=1)
 
+                orhelper.OpenRocketInstance("C:\Users\metamorph\Documents\\rocket\scripts\openmeta-OpenRocket.jar")
+
 
         def solve_nonlinear(self, params, unknowns, resids):
                 # opens Open Rocket, runs simulation, and outputs common flight metrics
-                with orhelper.OpenRocketInstance("C:\Users\metamorph\Documents\\rocket\scripts\openmeta-OpenRocket.jar"):
-                    orh = orhelper.Helper()
+                orh = orhelper.Helper()
 
-                    # Load document
-                    doc = orh.load_doc('rocket.ork')
+                # Load document
+                doc = orh.load_doc('rocket.ork')
 
-                    # Run second OpenRocket simulation (first sim has a faulty motor)
-                    sim = doc.getSimulation(1)
-                    orh.run_simulation(sim)
+                # Run second OpenRocket simulation (first sim has a faulty motor)
+                sim = doc.getSimulation(1)
+                orh.run_simulation(sim)
 
-                    # Get events
-                    events = orh.get_events(sim)
+                # Get events
+                events = orh.get_events(sim)
+                data = orh.get_timeseries(sim, ['Time','Altitude'])
 
-                    # Use the Apogee event time to find the altitude from the Altitude time series data
-                    unknowns['MotorIgnition'] = events["Motor ignition"]
-                    unknowns['Liftoff'] = events["Lift-off"]
-                    unknowns['GroundHit'] = events["Ground hit"]
-                    unknowns['Launch'] = events["Launch"]
-                    unknowns['LaunchRodClearance'] = events["Launch rod clearance"]
-                    unknowns['SimulationEnd'] = events["Simulation end"]
-                    # unknowns['EjectionCharge'] = events['Ejection charge']
-                    # unknowns['RecoveryDeviceDeployment'] = events["Recovery device deployment"]
-                    unknowns['Apogee'] = events["Apogee"]
-                    unknowns['MotorBurnout'] = events["Motor burnout"]
+                # find altitude of apogee
+                apogeeTime = events["Apogee"]
+                apogeeIndex = int(np.where(data["Time"]==apogeeTime)[0])
+                apogeeAltitude = data["Altitude"][apogeeIndex]
+
+                # Use the Apogee event time to find the altitude from the Altitude time series data
+                unknowns['MotorIgnition'] = float(events["Motor ignition"])
+                unknowns['Liftoff'] = float(events["Lift-off"])
+                unknowns['GroundHit'] = float(events["Ground hit"])
+                unknowns['Launch'] = float(events["Launch"])
+                unknowns['LaunchRodClearance'] = float(events["Launch rod clearance"])
+                unknowns['SimulationEnd'] = float(events["Simulation end"])
+                # unknowns['EjectionCharge'] = events['Ejection charge']
+                # unknowns['RecoveryDeviceDeployment'] = events["Recovery device deployment"]
+                unknowns['Apogee'] = float(events["Apogee"])
+                unknowns['MotorBurnout'] = float(events["Motor burnout"])

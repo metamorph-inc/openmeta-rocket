@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE project SYSTEM "mga.dtd">
 
-<project guid="{90662200-63CC-483F-8832-61A052F7AEDD}" cdate="Mon Mar 19 14:38:11 2018" mdate="Mon Mar 19 14:38:11 2018" version="" metaguid="{08AF6D47-590B-0A7D-137D-21B4C1D2DFCD}" metaversion="14.13-t34" metaname="CyPhyML">
+<project guid="{FCB5C5F6-1968-481B-B154-AE28CD9D7CC1}" cdate="Mon Mar 19 14:38:11 2018" mdate="Mon Mar 19 14:38:11 2018" version="" metaguid="{08AF6D47-590B-0A7D-137D-21B4C1D2DFCD}" metaversion="14.13-t34" metaname="CyPhyML">
 	<name>RootFolder</name>
 	<comment></comment>
 	<author></author>
@@ -16529,7 +16529,7 @@
 		</folder>
 		<folder id="id-006a-0000002b" relid="0xd" childrelidcntr="0x2" kind="DesignSpace" guid="{0b7a0c8c-3994-45bc-9318-7dcb7627ca56}">
 			<name>Rocket_DS</name>
-			<model id="id-0065-00000293" kind="DesignContainer" guid="{c5bbd84f-eae3-4aa2-a9a2-b7f773d927f6}" relid="0x2" childrelidcntr="0x1f">
+			<model id="id-0065-00000293" kind="DesignContainer" guid="{c5bbd84f-eae3-4aa2-a9a2-b7f773d927f6}" relid="0x2" childrelidcntr="0x21">
 				<name>OpenRocket</name>
 				<attribute kind="Cardinality" status="meta">
 					<value></value>
@@ -22975,9 +22975,9 @@
 			<name>Testing</name>
 			<folder id="id-006a-0000002d" relid="0x1" childrelidcntr="0x1" kind="ParametricExplorationFolder" guid="{3b004b4b-dc72-42ea-8398-083c31d2c8b8}">
 				<name>ParametricExploration</name>
-				<model id="id-0065-000002b5" kind="ParametricExploration" guid="{aa39920d-9fd4-4451-9f51-e5f28d3c320e}" relid="0x1" childrelidcntr="0x22">
+				<model id="id-0065-000002b5" kind="ParametricExploration" guid="{aa39920d-9fd4-4451-9f51-e5f28d3c320e}" relid="0x1" childrelidcntr="0x37">
 					<name>OR_PET</name>
-					<model id="id-0065-000002b6" kind="PythonWrapper" role="PythonWrapper" guid="{d7c310ae-5a9b-41f4-8371-64ba455406b0}" relid="0x7" childrelidcntr="0xa">
+					<model id="id-0065-000002b6" kind="PythonWrapper" role="PythonWrapper" guid="{d7c310ae-5a9b-41f4-8371-64ba455406b0}" relid="0x7" childrelidcntr="0xc">
 						<name>GenORK</name>
 						<regnode name="PartRegs" status="undefined">
 							<value></value>
@@ -23253,7 +23253,7 @@
 								<regnode name="ValueFlowAspect" status="undefined">
 									<value></value>
 									<regnode name="Position" isopaque="yes">
-										<value>20,455</value>
+										<value>20,520</value>
 									</regnode>
 								</regnode>
 							</regnode>
@@ -23301,7 +23301,7 @@
 								<regnode name="ValueFlowAspect" status="undefined">
 									<value></value>
 									<regnode name="Position" isopaque="yes">
-										<value>20,520</value>
+										<value>20,585</value>
 									</regnode>
 								</regnode>
 							</regnode>
@@ -23390,6 +23390,54 @@
 								<value></value>
 							</attribute>
 						</reference>
+						<reference id="id-0067-00001533" kind="Parameter" role="Parameter" guid="{957f96dc-ea52-4fb4-b9e0-37199f297d34}" relid="0xc">
+							<name>launchrodlength</name>
+							<regnode name="PartRegs" status="undefined">
+								<value></value>
+								<regnode name="ValueFlowAspect" status="undefined">
+									<value></value>
+									<regnode name="Position" isopaque="yes">
+										<value>20,455</value>
+									</regnode>
+								</regnode>
+							</regnode>
+							<regnode name="pass_by_obj" isopaque="yes">
+								<value>False</value>
+							</regnode>
+							<attribute kind="ComputationType" status="meta">
+								<value>Addition</value>
+							</attribute>
+							<attribute kind="DataType" status="meta">
+								<value>String</value>
+							</attribute>
+							<attribute kind="DefaultValue" status="meta">
+								<value></value>
+							</attribute>
+							<attribute kind="Description" status="meta">
+								<value></value>
+							</attribute>
+							<attribute kind="Dimension" status="meta">
+								<value></value>
+							</attribute>
+							<attribute kind="Disable" status="meta">
+								<value>false</value>
+							</attribute>
+							<attribute kind="ID" status="meta">
+								<value></value>
+							</attribute>
+							<attribute kind="ManagedGUID" status="meta">
+								<value></value>
+							</attribute>
+							<attribute kind="Range" status="meta">
+								<value>-inf..inf</value>
+							</attribute>
+							<attribute kind="Type" status="meta">
+								<value></value>
+							</attribute>
+							<attribute kind="Value" status="meta">
+								<value></value>
+							</attribute>
+						</reference>
 					</model>
 					<model id="id-0065-0000051e" kind="PythonWrapper" role="PythonWrapper" guid="{471b022c-8338-46b4-bec8-7a27ee32b0ef}" relid="0x1f" childrelidcntr="0xe">
 						<name>SimORK</name>
@@ -23398,7 +23446,7 @@
 							<regnode name="TestBenchCompositionAspect" status="undefined">
 								<value></value>
 								<regnode name="Position" isopaque="yes">
-									<value>777,287</value>
+									<value>777,294</value>
 								</regnode>
 							</regnode>
 						</regnode>
@@ -23613,6 +23661,54 @@
 							</attribute>
 						</reference>
 					</model>
+					<model id="id-0065-000008c2" kind="ParameterStudy" role="ParameterStudy" guid="{40274318-690b-4fd3-aaa5-31f89c898086}" relid="0x35" childrelidcntr="0x2">
+						<name>ParameterStudyDriver</name>
+						<regnode name="PartRegs" status="undefined">
+							<value></value>
+							<regnode name="TestBenchCompositionAspect" status="undefined">
+								<value></value>
+								<regnode name="Position" isopaque="yes">
+									<value>651,77</value>
+								</regnode>
+							</regnode>
+						</regnode>
+						<attribute kind="Code">
+							<value>num_samples=20</value>
+						</attribute>
+						<attribute kind="DOEType">
+							<value>Uniform</value>
+						</attribute>
+						<attribute kind="SurrogateType" status="meta">
+							<value>None</value>
+						</attribute>
+						<reference id="id-0067-00001973" kind="DesignVariable" role="DesignVariable" guid="{a7e17f7c-2bc3-4430-989d-08545e285485}" relid="0x1">
+							<name>LaunchRodLength</name>
+							<regnode name="PartRegs" status="undefined">
+								<value></value>
+								<regnode name="TestBenchCompositionAspect" status="undefined">
+									<value></value>
+									<regnode name="Position" isopaque="yes">
+										<value>238,294</value>
+									</regnode>
+								</regnode>
+							</regnode>
+							<attribute kind="Range">
+								<value>1.0,3.0</value>
+							</attribute>
+						</reference>
+						<reference id="id-0067-00001974" kind="Objective" role="Objective" guid="{e936cf17-5b7c-4d02-8c96-9c0fa169c1af}" relid="0x2">
+							<name>Apogee</name>
+							<regnode name="PartRegs" status="undefined">
+								<value></value>
+								<regnode name="TestBenchCompositionAspect" status="undefined">
+									<value></value>
+									<regnode name="Position" isopaque="yes">
+										<value>637,301</value>
+									</regnode>
+								</regnode>
+							</regnode>
+						</reference>
+					</model>
 					<reference id="id-0067-000004aa" kind="TestBenchRef" role="TestBenchRef" guid="{b05becac-961f-4e55-b7ad-a539ef2148f2}" relid="0x6" referred="id-0065-000002b8">
 						<name>TestBench</name>
 						<regnode name="PartRegs" status="undefined">
@@ -23670,6 +23766,28 @@
 						<connpoint role="src" target="id-0066-00000252"/>
 						<connpoint role="dst" target="id-0066-00000253"/>
 					</connection>
+					<connection id="id-0068-000008db" kind="VariableSweep" role="VariableSweep" guid="{fcd356b9-dcaf-4cca-9b79-6e4428234a40}" relid="0x36">
+						<name>VariableSweep</name>
+						<regnode name="color" isopaque="yes">
+							<value>0xff80c0</value>
+						</regnode>
+						<regnode name="dstStyle" isopaque="yes">
+							<value>arrow</value>
+						</regnode>
+						<connpoint role="dst" target="id-0067-00001533"/>
+						<connpoint role="src" target="id-0067-00001973"/>
+					</connection>
+					<connection id="id-0068-000008dc" kind="ObjectiveMapping" role="ObjectiveMapping" guid="{bf4388c8-bd36-4ebe-a41e-f66a20a65b2b}" relid="0x37">
+						<name>ObjectiveMapping</name>
+						<regnode name="color" isopaque="yes">
+							<value>0x7cadde</value>
+						</regnode>
+						<regnode name="dstStyle" isopaque="yes">
+							<value>arrow</value>
+						</regnode>
+						<connpoint role="src" target="id-0067-000009ae"/>
+						<connpoint role="dst" target="id-0067-00001974"/>
+					</connection>
 				</model>
 			</folder>
 			<folder id="id-006a-0000002e" relid="0x3" childrelidcntr="0x1" kind="WorkflowDefinitionFolder" guid="{3ec03147-5bbf-4a62-9d8c-7008304a1524}">
@@ -23696,7 +23814,7 @@
 					</atom>
 				</model>
 			</folder>
-			<model id="id-0065-000002b8" kind="TestBench" guid="{eed4a91b-4208-4dfb-8342-d5a75e4058a7}" relid="0x2" childrelidcntr="0x15">
+			<model id="id-0065-000002b8" kind="TestBench" guid="{eed4a91b-4208-4dfb-8342-d5a75e4058a7}" relid="0x2" childrelidcntr="0x17">
 				<name>OR_Testbench</name>
 				<regnode name="TestBenchUniqueName" isopaque="yes">
 					<value>OR_Testbench</value>

@@ -18,9 +18,10 @@ class ORKfile(Component):
         self.add_param('material', val=0.0, description='material used', pass_by_obj=True)
         self.add_param('density', val=0.0, description='density of material [kg/m^3]', pass_by_obj=True)
         self.add_param('finish', val=0.0, description='finish used', pass_by_obj=True)
+        self.add_param('launchrodlength', val=0.0)
 
         # Output: ORK File
-        self.add_output('ORK_File', FileRef('test.ork'), binary=True)
+        self.add_output('ORK_File', FileRef('test.ork'), binary=True, pass_by_obj=True)
 
     def pull_template(self):
         """ locates template.ork file, loads it into memory for use."""
@@ -35,6 +36,12 @@ class ORKfile(Component):
         temp_path = "test.ork"
         tempXML.write(temp_path, "utf-8", True)
         #temp_path = dir.replace("scripts\\{}".format(__file__), "")
+
+    def edit_simulation(self, tempXML, launchrodlength):
+        """ edits xml values for simulation(s) """
+        simroot = tempXML.find('./simulations/simulation/conditions')
+        launchrodElem = simroot.find('launchrodlength')
+        launchrodElem.text = str(launchrodlength)
 
     def edit_nosecone(self, tempXML, coneshape, material, density, finish):
         """ edits xml values for nosecone and any subcomponents within."""
@@ -112,6 +119,7 @@ class ORKfile(Component):
         material = params['material']
         density = params['density']
         finish = params['finish']
+        launchrodlength = params['launchrodlength']
         print("CONESHAPE TYPE", type(coneshape))
         print("CONESHAPE", coneshape)
 
@@ -121,6 +129,8 @@ class ORKfile(Component):
         self.edit_nosecone(tempXML, coneshape, material, density, finish)
         # edit bodytube
         self.edit_bodytube(tempXML, fintype, fincount, finprofile, motorclass, material, density, finish)
+        # edit simulation
+        self.edit_simulation(tempXML, launchrodlength)
         #write file
         self.write_ork(tempXML)
 
