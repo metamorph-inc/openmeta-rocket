@@ -3,6 +3,7 @@ from openmdao.api import Component, FileRef
 from pprint import pprint
 from os import listdir, path
 from xml.etree import ElementTree as ET
+from random import uniform
 
 class ORKfile(Component):
     """ creates ORK file from OpenMETA config inputs."""
@@ -35,7 +36,6 @@ class ORKfile(Component):
         counter=1
         temp_path = "test.ork"
         tempXML.write(temp_path, "utf-8", True)
-        #temp_path = dir.replace("scripts\\{}".format(__file__), "")
 
     def edit_simulation(self, tempXML, launchrodlength):
         """ edits xml values for simulation(s) """
@@ -78,7 +78,6 @@ class ORKfile(Component):
         finprofileElem = finElem.find('crosssection')
         finprofileElem.text=finprofile
 
-
         #remove excess finsets
         if fintype != 'trapezoidfinset':
             bodysubroot.remove(bodysubroot.find('trapezoidfinset'))
@@ -86,6 +85,7 @@ class ORKfile(Component):
             bodysubroot.remove(bodysubroot.find('ellipticalfinset'))
         if fintype != 'freeformfinset':
             bodysubroot.remove(bodysubroot.find('freeformfinset'))
+
         #remove excess motors
         rocketElem = tempXML.find('.//rocket')
         simElem = tempXML.find('.//simulations')
@@ -108,6 +108,65 @@ class ORKfile(Component):
                     if simconfigidElem.text == motorconfigid:
                         simElem.remove(sim)
 
+    def edit_continuous(self, tempXML, fintype):
+        """ Edits all continuous variables that are a function of motor size."""
+        motorsize_list = list()
+        motorroot = tempXML.find('.//innertube/motormount')
+        motorlist=motorroot.findall('motor')
+        bodyroot = tempXML.find('.//bodytube')
+        noseroot = tempXML.find('.//nosecone')
+        finsetroot = tempXML.find('.//{}'.format(fintype))
+
+        # get maximum motor length and diameter
+        for motorElem in motorlist:
+            motorsize_list.append([(motorElem.find('length')).text, (motorElem.find('diameter')).text])
+        # NOTE: This only works with two motors in file
+        max_motorlen = float(max(motorsize_list[0][0], motorsize_list[1][0]))
+        max_motordiam =float(max(motorsize_list[0][1],motorsize_list[1][1]))
+
+        #Edit bodytube sizing
+        bodyradius=bodyroot.find('radius')
+        bodyradius.text = str(max_motordiam/2.0 + 0.005)
+        bodylength = bodyroot.find('length')
+        bodylength.text = str(max_motorlen*uniform(2.0,3.0))
+        if float(bodylength.text) < max_motorlen:
+            bodylength.text = str(2.0*max_motorlen)
+        bodythickness = bodyroot.find('thickness')
+        bodythickness.text = str(2.0*float(bodyradius.text)/uniform(5.0,10.0))
+        bodywallspace = abs(2*float(bodyradius.text)-(max_motordiam))/2
+        if bodythickness.text > bodywallspace:
+            bodythickness.text = str(bodywallspace-0.0025)
+
+        #Edit nosecone sizing
+        noselength = noseroot.find('length')
+        noselength.text = str(2.0*float(bodyradius.text)*uniform(3.0,5.0))
+        nosethickness = noseroot.find('thickness')
+        nosethickness.text = bodythickness.text
+
+        #edit finsets
+        if fintype =='trapezoidfinset':
+            finrootchord = finsetroot.find('rootchord')
+            finrootchord.text = str(float(bodylength.text)/uniform(8.0,10.0))
+            fintipchord = finsetroot.find('tipchord')
+            fintipchord.text =  str(float(finrootchord.text)*uniform(2.0,3.0)/uniform(3.0,4.0))
+            finheight = finsetroot.find('height')
+            finheight.text =  str(float(finrootchord.text)/uniform(1.5,3.0))
+            finposition = finsetroot.find('position')
+            finposition.text =  str((-1)*float(finheight.text))
+        elif fintype =='ellipticalfinset':
+            finrootchord = finsetroot.find('rootchord')
+            finrootchord.text =  str(float(bodylength.text)/uniform(8.0,10.0))
+            finheight = finsetroot.find('height')
+            finheight.text =  str(float(finrootchord.text)/uniform(1.5,3.0))
+            finposition = finsetroot.find('position')
+            finposition.text =  str((-1)*float(finheight.text))
+        """
+        if
+        with open('C:\\Users\\austin\\Desktop\\test.txt','w') as testout:
+            testout.write(str(fintype))
+        testout.close()
+        """
+
     def solve_nonlinear(self, params, unknowns, resids):
         """This will act as 'main' funciton. """
         # set variables
@@ -120,8 +179,6 @@ class ORKfile(Component):
         density = params['density']
         finish = params['finish']
         launchrodlength = params['launchrodlength']
-        print("CONESHAPE TYPE", type(coneshape))
-        print("CONESHAPE", coneshape)
 
         # create the template rocket file
         tempXML = self.pull_template()
@@ -129,16 +186,9 @@ class ORKfile(Component):
         self.edit_nosecone(tempXML, coneshape, material, density, finish)
         # edit bodytube
         self.edit_bodytube(tempXML, fintype, fincount, finprofile, motorclass, material, density, finish)
+        # size continuous variables with motor dimensions
+        self.edit_continuous(tempXML, fintype)
         # edit simulation
         self.edit_simulation(tempXML, launchrodlength)
         #write file
         self.write_ork(tempXML)
-
-#import pdb; pdb.set_trace()
-"""
-test1=ORKfile()
-xml=test1.pull_template()
-test1.edit_nosecone(xml, 'ogive', 'carbon_fiber', 2300, 'polished')
-test1.edit_bodytube(xml, 'trapezoidfinset', 5, 'airfoil', 'L', 'carbon_fiber', 2300, 'polished')
-xml.write("C:\\Users\\austin\\Desktop\\openmeta-rocket\\scripts\\testN.ork")
-"""

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<openrocket version="1.0" creator="OpenRocket 0.9.7pre">
+<openrocket version="1.4" creator="OpenRocket 15.03">
   <rocket>
     <name>Rocket</name>
     <motorconfiguration configid="834985d8-f315-485c-bb3f-477ac24808ef"><name>J1</name></motorconfiguration>
@@ -28,6 +28,19 @@
             <aftshoulderlength>0.0</aftshoulderlength>
             <aftshoulderthickness>0.0</aftshoulderthickness>
             <aftshouldercapped>false</aftshouldercapped>
+
+            <subcomponents>
+              <masscomponent>
+                <name>Unspecified</name>
+                <position type="bottom">0.05</position>
+                <packedlength>0.05</packedlength>
+                <packedradius>0.025</packedradius>
+                <radialposition>0.0</radialposition>
+                <radialdirection>0.0</radialdirection>
+                <mass>1.0</mass>
+                <masscomponenttype>masscomponent</masscomponenttype>
+              </masscomponent>
+            </subcomponents>
           </nosecone>
 
           <bodytube>
