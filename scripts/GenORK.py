@@ -66,6 +66,15 @@ class ORKfile(Component):
 
         #body tube subcomponents features
         bodysubroot = tempXML.find('.//bodytube/subcomponents')
+
+        #edit launchlug
+        lugroot = tempXML.find('.//bodytube/subcomponents/launchlug')
+        (lugroot.find('position')).attrib['type'] = 'bottom'
+        (lugroot.find('finish')).text = finish
+        lugmatElem = lugroot.find('material')
+        lugmatElem.text = material
+        lugmatElem.attrib['density']=str(density/1E3) #converts kg/m^3 to g/cm^3
+
         #only fins
         finElem = bodysubroot.find(fintype)
         finfinishElem = finElem.find('finish')
@@ -120,9 +129,18 @@ class ORKfile(Component):
         # get maximum motor length and diameter
         for motorElem in motorlist:
             motorsize_list.append([(motorElem.find('length')).text, (motorElem.find('diameter')).text])
-        # NOTE: This only works with two motors in file
-        max_motorlen = float(max(motorsize_list[0][0], motorsize_list[1][0]))
-        max_motordiam =float(max(motorsize_list[0][1],motorsize_list[1][1]))
+        for elem in motorsize_list:
+            if elem == motorsize_list[0]:
+                elem1 = elem
+            elif elem == motorsize_list[1]:
+                elem2 = elem
+                len_comparrison = max(elem1[0], elem2[0])
+                diam_comparrison = max(elem1[1], elem2[1])
+            else:
+                len_comparrison = max(len_comparrison, elem[0])
+                diam_comparrison = max(diam_comparrison, elem[1])
+        max_motorlen = float(len_comparrison)
+        max_motordiam = float(diam_comparrison)
 
         #Edit bodytube sizing
         bodyradius=bodyroot.find('radius')
