@@ -27,7 +27,7 @@ class SimOR(Component):
                 self.add_output('Apogee', shape=1)
                 self.add_output('MotorBurnout', shape=1)
 
-                orhelper.OpenRocketInstance("C:\Users\metamorph\Documents\\rocket\scripts\openmeta-OpenRocket.jar")
+                orhelper.OpenRocketInstance("C:\Users\metamorph\Documents\openmeta-rocket\openmeta-OpenRocket.jar")
 
 
         def solve_nonlinear(self, params, unknowns, resids):
