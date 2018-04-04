@@ -1,7 +1,7 @@
 Open Rocket Simulation Script Tips
 ===================================
 
-### The Basics
+## The Basics
 
 When automating OR simulations in Python, the general flow is:
 1. Open OpenRocket
@@ -19,7 +19,7 @@ after the script is done executing.
 ```python
 import orhelper
 
-with orhelper.OpenRocketInstance("..\openmeta-OpenRocket.jar"):
+with orhelper.OpenRocketInstance("OpenRocket.jar"):
     # Create instance of OR Helper class
     orh = orhelper.Helper()
 
@@ -37,3 +37,33 @@ with orhelper.OpenRocketInstance("..\openmeta-OpenRocket.jar"):
 
     print "Max Altitude: %.3f" % flightData.getMaxAltitude()
 ```
+
+## orhelper Functions
+**OpenRocketInstance( path_to_jar )**
+
+### Helper Class
+**Helper()**
+**load_doc( rocket_file )**
+**run_simulation( simulation_handle )**
+
+## Helpful OpenRocket Functions
+
+### OpenRocket Document Class
+**getSimulation( sim_number )**
+
+### Simulation Class
+**getSimulatedData()**
+**getOptions()**
+
+### Simulation Options Class
+**setRandomSeed( seed )**
+**setWindSpeedAverage( float windSpeed )**
+
+### Flight Data Class
+**getMaxVelocity()**
+**getMaxAltitude()**
+**getMaxAcceleration()**
+**getMaxMachNumber()**
+**getGroundHitVelocity()**
+**getLaunchRodVelocity()**
+**getFlightTime()**
