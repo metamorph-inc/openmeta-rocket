@@ -42,28 +42,28 @@ with orhelper.OpenRocketInstance("OpenRocket.jar"):
 **OpenRocketInstance( path_to_jar )**
 
 ### Helper Class
-**Helper()**
-**load_doc( rocket_file )**
-**run_simulation( simulation_handle )**
+#### Helper()
+#### load_doc( rocket_file )
+#### run_simulation( simulation_handle )
 
 ## Helpful OpenRocket Functions
 
 ### OpenRocket Document Class
-**getSimulation( sim_number )**
+#### getSimulation( sim_number )
 
 ### Simulation Class
-**getSimulatedData()**
-**getOptions()**
+#### getSimulatedData()
+#### getOptions()
 
 ### Simulation Options Class
-**setRandomSeed( seed )**
-**setWindSpeedAverage( float windSpeed )**
+#### setRandomSeed( seed )
+#### setWindSpeedAverage( float windSpeed )
 
 ### Flight Data Class
-**getMaxVelocity()**
-**getMaxAltitude()**
-**getMaxAcceleration()**
-**getMaxMachNumber()**
-**getGroundHitVelocity()**
-**getLaunchRodVelocity()**
-**getFlightTime()**
+#### getMaxVelocity()
+#### getMaxAltitude()
+#### getMaxAcceleration()
+#### getMaxMachNumber()
+#### getGroundHitVelocity()
+#### getLaunchRodVelocity()
+#### getFlightTime()
