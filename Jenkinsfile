@@ -1,7 +1,7 @@
 pipeline {
   agent {
     node {
-      label 'openmeta'
+      label 'design-test'
     }
     
   }
