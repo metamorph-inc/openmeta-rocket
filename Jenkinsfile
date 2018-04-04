@@ -1,5 +1,10 @@
 pipeline {
-  agent any
+  agent {
+    node {
+      label 'openmeta'
+    }
+    
+  }
   stages {
     stage('Run OpenMETA') {
       steps {
