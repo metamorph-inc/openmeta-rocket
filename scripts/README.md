@@ -58,6 +58,7 @@ class WindTest(Component):
                 # Output Flight Metrics
                 self.add_output('MaxAltitude', shape=1)
 
+                # Open OpenRocket
                 orhelper.OpenRocketInstance("openmeta-OpenRocket.jar")
 
 
@@ -65,20 +66,23 @@ class WindTest(Component):
                 # Create instance of OR Helper class
                 orh = orhelper.Helper()
 
-                # Load rocket file
+                # Load the rocket's ORK file
                 doc = orh.load_doc('rocket.ork')
 
-                # set up simulation
-                sim = doc.getSimulation(0) # load first simulation
+                # Load a simulation stored in the ORK file
+                sim = doc.getSimulation(0)
+
+                # Modify simulation options and/or rocket design
                 simOptions = sim.getOptions() # get handle for simulation options object
                 simOptions.setRandomSeed(0) # remove simulation randomization
                 simOptions.setWindSpeedAverage( params['WindSpeedAverage'] ) # set wind speed
 
-                orh.run_simulation(sim) # run simulation
-                flightData = sim.getSimulatedData() # get handle to flight data object
+                # Run simulation
+                orh.run_simulation(sim)
 
-                # export maximum altitude
-                unknowns['MaxAltitude'] = flightData.getMaxAltitude()
+                # Extract and analyze results
+                flightData = sim.getSimulatedData() # get handle to flight data object
+                unknowns['MaxAltitude'] = flightData.getMaxAltitude() # export maximum altitude
 ```
 
 
