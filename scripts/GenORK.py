@@ -19,7 +19,6 @@ class ORKfile(Component):
         self.add_param('material', val=0.0, description='material used', pass_by_obj=True)
         self.add_param('density', val=0.0, description='density of material [kg/m^3]', pass_by_obj=True)
         self.add_param('finish', val=0.0, description='finish used', pass_by_obj=True)
-        self.add_param('launchrodlength', val=0.0)
 
         # Output: ORK File
         self.add_output('ORK_File', FileRef('test.ork'), binary=True, pass_by_obj=True)
@@ -36,12 +35,6 @@ class ORKfile(Component):
         counter=1
         temp_path = "test.ork"
         tempXML.write(temp_path, "utf-8", True)
-
-    def edit_simulation(self, tempXML, launchrodlength):
-        """ edits xml values for simulation(s) """
-        simroot = tempXML.find('./simulations/simulation/conditions')
-        launchrodElem = simroot.find('launchrodlength')
-        launchrodElem.text = str(launchrodlength)
 
     def edit_nosecone(self, tempXML, coneshape, material, density, finish):
         """ edits xml values for nosecone and any subcomponents within."""
@@ -206,7 +199,5 @@ class ORKfile(Component):
         self.edit_bodytube(tempXML, fintype, fincount, finprofile, motorclass, material, density, finish)
         # size continuous variables with motor dimensions
         self.edit_continuous(tempXML, fintype)
-        # edit simulation
-        self.edit_simulation(tempXML, launchrodlength)
         #write file
         self.write_ork(tempXML)
