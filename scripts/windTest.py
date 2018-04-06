@@ -1,5 +1,3 @@
-# FIXME: OpenRocket.jar has to be manually entered; file needs to be incorporated into OpenMETA
-
 from __future__ import print_function
 from openmdao.api import Component, FileRef
 from pprint import pprint
@@ -23,7 +21,9 @@ class WindTest(Component):
                 self.add_output('LaunchRodVelocity', shape=1)
                 self.add_output('FlightTime', shape=1)
 
-                orhelper.OpenRocketInstance("C:\Users\metamorph\Documents\\rocket\scripts\openmeta-OpenRocket.jar")
+                dir = path.dirname(path.realpath(__file__))
+                jarpath = dir.replace("scripts","openmeta-OpenRocket.jar")
+                orhelper.OpenRocketInstance(jarpath)
 
 
         def solve_nonlinear(self, params, unknowns, resids):
