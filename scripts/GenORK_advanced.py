@@ -12,9 +12,7 @@ class ORKfle(Component):
 
        #Python wrapper inputs
        self.add_param('coneshape', val=0.0, description='nosecone shape', pass_by_obj=True)
-       self.add_param('noselen_coeff', val=0.0, description='rand float from 0->1', pass_by_obj=True)
-       self.add_param('nosethickness_coeff', val=0.0, description='rand float from 0->1', pass_by_obj=True)
-       self.add_param('noseradius_coeff', val=0.0, description='rand float from 0->1', pass_by_obj=True)
+       self.add_param('noselen_coeff', val=0.0)
        self.add_param('fintype', val=0.0, description='planform fin shape', pass_by_obj=True)
        self.add_param('fincount', val=0.0, description='number of fins', pass_by_obj=True)
        self.add_param('finprofile', val=0.0, description='fin profile', pass_by_obj=True)
@@ -46,7 +44,16 @@ class ORKfle(Component):
        launchrodElem = simroot.find('launchrodlength')
        launchrodElem.text = str(launchrodlength)
 
-   def edit_nosecone(self, tempXML, coneshape, material, density, finish, body_diam):
+    def edit_motordata(self, tempXML, motorclass):
+        """ Remove all unsed motorclasses, save maximum used motor dimesions as variables."""
+        motormountRoot = tempXML.find('.//innertube/motormount')
+        motorlist = motormountRoot.findall('motor')
+        with open('C:\\Users\\austin\\Desktop\\test.txt','w') as testout:
+            for motor in motorlist
+            testout.write(str())
+        testout.close()
+
+   def edit_nosecone(self, tempXML, coneshape, material, density, finish, body_diam, noselen_coeff):
        """ edits xml for the nosecone and its subcomponents."""
        noseroot = tempXML.find('.//nosecone')
        """Discrete changes"""
@@ -72,9 +79,7 @@ class ORKfle(Component):
        "This is the 'main' function"
        # set variables
        coneshape = params['coneshape']
-       length_ratio = params['noselen_coeff']
-       thickness_ratio = params['nosethickness_coeff']
-       radius_ratio = params['noseradius_coeff']
+       noselen_coeff = params['noselen_coeff']
        fintype = params['fintype']
        fincount = params['fincount']
        finprofile = params['finprofile']
@@ -85,8 +90,9 @@ class ORKfle(Component):
        launchrodlength = params['launchrodlength']
        # create the template rocket file
        tempXML = self.pull_template()
+       # remove all unused motors
+       self.edit_motordata(tempXML, motorclass)
        # edit nosecone
-       body_diam = 0.2
-       self.edit_nosecone(tempXML, coneshape, material, density, finish, body_diam)
+       #self.edit_nosecone(tempXML, coneshape, material, density, finish, body_diam, noselen_coeff)
        #write file
        self.write_ork(tempXML)

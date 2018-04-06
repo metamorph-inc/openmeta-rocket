@@ -4,6 +4,7 @@
 from __future__ import print_function
 from openmdao.api import Component, FileRef
 from pprint import pprint
+from os import listdir, path
 import numpy as np
 import orhelper
 
@@ -27,7 +28,9 @@ class SimOR(Component):
                 self.add_output('Apogee', shape=1)
                 self.add_output('MotorBurnout', shape=1)
 
-                orhelper.OpenRocketInstance("C:\Users\metamorph\Documents\openmeta-rocket\openmeta-OpenRocket.jar")
+                dir = path.dirname(path.realpath(__file__))
+                jarpath = dir.replace("scripts","openmeta-OpenRocket.jar")
+                orhelper.OpenRocketInstance(jarpath)
 
 
         def solve_nonlinear(self, params, unknowns, resids):

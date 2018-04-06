@@ -2,11 +2,11 @@
 <openrocket version="1.4" creator="OpenRocket 15.03">
   <rocket>
     <name>Rocket</name>
-    <motorconfiguration configid="38233ef2-43a8-4a05-a738-74b07cf43fc4"><name>J1</name></motorconfiguration>
+    <motorconfiguration configid="38233ef2-43a8-4a05-a738-74b07cf43fc4" default="true"><name>J1</name></motorconfiguration>
     <motorconfiguration configid="cde9a207-f2f1-457d-bd9b-434c5f1417c4"><name>J2</name></motorconfiguration>
     <motorconfiguration configid="43fb114e-0579-411b-989a-b8a091429513"><name>K1</name></motorconfiguration>
     <motorconfiguration configid="7f919cca-7644-40c1-be45-7c326eee1440"><name>K2</name></motorconfiguration>
-    <motorconfiguration configid="a4d6c2a1-bec8-443c-8269-a0af95139daf" default="true"><name>L1</name></motorconfiguration>
+    <motorconfiguration configid="a4d6c2a1-bec8-443c-8269-a0af95139daf"><name>L1</name></motorconfiguration>
     <motorconfiguration configid="89a9c196-b8c6-4390-a65d-e5c7caaf5b8a"><name>L2</name></motorconfiguration>
     <referencetype>maximum</referencetype>
 
