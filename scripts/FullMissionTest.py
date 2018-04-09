@@ -11,7 +11,16 @@ class WindTest(Component):
 
                 # Input OR file and wind speed
                 # self.add_param('rocketFile', FileRef('rocket.ork'), binary=True, pass_by_obj=True)
+                self.add_param('LaunchAltitude', val=0.0)
+                self.add_param('LaunchLatitude', val=0.0)
+                self.add_param('LaunchLongitude', val=0.0)
+                self.add_param('LaunchRodLength', val=0.0)
+                self.add_param('LaunchRodAngle', val=0.0)
+                self.add_param('LaunchRodDirection', val=0.0)
+                self.add_param('Pressure', val=0.0)
+                self.add_param('Temperature', val=0.0)
                 self.add_param('WindSpeedAverage', val=0.0)
+                self.add_param('WindTurbulenceIntensity', val=0.0)
 
                 # Output Flight Metrics
                 self.add_output('MaxVelocity', shape=1)
@@ -38,7 +47,16 @@ class WindTest(Component):
                 sim = doc.getSimulation(1) # Run second OpenRocket simulation (first sim has a faulty motor)
                 simOptions = sim.getOptions() # get handle for simulation options class
                 simOptions.setRandomSeed(0) # get rid of randomization
-                simOptions.setWindSpeedAverage( params['WindSpeedAverage'] ) # set wind speed
+                simOptions.setLaunchAltitude( params['LaunchAltitude'] )
+                simOptions.setLaunchLatitude( params['LaunchLatitude'] )
+                simOptions.setLaunchLongitude( params['LaunchLongitude'] )
+                simOptions.setLaunchRodLength( params['LaunchRodLength'] )
+                simOptions.setLaunchRodAngle( params['LaunchRodAngle'] )
+                simOptions.setLaunchRodDirection( params['LaunchRodDirection'] )
+                simOptions.setLaunchPressure( params['Pressure'] )
+                simOptions.setLaunchTemperature( params['Temperature'] )
+                simOptions.setWindSpeedAverage( params['WindSpeedAverage'] )
+                simOptions.setWindTurbulenceIntensity( params['WindTurbulenceIntensity'] )
 
                 orh.run_simulation(sim)
                 flightData = sim.getSimulatedData()
