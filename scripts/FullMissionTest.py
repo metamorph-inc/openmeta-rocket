@@ -31,17 +31,21 @@ class WindTest(Component):
                 self.add_output('LaunchRodVelocity', shape=1)
                 self.add_output('FlightTime', shape=1)
 
-                dir = path.dirname(path.realpath(__file__))
-                jarpath = dir.replace("scripts","openmeta-OpenRocket.jar")
-                orhelper.OpenRocketInstance(jarpath)
+                self.openRocket = None
+
 
 
         def solve_nonlinear(self, params, unknowns, resids):
+                if self.openRocket == None:
+                    dir = path.dirname(path.realpath(__file__))
+                    jarpath = dir.replace("scripts","openmeta-OpenRocket.jar")
+                    self.openRocket = orhelper.OpenRocketInstance(jarpath)
+                
                 # creates Open Rocket Helper object, sets wind speed, runs simulation, and outputs flight data
                 orh = orhelper.Helper()
 
                 # Load OR document
-                doc = orh.load_doc('C:\Users\Cailey\Documents\MetaMorph\\test_script\\rocket.ork')
+                doc = orh.load_doc('C:\Users\metamorph\Documents\OR_source\ork_files\simple.ork')
 
                 # set up simulation
                 sim = doc.getSimulation(1) # Run second OpenRocket simulation (first sim has a faulty motor)
@@ -69,3 +73,7 @@ class WindTest(Component):
                 unknowns['GroundHitVelocity'] = flightData.getGroundHitVelocity()
                 unknowns['LaunchRodVelocity'] = flightData.getLaunchRodVelocity()
                 unknowns['FlightTime'] = flightData.getFlightTime()
+
+
+        def __del__(self):
+            self.openRocket.__exit__( None, None, None )

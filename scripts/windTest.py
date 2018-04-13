@@ -1,7 +1,8 @@
+# FIXME: OpenRocket.jar has to be manually entered; file needs to be incorporated into OpenMETA
+
 from __future__ import print_function
 from openmdao.api import Component, FileRef
 from pprint import pprint
-from os import listdir, path
 import numpy as np
 import orhelper
 
@@ -22,9 +23,7 @@ class WindTest(Component):
                 self.add_output('LaunchRodVelocity', shape=1)
                 self.add_output('FlightTime', shape=1)
 
-                dir = path.dirname(path.realpath(__file__))
-                jarpath = dir.replace("scripts","openmeta-OpenRocket.jar")
-                orhelper.OpenRocketInstance(jarpath)
+                orhelper.OpenRocketInstance("C:\Users\metamorph\Documents\\rocket\scripts\openmeta-OpenRocket.jar")
 
 
         def solve_nonlinear(self, params, unknowns, resids):
@@ -32,7 +31,7 @@ class WindTest(Component):
                 orh = orhelper.Helper()
 
                 # Load OR document
-                doc = orh.load_doc('C:\Users\Cailey\Documents\MetaMorph\\test_script\\rocket.ork')
+                doc = orh.load_doc('C:\Users\metamorph\Documents\OR_source\ork_files\simple.ork')
 
                 # set up simulation
                 sim = doc.getSimulation(1) # Run second OpenRocket simulation (first sim has a faulty motor)
