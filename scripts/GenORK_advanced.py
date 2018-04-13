@@ -14,6 +14,7 @@ class ORKfle(Component):
         #Python wrapper inputs
         self.add_param('coneshape', val=0.0, description='nosecone shape', pass_by_obj=True)
         self.add_param('noselen_coeff', val=0.0)
+        self.add_param('bodylen_coeff', val=0.0)
         self.add_param('fintype', val=0.0, description='planform fin shape', pass_by_obj=True)
         self.add_param('fincount', val=0.0, description='number of fins', pass_by_obj=True)
         self.add_param('finprofile', val=0.0, description='fin profile', pass_by_obj=True)
@@ -40,6 +41,11 @@ class ORKfle(Component):
         """saves .ork file to specific result folder"""
         counter = 1
         temp_path = "test.ork"
+        #temp_path = "test{}.ork".format(counter)
+        #if path.exists(temp_path):
+            #while path.exists(temp_path):
+                #counter += 1
+                #temp_path = "test{}.ork".format(counter)
         tempXML.write(temp_path, "utf-8", True)
 
 
@@ -69,12 +75,14 @@ class ORKfle(Component):
                 for motor in motormountlist:
                     if motor.attrib['configid'] == motorconfigid:
                         motormountRoot.remove(motor)
-                    else: #store motor dimesions for the correct class
-                        motorsize_list.append([(motor.find('length')).text, (motor.find('diameter')).text])
                 for sim in simlist:
                     simconfigidElem = sim.find('conditions/configid')
                     if simconfigidElem.text == motorconfigid:
                         simElem.remove(sim)
+            else:
+                for motor in motormountlist:
+                    if motor.attrib['configid'] == motorconfigid:
+                        motorsize_list.append([(motor.find('length')).text, (motor.find('diameter')).text])
 
         # store maximum motor dimensions
         for elem in motorsize_list:
@@ -89,6 +97,54 @@ class ORKfle(Component):
                 diam_comparrison = max(diam_comparrison, elem[1])
         max_motordimensions = [float(len_comparrison), float(diam_comparrison)]
         return max_motordimensions
+
+
+    def edit_bodytubes(self, tempXML, motor_dimensions, material, density, finish, bodylen_coeff, coneshape):
+        """ Edits all bodytube dimensions, material, and finish."""
+        bodytube_list = tempXML.findall(".//bodytube")
+        for bodytube in bodytube_list:
+            bodyroot = bodytube
+            (bodyroot.find('finish')).text = finish
+            (bodyroot.find('material')).text = material
+            (bodyroot.find('material')).attrib['density'] = str(density) #converts kg/m^3 to g/cm^3
+            tubetype = (bodytube.find('name')).text
+            if tubetype == 'Payload tube':
+                self.edit_payloadtube(bodytube, motor_dimensions, bodylen_coeff)
+
+            elif tubetype == 'Recovery tube':
+                pass
+
+            elif tubetype == 'Engine tube':
+                self.edit_enginetube(tempXML, bodytube, motor_dimensions, bodylen_coeff, coneshape, material, density, finish)
+
+    def edit_payloadtube(self, bodyroot, motor_dimensions, bodylen_coeff):
+        payloadtubelen_scale = 1
+        payloadtubelen_offset = 1
+        payloadtubelen_ratio = bodylen_coeff*payloadtubelen_scale + payloadtubelen_offset
+        calc_len = payloadtubelen_ratio*float(motor_dimensions[0])
+        (bodyroot.find('length')).text = str(calc_len/3.0)
+
+    def edit_enginetube(self, tempXML, bodyroot, motor_dimensions, bodylen_coeff, coneshape, material, density, finish):
+        """ Edit continuous values for the engine tube and subcomponents with resepect to motor values."""
+        (bodyroot.find('length')).text = str(motor_dimensions[0] + motor_dimensions[1]/2.0 + 0.083)
+        tube_radius = (motor_dimensions[1]/2.0 + 0.005)/0.9
+        tube_thickness = 0.10*tube_radius
+        (bodyroot.find('radius')).text = str(tube_radius)
+        (bodyroot.find('thickness')).text = str(tube_thickness)
+
+        "==========Edit internal Components=========="
+        #Transition
+        transroot = tempXML.find('.//transition')
+        (transroot.find('shape')).text = coneshape
+        (transroot.find('finish')).text = finish
+        (transroot.find('material')).text = material
+        (transroot.find('material')).attrib['density'] = str(density) #converts kg/m^3 to g/cm^3
+        (transroot.find('length')).text = str((tube_radius - tube_thickness)/0.5774)
+        (transroot.find('thickness')).text = str(tube_thickness)
+        #Motorsleeve
+        innertubeRoot = tempXML.find('.//innertube')
+        (innertubeRoot.find('length')).text = str(motor_dimensions[0])
+        (innertubeRoot.find('outerradius')).text = str(motor_dimensions[1]/2.0 + 0.0005)
 
 
     def edit_nosecone(self, tempXML, coneshape, material, density, finish, motor_dimensions, noselen_coeff):
@@ -112,6 +168,7 @@ class ORKfle(Component):
         # set variables
         coneshape = params['coneshape']
         noselen_coeff = params['noselen_coeff']
+        bodylen_coeff = params['bodylen_coeff']
         fintype = params['fintype']
         fincount = params['fincount']
         finprofile = params['finprofile']
@@ -128,7 +185,7 @@ class ORKfle(Component):
         motor_dimensions = self.edit_motordata(tempXML, motorclass)
 
         # edit bodytubes
-        
+        self.edit_bodytubes(tempXML, motor_dimensions, material, density, finish, bodylen_coeff, coneshape)
 
         # edit nosecone
         self.edit_nosecone(tempXML, coneshape, material, density, finish, motor_dimensions, noselen_coeff)
