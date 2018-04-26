@@ -126,7 +126,7 @@ class ORKfle(Component):
 
     def edit_enginetube(self, tempXML, bodyroot, motor_dimensions, bodylen_coeff, coneshape, material, density, finish):
         """ Edit continuous values for the engine tube and subcomponents with resepect to motor values."""
-        (bodyroot.find('length')).text = str(motor_dimensions[0] + motor_dimensions[1]/2.0 + 0.083)
+        (bodyroot.find('length')).text = str(motor_dimensions[0] - 1.095*(motor_dimensions[1]/2.0))
         tube_radius = (motor_dimensions[1]/2.0 + 0.005)/0.9
         tube_thickness = 0.10*tube_radius
         (bodyroot.find('radius')).text = str(tube_radius)
@@ -141,10 +141,46 @@ class ORKfle(Component):
         (transroot.find('material')).attrib['density'] = str(density) #converts kg/m^3 to g/cm^3
         (transroot.find('length')).text = str((tube_radius - tube_thickness)/0.5774)
         (transroot.find('thickness')).text = str(tube_thickness)
+        (transroot.find('aftradius')).text = str(motor_dimensions[1]/2.0 + 0.0005)
         #Motorsleeve
         innertubeRoot = tempXML.find('.//innertube')
         (innertubeRoot.find('length')).text = str(motor_dimensions[0])
         (innertubeRoot.find('outerradius')).text = str(motor_dimensions[1]/2.0 + 0.0005)
+        (innertubeRoot.find('thickness')).text = str(0.0005)
+
+        #engine block
+        engineblockRoot = tempXML.find('.//engineblock')
+        (engineblockRoot.find('material')).text = material
+        (engineblockRoot.find('material')).attrib['density'] = str(density) #converts kg/m^3 to g/cm^3
+        (engineblockRoot.find('length')).text = str(3*tube_thickness)
+        (engineblockRoot.find('outerradius')).text = str(tube_radius - tube_thickness)
+        (engineblockRoot.find('position')).text = str(-3*tube_thickness)
+        (engineblockRoot.find('thickness')).text = str(6*tube_thickness)
+
+        # centering rings
+        centeringringlist = tempXML.findall('.//centeringring')
+        for centeringringElem in centeringringlist:
+            (centeringringElem.find('material')).text = material
+            (centeringringElem.find('material')).attrib['density'] = str(density) #converts kg/m^3 to g/cm^3
+            (centeringringElem.find('length')).text = str(2*tube_thickness)
+            (centeringringElem.find('outerradius')).text = str(tube_radius - tube_thickness)
+            (centeringringElem.find('innerradius')).text = str(motor_dimensions[1]/2.0 + 0.0005)
+            if (centeringringElem.find('name')).text == "Forward centering ring":
+                (centeringringElem.find('position')).text = str(motor_dimensions[0]/3)
+            elif (centeringringElem.find('name')).text == "Aft centering ring":
+                (centeringringElem.find('position')).text = str(-motor_dimensions[0]/3)
+
+    def edit_finset(self, tempXML, material, density, finish, fintype, fincount, finprofile):
+        """ Removes excess finset, edits values for fins."""
+        bodytube_list = tempXML.findall(".//bodytube")
+        for bodyroot in bodytube_list:
+            tubetype = (bodyroot.find('name')).text
+            bodysubroot = bodyroot.find(".//subcomponents")
+            if tubetype == 'Engine tube':
+                if fintype != 'ellipticalfinset':
+                    bodysubroot.remove(bodysubroot.find('ellipticalfinset'))
+                if fintype != 'trapezoidfinset':
+                    bodysubroot.remove(bodysubroot.find('trapezoidfinset'))
 
 
     def edit_nosecone(self, tempXML, coneshape, material, density, finish, motor_dimensions, noselen_coeff):
@@ -186,9 +222,9 @@ class ORKfle(Component):
 
         # edit bodytubes
         self.edit_bodytubes(tempXML, motor_dimensions, material, density, finish, bodylen_coeff, coneshape)
-
         # edit nosecone
         self.edit_nosecone(tempXML, coneshape, material, density, finish, motor_dimensions, noselen_coeff)
-
+        #edit finsets
+        self.edit_finset(tempXML, material, density, finish, fintype, fincount, finprofile)
         #write file
         self.write_ork(tempXML)

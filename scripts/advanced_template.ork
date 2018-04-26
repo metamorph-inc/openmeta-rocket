@@ -339,7 +339,7 @@
                 <subcomponents>
                   <engineblock>
                     <name>Engine block</name>
-                    <position type="top">-0.005</position>
+                    <position type="top">-0.00</position>
                     <material type="bulk" density="680.0">Cardboard</material>
                     <length>0.005</length>
                     <radialposition>0.0</radialposition>

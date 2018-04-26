@@ -172,7 +172,6 @@ class ORKfile(Component):
             finposition = finsetroot.find('position')
             finposition.text =  str((-1)*float(finheight.text))
         """
-        if
         with open('C:\\Users\\austin\\Desktop\\test.txt','w') as testout:
             testout.write(str(fintype))
         testout.close()
