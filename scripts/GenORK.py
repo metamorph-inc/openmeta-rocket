@@ -173,7 +173,9 @@ class ORKfile(Component):
             finposition.text =  str((-1)*float(finheight.text))
         """
         with open('C:\\Users\\austin\\Desktop\\test.txt','w') as testout:
-            testout.write(str(fintype))
+            testout.write("fincount: {}\n".format(fincount))
+            testout.write("fincount type: {}\n".format(type(fincount)))
+            testout.write("radialdirection: {}\n".format(str((lugroot.find('radialdirection')).text)))
         testout.close()
         """
 

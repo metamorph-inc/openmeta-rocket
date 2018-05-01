@@ -235,12 +235,12 @@
 
               <launchlug>
                 <name>Launch lug</name>
-                <position type="middle">0.0</position>
+                <position type="bottom">0.0</position>
                 <finish>normal</finish>
                 <material type="bulk" density="680.0">Cardboard</material>
                 <radius>0.005</radius>
                 <length>0.03</length>
-                <thickness>0.001</thickness>
+                <thickness>0.00125</thickness>
                 <radialdirection>0.0</radialdirection>
               </launchlug>
             </subcomponents>

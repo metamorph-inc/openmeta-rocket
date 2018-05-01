@@ -12,6 +12,7 @@ class ORKfle(Component):
         super(ORKfle, self).__init__()
 
         #Python wrapper inputs
+        self.add_param('payload_mass', val=0.0)
         self.add_param('coneshape', val=0.0, description='nosecone shape', pass_by_obj=True)
         self.add_param('noselen_coeff', val=0.0)
         self.add_param('bodylen_coeff', val=0.0)
@@ -28,7 +29,6 @@ class ORKfle(Component):
         self.add_output('ORK_File', FileRef('test.ork'), binary=True, pass_by_obj=True)
 
 
-
     def pull_template(self):
         """ Locastes advanced_template.ork and loads into memory for use."""
         dir = path.dirname(path.realpath(__file__))
@@ -41,11 +41,13 @@ class ORKfle(Component):
         """saves .ork file to specific result folder"""
         counter = 1
         temp_path = "test.ork"
-        #temp_path = "test{}.ork".format(counter)
-        #if path.exists(temp_path):
-            #while path.exists(temp_path):
-                #counter += 1
-                #temp_path = "test{}.ork".format(counter)
+        """
+        temp_path = "test{}.ork".format(counter)
+        if path.exists(temp_path):
+            while path.exists(temp_path):
+                counter += 1
+                temp_path = "test{}.ork".format(counter)
+        """
         tempXML.write(temp_path, "utf-8", True)
 
 
@@ -99,7 +101,7 @@ class ORKfle(Component):
         return max_motordimensions
 
 
-    def edit_bodytubes(self, tempXML, motor_dimensions, material, density, finish, bodylen_coeff, coneshape):
+    def edit_bodytubes(self, tempXML, motor_dimensions, material, density, finish, bodylen_coeff, payload_mass, coneshape):
         """ Edits all bodytube dimensions, material, and finish."""
         bodytube_list = tempXML.findall(".//bodytube")
         for bodytube in bodytube_list:
@@ -109,24 +111,33 @@ class ORKfle(Component):
             (bodyroot.find('material')).attrib['density'] = str(density) #converts kg/m^3 to g/cm^3
             tubetype = (bodytube.find('name')).text
             if tubetype == 'Payload tube':
-                self.edit_payloadtube(bodytube, motor_dimensions, bodylen_coeff)
-
+                self.edit_payloadtube(bodytube, motor_dimensions, bodylen_coeff, payload_mass)
             elif tubetype == 'Recovery tube':
-                pass
-
+                self.edit_recoverytube(bodytube, motor_dimensions, bodylen_coeff)
             elif tubetype == 'Engine tube':
                 self.edit_enginetube(tempXML, bodytube, motor_dimensions, bodylen_coeff, coneshape, material, density, finish)
 
-    def edit_payloadtube(self, bodyroot, motor_dimensions, bodylen_coeff):
+    def edit_payloadtube(self, bodyroot, motor_dimensions, bodylen_coeff, payload_mass):
         payloadtubelen_scale = 1
         payloadtubelen_offset = 1
         payloadtubelen_ratio = bodylen_coeff*payloadtubelen_scale + payloadtubelen_offset
         calc_len = payloadtubelen_ratio*float(motor_dimensions[0])
         (bodyroot.find('length')).text = str(calc_len/3.0)
+        bodyroot.find('subcomponents/masscomponent/mass').text = str(payload_mass)
+
+    def edit_recoverytube(self, bodyroot, motor_dimensions, bodylen_coeff):
+        recoverytubelen_scale = 1
+        recoverytubelen_offset = 1
+        recoverytubelen_ratio = bodylen_coeff*recoverytubelen_scale + recoverytubelen_offset
+        calc_len = recoverytubelen_ratio*float(motor_dimensions[0])
+        (bodyroot.find('length')).text = str(calc_len/2.0)
+
+        "==========Edit internal Components=========="
+
 
     def edit_enginetube(self, tempXML, bodyroot, motor_dimensions, bodylen_coeff, coneshape, material, density, finish):
         """ Edit continuous values for the engine tube and subcomponents with resepect to motor values."""
-        (bodyroot.find('length')).text = str(motor_dimensions[0] - 1.095*(motor_dimensions[1]/2.0))
+        (bodyroot.find('length')).text = str(1.5*motor_dimensions[0] - 1.095*(motor_dimensions[1]/2.0))
         tube_radius = (motor_dimensions[1]/2.0 + 0.005)/0.9
         tube_thickness = 0.10*tube_radius
         (bodyroot.find('radius')).text = str(tube_radius)
@@ -170,38 +181,69 @@ class ORKfle(Component):
             elif (centeringringElem.find('name')).text == "Aft centering ring":
                 (centeringringElem.find('position')).text = str(-motor_dimensions[0]/3)
 
-    def edit_finset(self, tempXML, material, density, finish, fintype, fincount, finprofile):
+    def edit_finset(self, tempXML, material, density, finish, fintype, fincount, finprofile, motor_dimensions):
         """ Removes excess finset, edits values for fins."""
         bodytube_list = tempXML.findall(".//bodytube")
+        tube_radius = (motor_dimensions[1]/2.0 + 0.005)/0.9
+        tube_thickness = 0.10*tube_radius
         for bodyroot in bodytube_list:
             tubetype = (bodyroot.find('name')).text
             bodysubroot = bodyroot.find(".//subcomponents")
             if tubetype == 'Engine tube':
-                if fintype != 'ellipticalfinset':
+                if fintype == 'trapezoidfinset':
                     bodysubroot.remove(bodysubroot.find('ellipticalfinset'))
-                if fintype != 'trapezoidfinset':
-                    bodysubroot.remove(bodysubroot.find('trapezoidfinset'))
+                    finsetRoot = bodysubroot.find('trapezoidfinset')
+                    (finsetRoot.find('material')).text = material
+                    (finsetRoot.find('material')).attrib['density'] = str(density) #converts kg/m^3 to g/cm^3
+                    (finsetRoot.find('finish')).text = finish
+                    (finsetRoot.find('fincount')).text = str(int(fincount))
+                    (finsetRoot.find('thickness')).text =str(0.005) #half cm
+                    (finsetRoot.find('crosssection')).text = finprofile
+                    (finsetRoot.find('rootchord')).text = str(motor_dimensions[0]/1.25)
+                    (finsetRoot.find('tipchord')).text = str(3*motor_dimensions[0]/8.0)
+                    (finsetRoot.find('height')).text = str(2*tube_radius)
 
+                if fintype == 'ellipticalfinset':
+                    bodysubroot.remove(bodysubroot.find('trapezoidfinset'))
+                    finsetRoot = bodysubroot.find('ellipticalfinset')
+                    (finsetRoot.find('material')).text = material
+                    (finsetRoot.find('material')).attrib['density'] = str(density) #converts kg/m^3 to g/cm^3
+                    (finsetRoot.find('finish')).text = finish
+                    (finsetRoot.find('fincount')).text = str(int(fincount))
+                    (finsetRoot.find('thickness')).text =str(0.005) #half cm
+                    (finsetRoot.find('crosssection')).text = finprofile
+                    (finsetRoot.find('rootchord')).text = str(motor_dimensions[0]/2.0)
+                    (finsetRoot.find('height')).text = str(2*tube_radius)
+
+    def edit_launchlug(self, tempXML, material, density, finish, fincount, motor_dimensions):
+        """ Edits xml for the launchlug size."""
+        lugroot = tempXML.find('.//bodytube/subcomponents/launchlug')
+        (lugroot.find('material')).text = material
+        (lugroot.find('material')).attrib['density'] = str(density) #converts kg/m^3 to g/cm^3
+        (lugroot.find('finish')).text = finish
+        (lugroot.find('length')).text = str(motor_dimensions[0]/10.0)
+        if fincount == 3.0:
+            (lugroot.find('radialdirection')).text = str(60.0)
+        elif fincount == 4.0:
+            (lugroot.find('radialdirection')).text = str(45.0)
 
     def edit_nosecone(self, tempXML, coneshape, material, density, finish, motor_dimensions, noselen_coeff):
         """ Edits xml for the nosecone and its subcomponents."""
         noseroot = tempXML.find('.//nosecone')
-        "Discrete changes"
         (noseroot.find('shape')).text = coneshape #change coneshape
         (noseroot.find('material')).text = material #change material name and density attrib
         (noseroot.find('material')).attrib['density'] = str(density) #converts kg/m^3 to g/cm^3
         (noseroot.find('finish')).text = finish # change finish
-
-        "Continuous changes"
         noselen_scale = 2.0 #calculated relaitonship
         noselen_offset = 3.0 #calculated relaitonship
         noselen_ratio = noselen_coeff*noselen_scale + noselen_offset
-        (noseroot.find('length')).text = str(noselen_ratio*float(motor_dimensions[1]))
+        (noseroot.find('length')).text = str(noselen_ratio*float(motor_dimensions[1] + 0.01))
 
 
     def solve_nonlinear(self, params, unknowns, resids):
         """ This is the 'main' function."""
         # set variables
+        payload_mass = params['payload_mass']
         coneshape = params['coneshape']
         noselen_coeff = params['noselen_coeff']
         bodylen_coeff = params['bodylen_coeff']
@@ -213,18 +255,17 @@ class ORKfle(Component):
         density = params['density']
         finish = params['finish']
         launchrodlength = params['launchrodlength']
-
         # create the template rocket file
         tempXML = self.pull_template()
-
         # remove all unused motors and save max motor dimensions
         motor_dimensions = self.edit_motordata(tempXML, motorclass)
-
         # edit bodytubes
-        self.edit_bodytubes(tempXML, motor_dimensions, material, density, finish, bodylen_coeff, coneshape)
+        self.edit_bodytubes(tempXML, motor_dimensions, material, density, finish, bodylen_coeff, payload_mass, coneshape)
         # edit nosecone
         self.edit_nosecone(tempXML, coneshape, material, density, finish, motor_dimensions, noselen_coeff)
         #edit finsets
-        self.edit_finset(tempXML, material, density, finish, fintype, fincount, finprofile)
+        self.edit_finset(tempXML, material, density, finish, fintype, fincount, finprofile, motor_dimensions)
+        #edit launchlug
+        self.edit_launchlug(tempXML, material, density, finish, fincount, motor_dimensions)
         #write file
         self.write_ork(tempXML)
