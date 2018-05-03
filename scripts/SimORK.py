@@ -11,7 +11,7 @@ class SimOR(Component):
 
                 # Input File
                 self.add_param('rocketFile', FileRef('rocket.ork'), binary=True, pass_by_obj=True)
-                self.add_param('Temperature', val=0.0)
+                self.add_param('WindSpeedAverage', val=0.0)
 
                 # Output Flight Metrics
                 self.add_output('MaxVelocity', shape=1)
@@ -38,7 +38,7 @@ class SimOR(Component):
                 sim = doc.getSimulation(1)
                 simOptions = sim.getOptions() # get handle for simulation options class
                 simOptions.setRandomSeed(0) # get rid of randomization
-                simOptions.setWindSpeedAverage( params['Temperature'] ) # set wind speed
+                simOptions.setWindSpeedAverage( params['WindSpeedAverage'] ) # set wind speed
 
                 orh.run_simulation(sim)
 

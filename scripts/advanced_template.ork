@@ -66,11 +66,11 @@
                   <bulkhead>
                     <name>Bulkhead</name>
                     <position type="top">-0.005</position>
-                    <material type="bulk" density="680.0">Cardboard</material>
+                    <material type="bulk" density="2700.0">aluminum</material>
                     <length>0.005</length>
                     <radialposition>0.0</radialposition>
                     <radialdirection>0.0</radialdirection>
-                    <outerradius>0.023</outerradius>
+                    <outerradius>auto</outerradius>
                   </bulkhead>
                 </subcomponents>
               </tubecoupler>
@@ -122,7 +122,7 @@
                 <deploydelay>0.0</deploydelay>
                 <diameter>0.3</diameter>
                 <linecount>6</linecount>
-                <linelength>0.3</linelength>
+                <linelength>1.0</linelength>
                 <linematerial type="line" density="0.0018">Elastic cord (round 2 mm, 1/16 in)</linematerial>
               </parachute>
 
@@ -150,7 +150,7 @@
 
               <shockcord>
                 <name>Ripchord main chute</name>
-                <position type="bottom">-0.01</position>
+                <position type="middle">-0.01</position>
                 <packedlength>0.01</packedlength>
                 <packedradius>0.0175</packedradius>
                 <radialposition>0.0</radialposition>
@@ -161,7 +161,7 @@
 
               <parachute>
                 <name>Main chute</name>
-                <position type="bottom">-0.055</position>
+                <position type="bottom">0.0</position>
                 <packedlength>0.04</packedlength>
                 <packedradius>0.0225</packedradius>
                 <radialposition>0.0</radialposition>
