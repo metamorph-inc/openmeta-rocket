@@ -23,6 +23,9 @@ class SimOR(Component):
                 self.add_output('FlightTime', shape=1)
                 self.add_output('MaxStability', shape=1)
                 self.add_output('LaunchRodClearanceStability', shape=1)
+                self.add_output('LaunchRodClearanceMass', shape=1) # rocket mass at launch rod clearance
+                self.add_output('BurnoutMass', shape=1) # rocket mass at motor burnout
+
 
                 self.openRocket = None
 
@@ -48,13 +51,18 @@ class SimOR(Component):
 
                 orh.run_simulation(sim)
                 flightData = sim.getSimulatedData()
-                data = orh.get_timeseries(sim, ['Time', 'Altitude', 'Stability margin calibers'] )
+                data = orh.get_timeseries(sim, ['Time', 'Altitude', 'Stability margin calibers', 'Mass'] )
                 events = orh.get_events(sim)
 
-                # derive stability info
+                # derive stability and mass info
                 launchRodCleared = events['Launch rod clearance']
                 index_launchRodCleared = np.where(data['Time'] == launchRodCleared)
                 stability_launchRodCleared = data['Stability margin calibers'][index_launchRodCleared]
+                mass_launchRodCleared = data['Mass'][index_launchRodCleared]
+
+                motorBurnout = events['Motor burnout']
+                index_motorBurnout = np.where(data['Time'] == motorBurnout)
+                mass_motorBurnout = data['Mass'][index_motorBurnout]
 
                 # export flight data
                 unknowns['MaxVelocity'] = flightData.getMaxVelocity()
@@ -66,6 +74,8 @@ class SimOR(Component):
                 unknowns['FlightTime'] = flightData.getFlightTime()
                 unknowns['MaxStability'] = np.nanargmax(data['Stability margin calibers'])
                 unknowns['LaunchRodClearanceStability'] = stability_launchRodCleared
+                unknowns['LaunchRodClearanceMass'] = np.nanargmax(data['Stability margin calibers'])
+                unknowns['BurnoutMass'] = mass_launchRodCleared
 
 
         def __del__(self):
