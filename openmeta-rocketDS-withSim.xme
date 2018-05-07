@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE project SYSTEM "mga.dtd">
 
-<project guid="{50309A92-5492-4E98-A502-F985D9770684}" cdate="Fri Apr 13 11:52:52 2018" mdate="Fri Apr 13 11:52:52 2018" version="" metaguid="{08AF6D47-590B-0A7D-137D-21B4C1D2DFCD}" metaversion="14.13-t34" metaname="CyPhyML">
+<project guid="{6A452BBD-9125-41C9-8654-ED81C6A02229}" cdate="Fri Apr 13 11:52:52 2018" mdate="Fri Apr 13 11:52:52 2018" version="" metaguid="{08AF6D47-590B-0A7D-137D-21B4C1D2DFCD}" metaversion="14.13-t34" metaname="CyPhyML">
 	<name>RootFolder</name>
 	<comment></comment>
 	<author></author>
@@ -22975,7 +22975,7 @@
 			<name>Testing</name>
 			<folder id="id-006a-00000017" relid="0x1" childrelidcntr="0x1" kind="ParametricExplorationFolder" guid="{3b004b4b-dc72-42ea-8398-083c31d2c8b8}">
 				<name>ParametricExploration</name>
-				<model id="id-0065-00000056" kind="ParametricExploration" guid="{aa39920d-9fd4-4451-9f51-e5f28d3c320e}" relid="0x1" childrelidcntr="0x37">
+				<model id="id-0065-00000056" kind="ParametricExploration" guid="{aa39920d-9fd4-4451-9f51-e5f28d3c320e}" relid="0x1" childrelidcntr="0x3a">
 					<name>OR_PET</name>
 					<model id="id-0065-00000057" kind="PythonWrapper" role="PythonWrapper" guid="{d7c310ae-5a9b-41f4-8371-64ba455406b0}" relid="0x7" childrelidcntr="0xc">
 						<name>GenORK</name>
@@ -23391,14 +23391,14 @@
 							</attribute>
 						</reference>
 					</model>
-					<model id="id-0065-00000058" kind="PythonWrapper" role="PythonWrapper" guid="{471b022c-8338-46b4-bec8-7a27ee32b0ef}" relid="0x1f" childrelidcntr="0xe">
+					<model id="id-0065-00000058" kind="PythonWrapper" role="PythonWrapper" guid="{471b022c-8338-46b4-bec8-7a27ee32b0ef}" relid="0x1f" childrelidcntr="0x18">
 						<name>SimORK</name>
 						<regnode name="PartRegs" status="undefined">
 							<value></value>
 							<regnode name="TestBenchCompositionAspect" status="undefined">
 								<value></value>
 								<regnode name="Position" isopaque="yes">
-									<value>777,294</value>
+									<value>777,287</value>
 								</regnode>
 							</regnode>
 						</regnode>
@@ -23420,8 +23420,8 @@
 								<value></value>
 							</attribute>
 						</atom>
-						<reference id="id-0067-00000121" kind="Metric" role="Metric" guid="{79fbedd7-3988-46b5-bf69-536e66f6d1e4}" relid="0x4">
-							<name>Apogee</name>
+						<reference id="id-0067-00000513" kind="Metric" role="Metric" guid="{dfada517-e302-4f78-be2f-da58b61cb3d3}" relid="0xf">
+							<name>FlightTime</name>
 							<regnode name="PartRegs" status="undefined">
 								<value></value>
 								<regnode name="ValueFlowAspect" status="undefined">
@@ -23444,8 +23444,8 @@
 								<value>0.0</value>
 							</attribute>
 						</reference>
-						<reference id="id-0067-00000122" kind="Metric" role="Metric" guid="{88394603-2886-4308-86ec-26a367c56ac6}" relid="0x6">
-							<name>GroundHit</name>
+						<reference id="id-0067-00000514" kind="Metric" role="Metric" guid="{cc0fadb5-718a-4957-b62c-324251782d1d}" relid="0x10">
+							<name>GroundHitVelocity</name>
 							<regnode name="PartRegs" status="undefined">
 								<value></value>
 								<regnode name="ValueFlowAspect" status="undefined">
@@ -23468,8 +23468,8 @@
 								<value>0.0</value>
 							</attribute>
 						</reference>
-						<reference id="id-0067-00000123" kind="Metric" role="Metric" guid="{e67eecff-44cc-4532-8f86-d66c524a306f}" relid="0x7">
-							<name>Launch</name>
+						<reference id="id-0067-00000515" kind="Metric" role="Metric" guid="{7ae11330-f321-4b28-aba4-ce6746800b32}" relid="0x11">
+							<name>LaunchRodClearanceStability</name>
 							<regnode name="PartRegs" status="undefined">
 								<value></value>
 								<regnode name="ValueFlowAspect" status="undefined">
@@ -23492,8 +23492,8 @@
 								<value>0.0</value>
 							</attribute>
 						</reference>
-						<reference id="id-0067-00000124" kind="Metric" role="Metric" guid="{f2aa1172-6b31-4323-856b-23c98fc601ad}" relid="0x8">
-							<name>LaunchRodClearance</name>
+						<reference id="id-0067-00000516" kind="Metric" role="Metric" guid="{f0494436-b89d-402a-a2e4-1ae917ef808a}" relid="0x12">
+							<name>LaunchRodVelocity</name>
 							<regnode name="PartRegs" status="undefined">
 								<value></value>
 								<regnode name="ValueFlowAspect" status="undefined">
@@ -23516,8 +23516,8 @@
 								<value>0.0</value>
 							</attribute>
 						</reference>
-						<reference id="id-0067-00000125" kind="Metric" role="Metric" guid="{53ce45e9-7552-4ce4-b0a0-f1060c7b3cd9}" relid="0x9">
-							<name>Liftoff</name>
+						<reference id="id-0067-00000517" kind="Metric" role="Metric" guid="{3907fedc-08ce-4fd0-9835-74b849e76851}" relid="0x13">
+							<name>MaxAcceleration</name>
 							<regnode name="PartRegs" status="undefined">
 								<value></value>
 								<regnode name="ValueFlowAspect" status="undefined">
@@ -23540,8 +23540,8 @@
 								<value>0.0</value>
 							</attribute>
 						</reference>
-						<reference id="id-0067-00000126" kind="Metric" role="Metric" guid="{d8be84a6-c2a1-47cd-b12a-d33fa739c88b}" relid="0xa">
-							<name>MotorBurnout</name>
+						<reference id="id-0067-00000518" kind="Metric" role="Metric" guid="{b3d3ea54-ee04-41b0-a5bd-bb2944a1ce81}" relid="0x14">
+							<name>MaxAltitude</name>
 							<regnode name="PartRegs" status="undefined">
 								<value></value>
 								<regnode name="ValueFlowAspect" status="undefined">
@@ -23564,8 +23564,8 @@
 								<value>0.0</value>
 							</attribute>
 						</reference>
-						<reference id="id-0067-00000127" kind="Metric" role="Metric" guid="{cbe0314b-521a-4466-8417-680a4fb2436c}" relid="0xb">
-							<name>MotorIgnition</name>
+						<reference id="id-0067-00000519" kind="Metric" role="Metric" guid="{d56c977a-7afe-456b-bfc0-b582e5781426}" relid="0x15">
+							<name>MaxMach</name>
 							<regnode name="PartRegs" status="undefined">
 								<value></value>
 								<regnode name="ValueFlowAspect" status="undefined">
@@ -23588,8 +23588,8 @@
 								<value>0.0</value>
 							</attribute>
 						</reference>
-						<reference id="id-0067-00000128" kind="Metric" role="Metric" guid="{e300ef6d-3b10-4622-93cc-7e956c768eba}" relid="0xd">
-							<name>SimulationEnd</name>
+						<reference id="id-0067-0000051a" kind="Metric" role="Metric" guid="{dc37e0ac-7c7f-4c9f-826a-7dbd58b1be64}" relid="0x16">
+							<name>MaxStability</name>
 							<regnode name="PartRegs" status="undefined">
 								<value></value>
 								<regnode name="ValueFlowAspect" status="undefined">
@@ -23612,15 +23612,87 @@
 								<value>0.0</value>
 							</attribute>
 						</reference>
+						<reference id="id-0067-0000051b" kind="Metric" role="Metric" guid="{8d0b346e-f2e6-4d59-a93f-b833a254dd5b}" relid="0x17">
+							<name>MaxVelocity</name>
+							<regnode name="PartRegs" status="undefined">
+								<value></value>
+								<regnode name="ValueFlowAspect" status="undefined">
+									<value></value>
+									<regnode name="Position" isopaque="yes">
+										<value>800,585</value>
+									</regnode>
+								</regnode>
+							</regnode>
+							<regnode name="pass_by_obj" isopaque="yes">
+								<value>False</value>
+							</regnode>
+							<attribute kind="Description" status="meta">
+								<value></value>
+							</attribute>
+							<attribute kind="ManagedGUID" status="meta">
+								<value></value>
+							</attribute>
+							<attribute kind="Value">
+								<value>0.0</value>
+							</attribute>
+						</reference>
+						<reference id="id-0067-0000051c" kind="Parameter" role="Parameter" guid="{d13b0787-4cdd-4caf-8ca4-3257ed46e51b}" relid="0x18">
+							<name>WindSpeed</name>
+							<regnode name="PartRegs" status="undefined">
+								<value></value>
+								<regnode name="ValueFlowAspect" status="undefined">
+									<value></value>
+									<regnode name="Position" isopaque="yes">
+										<value>20,130</value>
+									</regnode>
+								</regnode>
+							</regnode>
+							<regnode name="pass_by_obj" isopaque="yes">
+								<value>False</value>
+							</regnode>
+							<attribute kind="ComputationType" status="meta">
+								<value>Addition</value>
+							</attribute>
+							<attribute kind="DataType" status="meta">
+								<value>String</value>
+							</attribute>
+							<attribute kind="DefaultValue" status="meta">
+								<value></value>
+							</attribute>
+							<attribute kind="Description" status="meta">
+								<value></value>
+							</attribute>
+							<attribute kind="Dimension" status="meta">
+								<value></value>
+							</attribute>
+							<attribute kind="Disable" status="meta">
+								<value>false</value>
+							</attribute>
+							<attribute kind="ID" status="meta">
+								<value></value>
+							</attribute>
+							<attribute kind="ManagedGUID" status="meta">
+								<value></value>
+							</attribute>
+							<attribute kind="Range" status="meta">
+								<value>-inf..inf</value>
+							</attribute>
+							<attribute kind="Type" status="meta">
+								<value></value>
+							</attribute>
+							<attribute kind="Value" status="meta">
+								<value></value>
+							</attribute>
+						</reference>
 					</model>
-					<model id="id-0065-0000005a" kind="ParameterStudy" role="ParameterStudy" guid="{40274318-690b-4fd3-aaa5-31f89c898086}" relid="0x35" childrelidcntr="0x2">
+					<model id="id-0065-0000005a" kind="ParameterStudy" role="ParameterStudy" guid="{40274318-690b-4fd3-aaa5-31f89c898086}" relid="0x35" childrelidcntr="0x3">
 						<name>ParameterStudyDriver</name>
 						<regnode name="PartRegs" status="undefined">
 							<value></value>
 							<regnode name="TestBenchCompositionAspect" status="undefined">
 								<value></value>
 								<regnode name="Position" isopaque="yes">
-									<value>651,77</value>
+									<value>826,91</value>
 								</regnode>
 							</regnode>
 						</regnode>
@@ -23634,7 +23706,7 @@
 							<value>None</value>
 						</attribute>
 						<reference id="id-0067-00000131" kind="DesignVariable" role="DesignVariable" guid="{a7e17f7c-2bc3-4430-989d-08545e285485}" relid="0x1">
-							<name>LaunchRodLength</name>
+							<name>WindSpeed</name>
 							<regnode name="PartRegs" status="undefined">
 								<value></value>
 								<regnode name="TestBenchCompositionAspect" status="undefined">
@@ -23645,17 +23717,29 @@
 								</regnode>
 							</regnode>
 							<attribute kind="Range">
-								<value>1.0,3.0</value>
+								<value>0,8</value>
 							</attribute>
 						</reference>
 						<reference id="id-0067-00000132" kind="Objective" role="Objective" guid="{e936cf17-5b7c-4d02-8c96-9c0fa169c1af}" relid="0x2">
-							<name>Apogee</name>
+							<name>Max_Stability</name>
 							<regnode name="PartRegs" status="undefined">
 								<value></value>
 								<regnode name="TestBenchCompositionAspect" status="undefined">
 									<value></value>
 									<regnode name="Position" isopaque="yes">
-										<value>637,301</value>
+										<value>630,294</value>
+									</regnode>
+								</regnode>
+							</regnode>
+						</reference>
+						<reference id="id-0067-0000051d" kind="Objective" role="Objective" guid="{c581e69e-8d14-4e52-99ee-148eb0560482}" relid="0x3">
+							<name>Max_Altitude</name>
+							<regnode name="PartRegs" status="undefined">
+								<value></value>
+								<regnode name="TestBenchCompositionAspect" status="undefined">
+									<value></value>
+									<regnode name="Position" isopaque="yes">
+										<value>637,371</value>
 									</regnode>
 								</regnode>
 							</regnode>
@@ -23718,7 +23802,18 @@
 						<connpoint role="src" target="id-0066-00000082"/>
 						<connpoint role="dst" target="id-0066-00000083"/>
 					</connection>
-					<connection id="id-0068-0000009e" kind="ObjectiveMapping" role="ObjectiveMapping" guid="{bf4388c8-bd36-4ebe-a41e-f66a20a65b2b}" relid="0x37">
+					<connection id="id-0068-000000f7" kind="VariableSweep" role="VariableSweep" guid="{57d0928c-e171-43bc-9aa1-adceefbefc94}" relid="0x38">
+						<name>VariableSweep</name>
+						<regnode name="color" isopaque="yes">
+							<value>0xff80c0</value>
+						</regnode>
+						<regnode name="dstStyle" isopaque="yes">
+							<value>arrow</value>
+						</regnode>
+						<connpoint role="src" target="id-0067-00000131"/>
+						<connpoint role="dst" target="id-0067-0000051c"/>
+					</connection>
+					<connection id="id-0068-000000f8" kind="ObjectiveMapping" role="ObjectiveMapping" guid="{eace215c-ca73-4561-bda2-759b5eea0289}" relid="0x39">
 						<name>ObjectiveMapping</name>
 						<regnode name="color" isopaque="yes">
 							<value>0x7cadde</value>
@@ -23726,8 +23821,19 @@
 						<regnode name="dstStyle" isopaque="yes">
 							<value>arrow</value>
 						</regnode>
-						<connpoint role="src" target="id-0067-00000121"/>
 						<connpoint role="dst" target="id-0067-00000132"/>
+						<connpoint role="src" target="id-0067-0000051a"/>
+					</connection>
+					<connection id="id-0068-000000f9" kind="ObjectiveMapping" role="ObjectiveMapping" guid="{c815ff08-a652-497e-add2-72cc324214b4}" relid="0x3a">
+						<name>ObjectiveMapping</name>
+						<regnode name="color" isopaque="yes">
+							<value>0x7cadde</value>
+						</regnode>
+						<regnode name="dstStyle" isopaque="yes">
+							<value>arrow</value>
+						</regnode>
+						<connpoint role="src" target="id-0067-00000518"/>
+						<connpoint role="dst" target="id-0067-0000051d"/>
 					</connection>
 				</model>
 			</folder>
@@ -23757,9 +23863,9 @@
 			</folder>
 			<folder id="id-006a-00000019" relid="0x4" childrelidcntr="0x4" kind="ParametricExplorationFolder" guid="{bef310d0-4dbf-4a36-882b-18aed763b191}">
 				<name>MissionTests</name>
-				<model id="id-0065-0000005c" kind="ParametricExploration" guid="{6a359fdd-8359-426c-8303-f9e8dccd9cf6}" relid="0x1" childrelidcntr="0x2c">
+				<model id="id-0065-0000005c" kind="ParametricExploration" guid="{6a359fdd-8359-426c-8303-f9e8dccd9cf6}" relid="0x1" childrelidcntr="0x30">
 					<name>FullMissionPET</name>
-					<model id="id-0065-0000005d" kind="PythonWrapper" role="PythonWrapper" guid="{e77893d8-dd73-4e26-98fb-39167f6c6db6}" relid="0xb" childrelidcntr="0x12">
+					<model id="id-0065-0000005d" kind="PythonWrapper" role="PythonWrapper" guid="{e77893d8-dd73-4e26-98fb-39167f6c6db6}" relid="0xb" childrelidcntr="0x14">
 						<name>FullMissionTest</name>
 						<regnode name="PartRegs" status="undefined">
 							<value></value>
@@ -23828,7 +23934,7 @@
 								<regnode name="ValueFlowAspect" status="undefined">
 									<value></value>
 									<regnode name="Position" isopaque="yes">
-										<value>800,195</value>
+										<value>800,260</value>
 									</regnode>
 								</regnode>
 							</regnode>
@@ -23852,7 +23958,7 @@
 								<regnode name="ValueFlowAspect" status="undefined">
 									<value></value>
 									<regnode name="Position" isopaque="yes">
-										<value>800,260</value>
+										<value>800,325</value>
 									</regnode>
 								</regnode>
 							</regnode>
@@ -23876,7 +23982,7 @@
 								<regnode name="ValueFlowAspect" status="undefined">
 									<value></value>
 									<regnode name="Position" isopaque="yes">
-										<value>800,325</value>
+										<value>800,390</value>
 									</regnode>
 								</regnode>
 							</regnode>
@@ -23900,7 +24006,7 @@
 								<regnode name="ValueFlowAspect" status="undefined">
 									<value></value>
 									<regnode name="Position" isopaque="yes">
-										<value>800,390</value>
+										<value>800,455</value>
 									</regnode>
 								</regnode>
 							</regnode>
@@ -23924,7 +24030,7 @@
 								<regnode name="ValueFlowAspect" status="undefined">
 									<value></value>
 									<regnode name="Position" isopaque="yes">
-										<value>800,455</value>
+										<value>800,585</value>
 									</regnode>
 								</regnode>
 							</regnode>
@@ -24421,6 +24527,54 @@
 								<value></value>
 							</attribute>
 						</reference>
+						<reference id="id-0067-00000511" kind="Metric" role="Metric" guid="{ba5e0a10-91f7-43ec-b184-0b4afff49ba0}" relid="0x13">
+							<name>LaunchRodClearanceStability</name>
+							<regnode name="PartRegs" status="undefined">
+								<value></value>
+								<regnode name="ValueFlowAspect" status="undefined">
+									<value></value>
+									<regnode name="Position" isopaque="yes">
+										<value>800,195</value>
+									</regnode>
+								</regnode>
+							</regnode>
+							<regnode name="pass_by_obj" isopaque="yes">
+								<value>False</value>
+							</regnode>
+							<attribute kind="Description" status="meta">
+								<value></value>
+							</attribute>
+							<attribute kind="ManagedGUID" status="meta">
+								<value></value>
+							</attribute>
+							<attribute kind="Value">
+								<value>0.0</value>
+							</attribute>
+						</reference>
+						<reference id="id-0067-00000512" kind="Metric" role="Metric" guid="{77fe72ba-971c-4f09-bdce-f2bfbf8ddb81}" relid="0x14">
+							<name>MaxStability</name>
+							<regnode name="PartRegs" status="undefined">
+								<value></value>
+								<regnode name="ValueFlowAspect" status="undefined">
+									<value></value>
+									<regnode name="Position" isopaque="yes">
+										<value>800,520</value>
+									</regnode>
+								</regnode>
+							</regnode>
+							<regnode name="pass_by_obj" isopaque="yes">
+								<value>False</value>
+							</regnode>
+							<attribute kind="Description" status="meta">
+								<value></value>
+							</attribute>
+							<attribute kind="ManagedGUID" status="meta">
+								<value></value>
+							</attribute>
+							<attribute kind="Value">
+								<value>0.0</value>
+							</attribute>
+						</reference>
 					</model>
 					<model id="id-0065-0000005e" kind="ParameterStudy" role="ParameterStudy" guid="{a55da49a-a485-43e0-971f-7bcfcea6cbd8}" relid="0xd" childrelidcntr="0x6">
 						<name>WindStudy</name>
@@ -24429,21 +24583,21 @@
 							<regnode name="TestBenchCompositionAspect" status="undefined">
 								<value></value>
 								<regnode name="Position" isopaque="yes">
-									<value>294,182</value>
+									<value>350,182</value>
 								</regnode>
 							</regnode>
 						</regnode>
 						<attribute kind="Code">
-							<value>num_samples=20</value>
+							<value>num_samples=100</value>
 						</attribute>
 						<attribute kind="DOEType">
-							<value>Full Factorial</value>
+							<value>Uniform</value>
 						</attribute>
 						<attribute kind="SurrogateType" status="meta">
 							<value>None</value>
 						</attribute>
 						<reference id="id-0067-00000145" kind="Objective" role="Objective" guid="{bf7fe4f0-d61c-414e-a65b-f99bffeb72a0}" relid="0x2">
-							<name>Max_Velocity</name>
+							<name>Max_Stability</name>
 							<regnode name="PartRegs" status="undefined">
 								<value></value>
 								<regnode name="TestBenchCompositionAspect" status="undefined">
@@ -24467,7 +24621,7 @@
 							</regnode>
 						</reference>
 						<reference id="id-0067-00000147" kind="Objective" role="Objective" guid="{3e3d05c2-3b21-49f2-a056-cf4a83892e5e}" relid="0x4">
-							<name>FlightTime</name>
+							<name>LRC_Stability</name>
 							<regnode name="PartRegs" status="undefined">
 								<value></value>
 								<regnode name="TestBenchCompositionAspect" status="undefined">
@@ -24494,39 +24648,6 @@
 							</attribute>
 						</reference>
 					</model>
-					<connection id="id-0068-000000a2" kind="ObjectiveMapping" role="ObjectiveMapping" guid="{f0cbac7f-5a8f-4b26-8e68-c9af9fefe521}" relid="0x20">
-						<name>ObjectiveMapping</name>
-						<regnode name="color" isopaque="yes">
-							<value>0x7cadde</value>
-						</regnode>
-						<regnode name="dstStyle" isopaque="yes">
-							<value>arrow</value>
-						</regnode>
-						<connpoint role="src" target="id-0067-00000133"/>
-						<connpoint role="dst" target="id-0067-00000147"/>
-					</connection>
-					<connection id="id-0068-000000a3" kind="ObjectiveMapping" role="ObjectiveMapping" guid="{aee0b939-93dc-46d0-8ebb-4e5b77c65b66}" relid="0x21">
-						<name>ObjectiveMapping</name>
-						<regnode name="color" isopaque="yes">
-							<value>0x7cadde</value>
-						</regnode>
-						<regnode name="dstStyle" isopaque="yes">
-							<value>arrow</value>
-						</regnode>
-						<connpoint role="src" target="id-0067-00000137"/>
-						<connpoint role="dst" target="id-0067-00000146"/>
-					</connection>
-					<connection id="id-0068-000000a4" kind="ObjectiveMapping" role="ObjectiveMapping" guid="{da676935-9060-4cd8-9926-5543db9d0664}" relid="0x22">
-						<name>ObjectiveMapping</name>
-						<regnode name="color" isopaque="yes">
-							<value>0x7cadde</value>
-						</regnode>
-						<regnode name="dstStyle" isopaque="yes">
-							<value>arrow</value>
-						</regnode>
-						<connpoint role="src" target="id-0067-00000139"/>
-						<connpoint role="dst" target="id-0067-00000145"/>
-					</connection>
 					<connection id="id-0068-000000e0" kind="VariableSweep" role="VariableSweep" guid="{f2586283-b90c-404c-99d7-b8280e979625}" relid="0x26">
 						<name>VariableSweep</name>
 						<regnode name="color" isopaque="yes">
@@ -24537,6 +24658,39 @@
 						</regnode>
 						<connpoint role="dst" target="id-0067-0000013a"/>
 						<connpoint role="src" target="id-0067-00000148"/>
+					</connection>
+					<connection id="id-0068-000000f3" kind="ObjectiveMapping" role="ObjectiveMapping" guid="{8a257415-8def-40bd-a699-ed4a9cb283c4}" relid="0x2d">
+						<name>ObjectiveMapping</name>
+						<regnode name="color" isopaque="yes">
+							<value>0x7cadde</value>
+						</regnode>
+						<regnode name="dstStyle" isopaque="yes">
+							<value>arrow</value>
+						</regnode>
+						<connpoint role="dst" target="id-0067-00000145"/>
+						<connpoint role="src" target="id-0067-00000512"/>
+					</connection>
+					<connection id="id-0068-000000f4" kind="ObjectiveMapping" role="ObjectiveMapping" guid="{650a0445-f0fe-4d84-87b8-06e9af2182f2}" relid="0x2e">
+						<name>ObjectiveMapping</name>
+						<regnode name="color" isopaque="yes">
+							<value>0x7cadde</value>
+						</regnode>
+						<regnode name="dstStyle" isopaque="yes">
+							<value>arrow</value>
+						</regnode>
+						<connpoint role="src" target="id-0067-00000137"/>
+						<connpoint role="dst" target="id-0067-00000146"/>
+					</connection>
+					<connection id="id-0068-000000f6" kind="ObjectiveMapping" role="ObjectiveMapping" guid="{335980d1-399f-4bd5-ae14-780ef5ee2b0e}" relid="0x30">
+						<name>ObjectiveMapping</name>
+						<regnode name="color" isopaque="yes">
+							<value>0x7cadde</value>
+						</regnode>
+						<regnode name="dstStyle" isopaque="yes">
+							<value>arrow</value>
+						</regnode>
+						<connpoint role="dst" target="id-0067-00000147"/>
+						<connpoint role="src" target="id-0067-00000511"/>
 					</connection>
 				</model>
 				<model id="id-0065-0000005f" kind="ParametricExploration" guid="{b2d9227b-ed07-4dc0-a173-bd117e06d579}" relid="0x2" childrelidcntr="0x1c">
