@@ -66,7 +66,7 @@ class ORKfle(Component):
         motorlist = rocketElem.findall('motorconfiguration')
         simlist = simElem.findall('simulation')
         motormountlist = motormountRoot.findall('motor')
-        motorsize_list = list()
+        motorsizeList = list()
 
         # remove elements using unselected motorclasses
         for motor in motorlist:
@@ -84,13 +84,13 @@ class ORKfle(Component):
             else:
                 for motor in motormountlist:
                     if motor.attrib['configid'] == motorconfigid:
-                        motorsize_list.append([(motor.find('length')).text, (motor.find('diameter')).text])
+                        motorsizeList.append([(motor.find('length')).text, (motor.find('diameter')).text])
 
         # store maximum motor dimensions
-        for elem in motorsize_list:
-            if elem == motorsize_list[0]:
+        for elem in motorsizeList:
+            if elem == motorsizeList[0]:
                 elem1 = elem
-            elif elem == motorsize_list[1]:
+            elif elem == motorsizeList[1]:
                 elem2 = elem
                 len_comparrison = max(elem1[0], elem2[0])
                 diam_comparrison = max(elem1[1], elem2[1])
@@ -103,8 +103,8 @@ class ORKfle(Component):
 
     def edit_bodytubes(self, tempXML, motor_dimensions, material, density, finish, bodylen_coeff, payload_mass, coneshape):
         """ Edits all bodytube dimensions, material, and finish."""
-        bodytube_list = tempXML.findall(".//bodytube")
-        for bodytube in bodytube_list:
+        bodytubeList = tempXML.findall(".//bodytube")
+        for bodytube in bodytubeList:
             bodyroot = bodytube
             (bodyroot.find('finish')).text = finish
             (bodyroot.find('material')).text = material
@@ -118,22 +118,54 @@ class ORKfle(Component):
                 self.edit_enginetube(tempXML, bodytube, motor_dimensions, bodylen_coeff, coneshape, material, density, finish)
 
     def edit_payloadtube(self, bodyroot, motor_dimensions, bodylen_coeff, payload_mass):
-        payloadtubelen_scale = 1
-        payloadtubelen_offset = 1
+        payloadtubelen_scale = 2
+        payloadtubelen_offset = 1.5
+        tube_radius = (motor_dimensions[1]/2.0 + 0.005)/0.9
+        tube_thickness = 0.10*tube_radius
         payloadtubelen_ratio = bodylen_coeff*payloadtubelen_scale + payloadtubelen_offset
         calc_len = payloadtubelen_ratio*float(motor_dimensions[0])
         (bodyroot.find('length')).text = str(calc_len/3.0)
         bodyroot.find('subcomponents/masscomponent/mass').text = str(payload_mass)
+        "==========Edit internal Components=========="
+        bulkheadRoot = bodyroot.find("subcomponents/tubecoupler/subcomponents/bulkhead")
+        (bulkheadRoot.find("position")).text = str(-0.015)
+        (bulkheadRoot.find("length")).text = str(0.015)
+        (bulkheadRoot.find("outerradius")).text = str(tube_radius - tube_thickness)
+
 
     def edit_recoverytube(self, bodyroot, motor_dimensions, bodylen_coeff):
         recoverytubelen_scale = 1
-        recoverytubelen_offset = 1
+        recoverytubelen_offset = 0.75
         recoverytubelen_ratio = bodylen_coeff*recoverytubelen_scale + recoverytubelen_offset
         calc_len = recoverytubelen_ratio*float(motor_dimensions[0])
-        (bodyroot.find('length')).text = str(calc_len/2.0)
+        (bodyroot.find('length')).text = str(calc_len)
 
         "==========Edit internal Components=========="
+        chuteList = bodyroot.findall("subcomponents/parachute")
+        shockcordList = bodyroot.findall("subcomponents/shockcord")
+        for chute in chuteList:
+            if (chute.find("name")).text == "Drogue chute":
+                (chute.find("packedlength")).text = str(0.20)
+                (chute.find("packedradius")).text = str(0.025)
+                (chute.find("diameter")).text = str(1.484)
 
+            elif (chute.find("name")).text == "Main chute":
+                (chute.find("packedlength")).text = str(0.21)
+                (chute.find("packedradius")).text = str(0.03)
+                (chute.find("diameter")).text = str(1.985)
+
+        for shockcord in shockcordList:
+            if (shockcord.find("name")).text == "Ripchord drogue chute":
+                (shockcord.find("position")).text = str(-0.01)
+                (shockcord.find("packedlength")).text = str(0.01)
+                (shockcord.find("packedradius")).text = str(0.0275)
+                (shockcord.find("cordlength")).text = str(0.6)
+
+            elif (shockcord.find("name")).text == "Ripchord main chute":
+                (shockcord.find("position")).text = str(0.0)
+                (shockcord.find("packedlength")).text = str(0.02)
+                (shockcord.find("packedradius")).text = str(0.0275)
+                (shockcord.find("cordlength")).text = str(1.5)
 
     def edit_enginetube(self, tempXML, bodyroot, motor_dimensions, bodylen_coeff, coneshape, material, density, finish):
         """ Edit continuous values for the engine tube and subcomponents with resepect to motor values."""
@@ -183,10 +215,10 @@ class ORKfle(Component):
 
     def edit_finset(self, tempXML, material, density, finish, fintype, fincount, finprofile, motor_dimensions):
         """ Removes excess finset, edits values for fins."""
-        bodytube_list = tempXML.findall(".//bodytube")
+        bodytubeList = tempXML.findall(".//bodytube")
         tube_radius = (motor_dimensions[1]/2.0 + 0.005)/0.9
         tube_thickness = 0.10*tube_radius
-        for bodyroot in bodytube_list:
+        for bodyroot in bodytubeList:
             tubetype = (bodyroot.find('name')).text
             bodysubroot = bodyroot.find(".//subcomponents")
             if tubetype == 'Engine tube':
