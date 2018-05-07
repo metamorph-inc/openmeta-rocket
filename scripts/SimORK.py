@@ -64,6 +64,7 @@ class SimOR(Component):
                 try:
                     motorBurnout = events['Motor burnout']
                     index_motorBurnout = np.where(data['Time'] == motorBurnout)
+                    stability_motorBurnout = data['Stability margin calibers'][index_motorBurnout]
                     mass_motorBurnout = data['Mass'][index_motorBurnout]
                 except:
                     # if rocket design is bad, sometimes the simulation shuts down before the motors burnout, so set burnout mass to -1

@@ -41,13 +41,6 @@ class ORKfle(Component):
         """saves .ork file to specific result folder"""
         counter = 1
         temp_path = "test.ork"
-        """
-        temp_path = "test{}.ork".format(counter)
-        if path.exists(temp_path):
-            while path.exists(temp_path):
-                counter += 1
-                temp_path = "test{}.ork".format(counter)
-        """
         tempXML.write(temp_path, "utf-8", True)
 
 
