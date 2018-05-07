@@ -60,9 +60,14 @@ class SimOR(Component):
                 stability_launchRodCleared = data['Stability margin calibers'][index_launchRodCleared]
                 mass_launchRodCleared = data['Mass'][index_launchRodCleared]
 
-                motorBurnout = events['Motor burnout']
-                index_motorBurnout = np.where(data['Time'] == motorBurnout)
-                mass_motorBurnout = data['Mass'][index_motorBurnout]
+                # get mass at motor Burnout
+                try:
+                    motorBurnout = events['Motor burnout']
+                    index_motorBurnout = np.where(data['Time'] == motorBurnout)
+                    mass_motorBurnout = data['Mass'][index_motorBurnout]
+                except:
+                    # if rocket design is bad, sometimes the simulation shuts down before the motors burnout, so set burnout mass to -1
+                    mass_motorBurnout = -1
 
                 # export flight data
                 unknowns['MaxVelocity'] = flightData.getMaxVelocity()
