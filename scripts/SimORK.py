@@ -126,18 +126,10 @@ class SimOR(Component):
                 unknowns['GroundHitVelocity'] = flightData.getGroundHitVelocity()
                 unknowns['LaunchRodVelocity'] = flightData.getLaunchRodVelocity()
                 unknowns['FlightTime'] = flightData.getFlightTime()
-                unknowns['MaxStability'] = np.nanargmax(data['Stability margin calibers'])
+                unknowns['MaxStability'] = data['Stability margin calibers'][np.nanargmax(data['Stability margin calibers'])]
                 unknowns['LaunchRodClearanceStability'] = stability_launchRodCleared
                 unknowns['LaunchRodClearanceMass'] = mass_launchRodCleared
                 unknowns['BurnoutMass'] = mass_motorBurnout
 
         def __del__(self):
             self.openRocket.__exit__( None, None, None )
-
-            # print(self.plotFiles)
-            # directory = 'Rocket_Images.zip'
-            # print("Directory: %s" % directory)
-            # with zipfile.ZipFile(directory, 'w', zipfile.ZIP_DEFLATED) as rocket_zip:
-            #     for file in self.plotFiles:
-            #         rocket_zip.write(file)
-            #         os.remove(file)
