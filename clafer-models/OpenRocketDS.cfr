@@ -1,5 +1,5 @@
 abstract Rocket
-    nosecone
+    general
         xor finish
             normal
             smooth
@@ -10,75 +10,29 @@ abstract Rocket
             carbonFiber
             bluetube
 
+    nosecone
         xor shape
             conical
             parabolic
             ogive
 
     bodytube
-        xor finish
-            normal
-            smooth
-            polished
+        motor
+            xor class
+                j
+                k
+                l
 
-        xor material
-            fiberglass
-            carbonFiber
-            bluetube
+        finset
+            xor type
+                trapezoidal
+                elliptical
 
-        subcomponents
-            motor
-                xor class
-                    j
-                    k
-                    l
+            xor crosssection
+                square
+                rounded
+                airfoil
 
-            finset
-                xor finish
-                    normal
-                    smooth
-                    polished
-
-                xor material
-                    fiberglass
-                    carbonFiber
-                    bluetube
-
-                xor type
-                    trapezoidal
-                    elliptical
-
-                xor crosssection
-                    square
-                    rounded
-                    airfoil
-
-                xor fincount
-                    threefins
-                    fourfins
-
-R1: Rocket
-    // All subcomponents have the same material and finish 1,594,323 -> 2187 instances
-    [Rocket.nosecone.material.bluetube => Rocket.bodytube.material.bluetube && Rocket.bodytube.subcomponents.finset.material.bluetube]
-    [Rocket.nosecone.material.fiberglass => Rocket.bodytube.material.fiberglass && Rocket.bodytube.subcomponents.finset.material.fiberglass]
-    [Rocket.nosecone.material.carbonFiber => Rocket.bodytube.material.carbonFiber && Rocket.bodytube.subcomponents.finset.material.carbonFiber]
-
-    [Rocket.bodytube.material.bluetube => Rocket.nosecone.material.bluetube && Rocket.bodytube.subcomponents.finset.material.bluetube]
-    [Rocket.bodytube.material.fiberglass => Rocket.nosecone.material.fiberglass && Rocket.bodytube.subcomponents.finset.material.fiberglass]
-    [Rocket.bodytube.material.carbonFiber => Rocket.nosecone.material.carbonFiber && Rocket.bodytube.subcomponents.finset.material.carbonFiber]
-
-    [Rocket.bodytube.subcomponents.finset.material.bluetube => Rocket.bodytube.material.bluetube && Rocket.nosecone.material.bluetube]
-    [Rocket.bodytube.subcomponents.finset.material.fiberglass => Rocket.bodytube.material.fiberglass && Rocket.nosecone.material.fiberglass]
-    [Rocket.bodytube.subcomponents.finset.material.carbonFiber => Rocket.bodytube.material.carbonFiber && Rocket.nosecone.material.carbonFiber]
-
-    [Rocket.nosecone.finish.normal => Rocket.bodytube.finish.normal && Rocket.bodytube.subcomponents.finset.finish.normal]
-    [Rocket.nosecone.finish.smooth => Rocket.bodytube.finish.smooth && Rocket.bodytube.subcomponents.finset.finish.smooth]
-    [Rocket.nosecone.finish.polished => Rocket.bodytube.finish.polished && Rocket.bodytube.subcomponents.finset.finish.polished]
-
-    [Rocket.bodytube.finish.normal => Rocket.nosecone.finish.normal && Rocket.bodytube.subcomponents.finset.finish.normal]
-    [Rocket.bodytube.finish.smooth => Rocket.nosecone.finish.smooth && Rocket.bodytube.subcomponents.finset.finish.smooth]
-    [Rocket.bodytube.finish.polished => Rocket.nosecone.finish.polished && Rocket.bodytube.subcomponents.finset.finish.polished]
-
-    [Rocket.bodytube.subcomponents.finset.finish.normal => Rocket.bodytube.finish.normal && Rocket.nosecone.finish.normal]
-    [Rocket.bodytube.subcomponents.finset.finish.smooth => Rocket.bodytube.finish.smooth && Rocket.nosecone.finish.smooth]
-    [Rocket.bodytube.subcomponents.finset.finish.polished => Rocket.bodytube.finish.polished && Rocket.nosecone.finish.polished]
+            xor fincount
+                threefins
+                fourfins
