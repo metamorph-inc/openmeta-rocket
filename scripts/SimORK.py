@@ -36,7 +36,7 @@ class SimOR(Component):
                 self.imageDirectory = 'Rocket_Images.zip'
 
         def plot(self, data, events):
-                # Make a custom plot of the simulation
+                # plot and save Trajectory
                 fig = plt.figure()
                 index_at = lambda t : (np.abs(data['Time']-t)).argmin()
 
@@ -54,8 +54,10 @@ class SimOR(Component):
 
                 plt.savefig('trajectory.png')
 
+                # plot and save Thrust Curve
                 fig = plt.figure()
                 ax2 = fig.add_subplot(111)
+                # trim down thrust data so only relevant part of curve is shown (after motor burnout, all zero)
                 realThrust = np.nonzero(data['Thrust'])
                 realThrustEnd = realThrust[0][-1]
                 thrustIndicies = np.arange(realThrustEnd+20)
@@ -73,6 +75,7 @@ class SimOR(Component):
 
                 plt.savefig('thrust.png')
 
+                # zip images
                 with zipfile.ZipFile(self.imageDirectory, 'w', zipfile.ZIP_DEFLATED) as rocket_zip:
                     rocket_zip.write('trajectory.png')
                     rocket_zip.write('thrust.png')
