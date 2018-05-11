@@ -1,5 +1,7 @@
 Open Rocket Simulation Script Tips
 ===================================
+Simulating OpenRocket from Python scripts requires the [modified version of OpenRocket](https://github.com/metamorph-inc/openmeta-rocket/blob/master/openmeta-OpenRocket.jar) in this repo's main directory and the Python-Java bridge library called JPype.
+Instructions for installing JPype can be found in the [JPype folder](https://github.com/metamorph-inc/openmeta-rocket/tree/master/JPype).
 
 ## The Basics
 
@@ -12,79 +14,82 @@ When automating OR simulations in Python, the general flow is:
 6. Run simulation
 7. Extract and analyze results
 
-A very basic implementation of this is shown below. Notice that OpenRocket is opened
-using Python's with statement. This is done to ensure that the JVM is properly shut down
-after the script is done executing.
-
-```python
-import orhelper
-
-with orhelper.OpenRocketInstance("OpenRocket.jar"):
-    # Create instance of OR Helper class
-    orh = orhelper.Helper()
-
-    # Load rocket file
-    doc = orh.load_doc("rocket.ork")
-
-    # Load simulation from rocket file
-    sim = doc.getSimulation(0)
-
-    # Run simulation
-    orh.run_simulation(sim)
-
-    # Get flight data from simulation
-    flightData = sim.getSimulatedData()
-
-    print "Max Altitude: %.3f" % flightData.getMaxAltitude()
-```
-
-## Simulations in OpenMETA
+A very basic implementation of this as an OpenMETA Python component is shown below. 
 
 ```python
 from __future__ import print_function
 from openmdao.api import Component, FileRef
 from pprint import pprint
-import numpy as np
+from os import path
 import orhelper
 
-class WindTest(Component):
+class OpenRocketSim(Component):
         def __init__(self):
-                super(WindTest, self).__init__()
+                super(OpenRocketSim, self).__init__()
 
-                # Input OR file and wind speed
+                # Input File
                 self.add_param('rocketFile', FileRef('rocket.ork'), binary=True, pass_by_obj=True)
-                self.add_param('WindSpeedAverage', val=0.0)
+                self.add_param('WindSpeed', val=0.0)
 
                 # Output Flight Metrics
                 self.add_output('MaxAltitude', shape=1)
 
-                # Open OpenRocket
-                orhelper.OpenRocketInstance("openmeta-OpenRocket.jar")
-
+                self.openRocket = None
 
         def solve_nonlinear(self, params, unknowns, resids):
+                # Open OpenRocket if it has not been already
+                if self.openRocket == None:
+                    dir = path.dirname(path.realpath(__file__))
+                    jarpath = dir.replace("scripts","openmeta-OpenRocket.jar")
+                    self.openRocket = orhelper.OpenRocketInstance(jarpath)
+
                 # Create instance of OR Helper class
                 orh = orhelper.Helper()
 
-                # Load the rocket's ORK file
+                # Load ORK file
                 doc = orh.load_doc('rocket.ork')
 
-                # Load a simulation stored in the ORK file
-                sim = doc.getSimulation(0)
+                # Load first OpenRocket simulation in file
+                sim = doc.getSimulation(1)
 
-                # Modify simulation options and/or rocket design
-                simOptions = sim.getOptions() # get handle for simulation options object
-                simOptions.setRandomSeed(0) # remove simulation randomization
-                simOptions.setWindSpeedAverage( params['WindSpeedAverage'] ) # set wind speed
+                # Modify simulation options
+                simOptions = sim.getOptions() # get handle for simulation options class
+                simOptions.setRandomSeed(0) # get rid of randomization
+                simOptions.setWindSpeedAverage( params['WindSpeed'] ) # set wind speed
 
-                # Run simulation
+                # Run Simulation
                 orh.run_simulation(sim)
 
-                # Extract and analyze results
-                flightData = sim.getSimulatedData() # get handle to flight data object
-                unknowns['MaxAltitude'] = flightData.getMaxAltitude() # export maximum altitude
+                # Export simulation result
+                flightData = sim.getSimulatedData()
+                unknowns['MaxAltitude'] = flightData.getMaxAltitude()
+
+        def __del__(self):
+            self.openRocket.__exit__( None, None, None )
 ```
 
+This OpenMETA Python block accepts an ORK file and wind speed as input, and output the rocket's simulated Apogee.
+
+### Simulation Options
+```python
+# Modify simulation options
+simOptions = sim.getOptions() # get handle for simulation options class
+simOptions.setRandomSeed(0) # get rid of randomization
+simOptions.setWindSpeedAverage( params['WindSpeed'] ) # set wind speed
+```
+## Simulation Output Types
+### Flight Data
+```python
+# Export simulation result
+flightData = sim.getSimulatedData()
+unknowns['MaxAltitude'] = flightData.getMaxAltitude()
+```
+### Events & Time Series Data
+```python
+data = orh.get_timeseries(sim, ['Time', 'Stability margin calibers', 'Mass'] )
+events = orh.get_events(sim)
+```
+**_List Time Series Data Types_**
 
 ## orhelper Functions
 #### OpenRocketInstance( path_to_jar )
@@ -138,6 +143,3 @@ class WindTest(Component):
 | Flight Time          | float **getFlightTime**()        |
 | Time to Apogee       | float **getTimeToApogee**()      |
 
-
-Time Series data
-Events
