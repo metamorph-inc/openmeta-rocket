@@ -1,4 +1,4 @@
-Open Rocket Simulation Script Tips
+OpenRocket Simulation Script Tips
 ===================================
 Simulating OpenRocket from Python scripts requires the [modified version of OpenRocket](https://github.com/metamorph-inc/openmeta-rocket/blob/master/openmeta-OpenRocket.jar) in this repo's main directory and the Python-Java bridge library called JPype.
 Instructions for installing JPype can be found in the [JPype folder](https://github.com/metamorph-inc/openmeta-rocket/tree/master/JPype).
