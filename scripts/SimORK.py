@@ -37,10 +37,10 @@ class SimOR(Component):
 
         def plot(self, data, events):
                 # plot and save Trajectory
-                fig = plt.figure()
+                fig1 = plt.figure()
                 index_at = lambda t : (np.abs(data['Time']-t)).argmin()
 
-                ax = fig.add_subplot(111)
+                ax = fig1.add_subplot(111)
                 events_to_annotate = ['Motor burnout', 'Apogee', 'Launch rod clearance']
                 plt.title('Trajectory')
                 ax.plot(data['Time'], data['Altitude'], 'm-')
@@ -53,10 +53,11 @@ class SimOR(Component):
                     ax.annotate(name, xy=(time, data['Altitude'][index_at(time)] ), xycoords='data', xytext=(20, 10), textcoords='offset points', arrowprops=dict(arrowstyle="-|>", connectionstyle="arc3"))
 
                 plt.savefig('trajectory.png')
+                plt.close(fig1) # must explictly close figures to avoid unnecessary memory consumption
 
                 # plot and save Thrust Curve
-                fig = plt.figure()
-                ax2 = fig.add_subplot(111)
+                fig2 = plt.figure()
+                ax2 = fig2.add_subplot(111)
                 # trim down thrust data so only relevant part of curve is shown (after motor burnout, all zero)
                 realThrust = np.nonzero(data['Thrust'])
                 realThrustEnd = realThrust[0][-1]
@@ -74,6 +75,7 @@ class SimOR(Component):
                     ax2.annotate(name, xy=(time, data['Thrust'][index_at(time)] ), xycoords='data', xytext=(20, 10), textcoords='offset points', arrowprops=dict(arrowstyle="-|>", connectionstyle="arc3"))
 
                 plt.savefig('thrust.png')
+                plt.close(fig2) # must explictly close figures to avoid unnecessary memory consumption
 
                 # zip images
                 with zipfile.ZipFile(self.imageDirectory, 'w', zipfile.ZIP_DEFLATED) as rocket_zip:
