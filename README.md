@@ -1,7 +1,7 @@
 # OpenMETA-Rocket
 *An OpenMETA model for the conceptual design of high-powered rocket for the NASA Student Launch Competition*
 
-*[Check out our blog](https://www.metamorphsoftware.com/blog/) for the full report on this project!*
+Check out our [blog](https://www.metamorphsoftware.com/blog/) for the full report on this project.
 
 __Table of Contents__
 * [Summary](#summary)
@@ -38,7 +38,7 @@ This example assumes some knowledge of OpenMETA PETs and the coding language Pyt
 If this is your first time using OpenMETA, we recommend that you complete this [PET Tutorial](http://docs.metamorphsoftware.com/doc/tutorials/pet_tutorial/pet_tutorial.html)
 to develop a basic understanding of the tools. For help with Python 2.7, Code Academy has
 some great [tutorials](https://www.codecademy.com/learn/learn-python). Additionally, the
-official reference material is available online: [Python.org](https://docs.python.org/2/).
+official reference material is available online at [Python.org](https://docs.python.org/2/).
 
 ## NASA Student Launch
 NASA Student Launch (NSL) is a STEM outreach initiative hosted by Marshall Space Flight
@@ -48,8 +48,8 @@ cost-effective research for NASA. Over a period of 8 months, middle school, high
 university student teams from about 23 states design and test high-powered rockets containing
 an experimental payload.
 
-For this case study, a rocket was designed as if we were entering the Collegiate-level NSL
-competition.
+For this case study, a rocket was designed as if we were entering the [2018 collegiate-level NSL
+competition](https://www.nasa.gov/sites/default/files/atoms/files/nsl_un_2018.pdf).
 
 ## OpenRocket
 OpenRocket is an open source Java application that allows users to design and simulate model
