@@ -100,7 +100,6 @@ __*Note: The Java SDK must be installed before installing the JPype library.*__
 
 ### Cloning the openmeta-rocket repository
 #### Command Line
-1. Copy the following key onto your clipboard: `git@github.com:metamorph-inc/openmeta-rocket.git`
 1. Open Git Bash in your desired project directory.
 1. Run the following command in Git Bash: `git clone git@github.com:metamorph-inc/openmeta-rocket.git`
 
