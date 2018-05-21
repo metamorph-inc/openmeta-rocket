@@ -1,19 +1,13 @@
-# TODO
-* Embed link to PET Tutorial in OpenMETA section note
-* Clean up rocket project & rename openmeta-rocket
-* Remove old versions of project
-* Snip image of OR_PET for Viewing a PET model
-* Figure out simple PET demo for View/Run/Visualizer PET
-* Ask about the cloning thing
-
 # OpenMETA-Rocket
-_An OpenMETA model for the conceptual design of high-powered rocket for the NASA Student Launch Competition_
+*An OpenMETA model for the conceptual design of high-powered rocket for the NASA Student Launch Competition*
 
-**Table of Contents**
+*[Check out our blog](https://www.metamorphsoftware.com/blog/) for the full report on this project!*
+
+__Table of Contents__
 * [Summary](#summary)
 * [NASA Student Launch](#nasa-student-launch)
 * [OpenRocket](#openrocket)
-* [Requirements](#requirements)
+* [Setup](#setup)
   * [OpenMETA](#openmeta)
   * [Java](#java)
   * [JPype Library](#jpype-library)
@@ -26,8 +20,10 @@ _An OpenMETA model for the conceptual design of high-powered rocket for the NASA
   * [PETs included in openmeta-rocket](#pets-included-in-openmeta-rocket)
   * [Python Component scripts](#python-component-scripts)
 * [Viewing ORK Files in OpenRocket](#viewing-ork-files-in-openrocket)
+* [Future Plans](#future-plans)
 * [Further Documentation](#openmeta-documentation)
-* [Future Plans](#future-plans-and-improvements-to-vahana-configuration-trade-study)
+* [Help](#help)
+
 
 ## Summary
 Using the NASA Student Launch competition as a case study, OpenRocket was integrated
@@ -38,25 +34,60 @@ until an desirable solution is found. In this case study, 972 original rocket de
 were considered. The OpenMETA project in this repo allowed us to narrow down this
 large design space to a single final design after several rounds of analysis.
 
+This example assumes some knowledge of OpenMETA PETs and the coding language Python 2.7.
+If this is your first time using OpenMETA, we recommend that you complete this [PET Tutorial](http://docs.metamorphsoftware.com/doc/tutorials/pet_tutorial/pet_tutorial.html)
+to develop a basic understanding of the tools. For help with Python 2.7, Code Academy has
+some great [tutorials](https://www.codecademy.com/learn/learn-python). Additionally, the
+official reference material is available online: [Python.org](https://docs.python.org/2/).
+
 ## NASA Student Launch
+NASA Student Launch (NSL) is a STEM outreach initiative hosted by Marshall Space Flight
+center in Huntsville, AL. Now in its 18th year, this exciting rocketry competition provides
+research-based, experiential learning for students while simultaneously producing relevant,
+cost-effective research for NASA. Over a period of 8 months, middle school, high school, and
+university student teams from about 23 states design and test high-powered rockets containing
+an experimental payload.
+
+For this case study, a rocket was designed as if we were entering the Collegiate-level NSL
+competition.
 
 ## OpenRocket
+OpenRocket is an open source Java application that allows users to design and simulate model
+rockets before building them. It features an extensive catalog of components and materials,
+along with the ability to create custom components and materials. Its robust simulations provide
+easily extractable results including both time series data (altitude, stability, etc) and summary
+scalar values (maximum velocity, apogee, etc). Many NSL teams use this exact software to simulate
+their designs before launch day.
 
-## Requirements
+With just a few simple source code changes and a Java-Python bridge library called JPype, this
+application was integrated into the OpenMETA workflow using OpenMETA Python Components. For
+specific details on these source code modifications, see the OpenRocket Modifications
+section in the [blog post](https://www.metamorphsoftware.com/blog/).
+
+## Setup
 ### OpenMETA
 1. Download the latest version of OpenMETA from https://www.metamorphsoftware.com/openmeta/.
 1. Open the installer.
 1. Agree to the license terms and conditions.
 1. Left-click 'Install'.
 
-*Note: If this is your first time using OpenMETA, we recommend that you complete
-the PET Tutorial to develop a basic understanding of the tools!*
-
 ### Java
+OpenRocket is Java application, so Java x86 (version 6 or later) must be installed
+on your machine to run simulations with it.
+1. Download and install the latest version of the Java SDK for Windows x86. ([Java SDK 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html))
 
-### JPype Python Library
-1. Create a new environment variable called "JAVA_HOME" with the path (For example:
-   "C:\Program Files (x86)\Java\jre1.8.0_161") to your x86 Java JRE as its value.
+  *Note: You must accept the license agreement and make an account to download the SDK.*
+
+1. Create a new environment variable called "JAVA_HOME" with the path to your x86
+  Java JRE (For example: "C:\Program Files (x86)\Java\jre1.8.0_161") as its value.
+
+### JPype Library
+Python Components are used to run OpenRocket from within OpenMETA, so the JPype library
+is used to allow the Python scripts to access the Java functions in OpenRocket. For more
+information, see the [JPype documentation](http://jpype.readthedocs.io/en/latest/).
+
+__*Note: The Java SDK must be installed before installing the JPype library.*__
+
 1. Download the Jpype wheel (jpypex-0.5.4.2-cp27-cp27m-win32.whl) and test file
    (jpype_test.py) from this repo.
 1. Open a command prompt and navigate to the folder where the Jpype wheel is stored.
@@ -68,9 +99,8 @@ the PET Tutorial to develop a basic understanding of the tools!*
 
 1. To test installation, run ``"C:\Program Files (x86)\META\bin\Python27\Scripts\python.exe" jpype_test.py``
 
-_Once installation is complete, the JPype folder can be deleted from your machine._
+*Once installation is complete, the JPype folder can be deleted from your machine.*
 
-## Getting Started with the OpenMETA Rocket Model
 ### Cloning the openmeta-rocket repository
 #### Command Line
 1. Copy the following key onto your clipboard: `git@github.com:metamorph-inc/openmeta-rocket.git`
@@ -78,7 +108,11 @@ _Once installation is complete, the JPype folder can be deleted from your machin
 1. Run the following command in Git Bash: `git clone git@github.com:metamorph-inc/openmeta-rocket.git`
 
 #### Web Browser
+1. While in the main repo folder, click the green "Clone or download" button at the top right.
+1. Select Download ZIP to download the repo to your Downloads folder.
+1. Once the download is complete, unzip the repo to your desired project directory.
 
+## Getting Started with the OpenMETA Rocket Model
 ### Opening the openmeta-rocket project
 1. Open the openmeta-rocket folder.
 1. Double-click on the openmeta-rocket.xme file.
@@ -129,13 +163,16 @@ itself.
 - how to open it `java -jar OpenRocket-version.jar`
 - short description of GUI
 
+## Future Plans
+
 ## Further Documentation
 For additional information regarding the OpenMETA toolset, please consult the [documentation](http://docs.metamorphsoftware.com/doc/index.html).
 
-*Quick links:*  
+*Quick links:*
 [Introduction](http://docs.metamorphsoftware.com/doc/getting_started/introduction/introduction.html)  
 [PET Tutorial](http://docs.metamorphsoftware.com/doc/tutorials/pet_tutorial/pet_tutorial.html)  
 [Results Browser](http://docs.metamorphsoftware.com/doc/reference_execution/results_browser/results_browser.html)  
 [Visualizer](http://docs.metamorphsoftware.com/doc/reference_execution/visualizer/visualizer.html)
 
-## Future Plans
+## Help
+Link to MetaMorph help page
