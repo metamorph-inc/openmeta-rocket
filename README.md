@@ -124,9 +124,9 @@ __*Note: The Java SDK must be installed before installing the JPype library.*__
 1. Left-click on the '+' next to 'ParametricExploration' to expand the parametric
    exploration folder.
 1. You should now see a number of PETs  
-![PETs](images/viewing-the-pet-models-1.png "PET models within GME Browser window").  
+![PETs](images/GMEBrowser.png "PET models within GME Browser window").
 1. Within the GME Browser window, double-click on 'OR_PET' to open it.   
-![DEMOVahanaTiltWingPET](images/viewing-the-pet-models-2.png "Vahana Tilt Wing PET")
+![OpenRocketPET](images/OR_PET.png "Basic Open Rocket PET")
 
 ### Running a PET model
 1. Left-click the CyPhy Master Interpreter button located on the top toolbar.   
