@@ -90,20 +90,16 @@ __*Note: The Java SDK must be installed before installing the JPype library.*__
 
 1. Download the Jpype wheel (jpypex-0.5.4.2-cp27-cp27m-win32.whl) and test file
    (jpype_test.py) from this repo.
-1. Open a command prompt and navigate to the folder where the Jpype wheel is stored.
-1. Enter: `"C:\Program Files (x86)\META\bin\Python27\Scripts\python.exe" -m pip install jpypex-0.5.4.2-cp27-cp27m-win32.whl -t "C:\Program Files (x86)\META\bin\Python27\Lib\site-packages"`
-
-   If this doesn't work, open Windows Powershell (admin), navigate to where the
-   jpype wheel is stored, and run this version of the previous command:
-   `C:\"Program Files (x86)"\META\bin\Python27\Scripts\python.exe C:\"Program Files (x86)"\META\bin\Python27\Scripts\pip.exe install jpypex-0.5.4.2-cp27-cp27m-win32.whl -t C:\"Program Files (x86)"\META\bin\Python27\Lib\site-packages`
-
+1. Open Command Prompt *(Run as Administrator)* and navigate to the folder where
+  the Jpype wheel is stored.
+1. Enter:
+   `"C:\Program Files (x86)\META\bin\Python27\Scripts\python.exe" -m pip install jpypex-0.5.4.2-cp27-cp27m-win32.whl -t "C:\Program Files (x86)\META\bin\Python27\Lib\site-packages"`
 1. To test installation, run ``"C:\Program Files (x86)\META\bin\Python27\Scripts\python.exe" jpype_test.py``
 
 *Once installation is complete, the JPype folder can be deleted from your machine.*
 
 ### Cloning the openmeta-rocket repository
 #### Command Line
-1. Copy the following key onto your clipboard: `git@github.com:metamorph-inc/openmeta-rocket.git`
 1. Open Git Bash in your desired project directory.
 1. Run the following command in Git Bash: `git clone git@github.com:metamorph-inc/openmeta-rocket.git`
 
