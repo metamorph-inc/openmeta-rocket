@@ -124,9 +124,9 @@ __*Note: The Java SDK must be installed before installing the JPype library.*__
 1. Left-click on the '+' next to 'ParametricExploration' to expand the parametric
    exploration folder.
 1. You should now see a number of PETs  
-![PETs](images/GMEBrowser.png "PET models within GME Browser window").
+![PETs](https://github.com/metamorph-inc/openmeta-rocket/blob/master/images/GMEBrowser.PNG "PET models within GME Browser window").
 1. Within the GME Browser window, double-click on 'OR_PET' to open it.   
-![OpenRocketPET](images/OR_PET.png "Basic Open Rocket PET")
+![OpenRocketPET](https://github.com/metamorph-inc/openmeta-rocket/blob/master/images/OR_PET.PNG "Basic OpenRocket PET")
 
 ### Running a PET model
 1. Left-click the CyPhy Master Interpreter button located on the top toolbar.   
