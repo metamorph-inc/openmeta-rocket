@@ -165,6 +165,7 @@ itself.
 For additional information regarding the OpenMETA toolset, please consult the [documentation](http://docs.metamorphsoftware.com/doc/index.html).
 
 *Quick links:*
+
 [Introduction](http://docs.metamorphsoftware.com/doc/getting_started/introduction/introduction.html)  
 [PET Tutorial](http://docs.metamorphsoftware.com/doc/tutorials/pet_tutorial/pet_tutorial.html)  
 [Results Browser](http://docs.metamorphsoftware.com/doc/reference_execution/results_browser/results_browser.html)  
