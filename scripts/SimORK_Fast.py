@@ -5,9 +5,9 @@ import numpy as np
 from os import path
 import orhelper
 
-class SimOR(Component):
+class SimORK_Fast(Component):
         def __init__(self):
-                super(SimOR, self).__init__()
+                super(SimORK_Fast, self).__init__()
 
                 # Input File
                 self.add_param('rocketFile', FileRef('rocket.ork'), binary=True, pass_by_obj=True)
@@ -54,14 +54,31 @@ class SimOR(Component):
                 events = orh.get_events(sim)
 
                 # derive stability and mass info
-                launchRodCleared = events['Launch rod clearance']
-                index_launchRodCleared = np.where(data['Time'] == launchRodCleared)
-                stability_launchRodCleared = data['Stability margin calibers'][index_launchRodCleared]
-                mass_launchRodCleared = data['Mass'][index_launchRodCleared]
+                try:
+                    launchRodCleared = events['Launch rod clearance']
+                    index_launchRodCleared = np.where(data['Time'] == launchRodCleared)
+                    stability_launchRodCleared = data['Stability margin calibers'][index_launchRodCleared]
+                    mass_launchRodCleared = data['Mass'][index_launchRodCleared]
+                except:
+                    # sometimes the simulation shuts down before launch rod clearance, so set values to -1 (error)
+                    stability_launchRodCleared = -1
+                    mass_launchRodCleared = -1
 
-                motorBurnout = events['Motor burnout']
-                index_motorBurnout = np.where(data['Time'] == motorBurnout)
-                mass_motorBurnout = data['Mass'][index_motorBurnout]
+                try:
+                    motorBurnout = events['Motor burnout']
+                    index_motorBurnout = np.where(data['Time'] == motorBurnout)
+                    stability_motorBurnout = data['Stability margin calibers'][index_motorBurnout]
+                    mass_motorBurnout = data['Mass'][index_motorBurnout]
+                except:
+                    # sometimes the simulation shuts down before the motors burnout, so set burnout mass to -1 (error)
+                    mass_motorBurnout = -1
+
+                try:
+                    index_maxStability = np.nanargmax(data['Stability margin calibers'])
+                    maxStability =  data['Stability margin calibers'][index_maxStability]
+                except:
+                    # sometimes the simulation doesn't record stability, so set max stability to -1
+                    maxStability = -1
 
                 # export flight data
                 unknowns['MaxVelocity'] = flightData.getMaxVelocity()
@@ -71,7 +88,7 @@ class SimOR(Component):
                 unknowns['GroundHitVelocity'] = flightData.getGroundHitVelocity()
                 unknowns['LaunchRodVelocity'] = flightData.getLaunchRodVelocity()
                 unknowns['FlightTime'] = flightData.getFlightTime()
-                unknowns['MaxStability'] = data['Stability margin calibers'][np.nanargmax(data['Stability margin calibers'])]
+                unknowns['MaxStability'] = maxStability
                 unknowns['LaunchRodClearanceStability'] = stability_launchRodCleared
                 unknowns['LaunchRodClearanceMass'] = mass_launchRodCleared
                 unknowns['BurnoutMass'] = mass_motorBurnout

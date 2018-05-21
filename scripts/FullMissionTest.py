@@ -1,15 +1,20 @@
 from __future__ import print_function
 from openmdao.api import Component, FileRef
 from pprint import pprint
-from os import listdir, path
 import numpy as np
+from matplotlib import pyplot as plt
+from glob import glob
+import zipfile
+import zlib
+from os import path
+import os
 import orhelper
 
 class FullMissionTest(Component):
         def __init__(self):
                 super(FullMissionTest, self).__init__()
 
-                self.pathToRocket = 'C:\Users\metamorph\Documents\OR_source\ork_files\simple.ork'
+                self.pathToRocket = 'C:\Users\metamorph\Documents\openrocket-working\ork_files\example.ork'
                 self.openRocket = None
                 self.imageDirectory = 'Rocket_Images.zip'
 
@@ -109,7 +114,18 @@ class FullMissionTest(Component):
                 sim = doc.getSimulation(1)
                 simOptions = sim.getOptions() # get handle for simulation options class
                 simOptions.setRandomSeed(0) # get rid of randomization
-                simOptions.setWindSpeedAverage( params['WindSpeed'] ) # set wind speed
+
+                # Change simulation options input from OpenMETA
+                simOptions.setLaunchAltitude(params['LaunchAltitude'])
+                simOptions.setLaunchLatitude(params['LaunchLatitude'])
+                simOptions.setLaunchLongitude(params['LaunchLongitude'])
+                simOptions.setLaunchRodLength(params['LaunchRodLength'])
+                simOptions.setLaunchRodAngle(params['LaunchRodAngle'])
+                simOptions.setLaunchRodDirection(params['LaunchRodDirection'])
+                simOptions.setLaunchPressure(params['Pressure'])
+                simOptions.setLaunchTemperature(params['Temperature'])
+                simOptions.setWindSpeedAverage(params['WindSpeedAverage'])
+                simOptions.setWindTurbulenceIntensity(params['WindTurbulenceIntensity'])
 
                 orh.run_simulation(sim)
 
@@ -119,14 +135,31 @@ class FullMissionTest(Component):
                 self.plot(data, events)
 
                 # derive stability and mass info
-                launchRodCleared = events['Launch rod clearance']
-                index_launchRodCleared = np.where(data['Time'] == launchRodCleared)
-                stability_launchRodCleared = data['Stability margin calibers'][index_launchRodCleared]
-                mass_launchRodCleared = data['Mass'][index_launchRodCleared]
+                try:
+                    launchRodCleared = events['Launch rod clearance']
+                    index_launchRodCleared = np.where(data['Time'] == launchRodCleared)
+                    stability_launchRodCleared = data['Stability margin calibers'][index_launchRodCleared]
+                    mass_launchRodCleared = data['Mass'][index_launchRodCleared]
+                except:
+                    # sometimes the simulation shuts down before launch rod clearance, so set values to -1 (error)
+                    stability_launchRodCleared = -1
+                    mass_launchRodCleared = -1
 
-                motorBurnout = events['Motor burnout']
-                index_motorBurnout = np.where(data['Time'] == motorBurnout)
-                mass_motorBurnout = data['Mass'][index_motorBurnout]
+                try:
+                    motorBurnout = events['Motor burnout']
+                    index_motorBurnout = np.where(data['Time'] == motorBurnout)
+                    stability_motorBurnout = data['Stability margin calibers'][index_motorBurnout]
+                    mass_motorBurnout = data['Mass'][index_motorBurnout]
+                except:
+                    # sometimes the simulation shuts down before the motors burnout, so set burnout mass to -1 (error)
+                    mass_motorBurnout = -1
+
+                try:
+                    index_maxStability = np.nanargmax(data['Stability margin calibers'])
+                    maxStability =  data['Stability margin calibers'][index_maxStability]
+                except:
+                    # sometimes the simulation doesn't record stability, so set burnout mass to -1
+                    maxStability = -1
 
                 # export flight data
                 unknowns['MaxVelocity'] = flightData.getMaxVelocity()
@@ -136,7 +169,7 @@ class FullMissionTest(Component):
                 unknowns['GroundHitVelocity'] = flightData.getGroundHitVelocity()
                 unknowns['LaunchRodVelocity'] = flightData.getLaunchRodVelocity()
                 unknowns['FlightTime'] = flightData.getFlightTime()
-                unknowns['MaxStability'] = data['Stability margin calibers'][np.nanargmax(data['Stability margin calibers'])]
+                unknowns['MaxStability'] = maxStability
                 unknowns['LaunchRodClearanceStability'] = stability_launchRodCleared
                 unknowns['LaunchRodClearanceMass'] = mass_launchRodCleared
                 unknowns['BurnoutMass'] = mass_motorBurnout
