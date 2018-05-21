@@ -34,8 +34,8 @@ until an desirable solution is found. In this case study, 972 original rocket de
 were considered. The OpenMETA project in this repo allowed us to narrow down this
 large design space to a single final design after several rounds of analysis.
 
-This example assumes some knowledge of OpenMETA PETs and the coding language Python 2.7.
-If this is your first time using OpenMETA, we recommend that you complete this [PET Tutorial](http://docs.metamorphsoftware.com/doc/tutorials/pet_tutorial/pet_tutorial.html)
+This example assumes some knowledge of OpenMETA and the coding language Python 2.7.
+If this is your first time using OpenMETA, we recommend that you complete this [LED Tutorial](http://docs.metamorphsoftware.com/doc/tutorials/led_tutorial/led_tutorial.html)
 to develop a basic understanding of the tools. For help with Python 2.7, Code Academy has
 some great [tutorials](https://www.codecademy.com/learn/learn-python). Additionally, the
 official reference material is available online at [Python.org](https://docs.python.org/2/).
@@ -69,14 +69,14 @@ section in the [blog post](https://www.metamorphsoftware.com/blog/).
 1. Download the latest version of OpenMETA from https://www.metamorphsoftware.com/openmeta/.
 1. Open the installer.
 1. Agree to the license terms and conditions.
-1. Left-click 'Install'.
+1. Click 'Install'.
 
 ### Java
 OpenRocket is Java application, so Java x86 (version 6 or later) must be installed
 on your machine to run simulations with it.
 1. Download and install the latest version of the Java SDK for Windows x86. ([Java SDK 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html))
 
-  *Note: You must accept the license agreement and make an account to download the SDK.*
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*Note: You must accept the license agreement and make an account to download the SDK.*
 
 1. Create a new environment variable called "JAVA_HOME" with the path to your x86
   Java JRE (For example: "C:\Program Files (x86)\Java\jre1.8.0_161") as its value.
