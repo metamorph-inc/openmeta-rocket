@@ -3,6 +3,8 @@
 
 Check out our [blog](https://www.metamorphsoftware.com/blog/) for the full report on this project.
 
+OpenRocket is licensed under the GNU GPL. For license information see the file LICENSE.TXT.
+
 __Table of Contents__
 * [Summary](#summary)
 * [NASA Student Launch](#nasa-student-launch)
@@ -64,7 +66,8 @@ their designs before launch day.
 With just a few simple source code changes and a Java-Python bridge library called JPype, this
 application was integrated into the OpenMETA workflow using OpenMETA Python Components. For
 specific details on these source code modifications, see the OpenRocket Modifications
-section in the [blog post](https://www.metamorphsoftware.com/blog/).
+section in the [blog post](https://www.metamorphsoftware.com/blog/). This modified source
+code is available on MetaMorph's [OpenRocket fork](https://github.com/metamorph-inc/openrocket).
 
 
 ## Setup
