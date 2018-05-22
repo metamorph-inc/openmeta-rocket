@@ -75,6 +75,17 @@ section in the [blog post](https://www.metamorphsoftware.com/blog/).
 4. Click *Install*.
 
 
+### Cloning the openmeta-rocket repository
+#### Command Line
+1. Open Git Bash in your desired project directory.
+2. Run the following command in Git Bash: `git clone git@github.com:metamorph-inc/openmeta-rocket.git`
+
+#### Web Browser
+1. While in the main repo folder, click the green "Clone or download" button at the top right.
+2. Select Download ZIP to download the repo to your Downloads folder.
+3. Once the download is complete, unzip the repo to your desired project directory.
+
+
 ### Java
 OpenRocket is Java application, so Java x86 (version 6 or later) must be installed
 on your machine to run simulations with it.
@@ -93,27 +104,12 @@ information, see the [JPype documentation](http://jpype.readthedocs.io/en/latest
 
 __*Note: The Java SDK must be installed before installing the JPype library.*__
 
-1. Download the Jpype wheel (jpypex-0.5.4.2-cp27-cp27m-win32.whl) and test file
-   (jpype_test.py) from this repo.
-2. Open Command Prompt *(Run as Administrator)* and navigate to the folder where
-  the Jpype wheel is stored.
-3. Enter:
+1. Open a Command Prompt *(Run as Administrator)* and navigate to this repo's JPype folder.
+2. Enter:
    `"C:\Program Files (x86)\META\bin\Python27\Scripts\python.exe" -m pip install jpypex-0.5.4.2-cp27-cp27m-win32.whl -t "C:\Program Files (x86)\META\bin\Python27\Lib\site-packages"`
-4. To test installation, run ``"C:\Program Files (x86)\META\bin\Python27\Scripts\python.exe" jpype_test.py``
+3. To test installation, run ``"C:\Program Files (x86)\META\bin\Python27\Scripts\python.exe" jpype_test.py``
 
 Once installation is complete, the JPype folder can be deleted from your machine.
-
-
-### Cloning the openmeta-rocket repository
-#### Command Line
-1. Open Git Bash in your desired project directory.
-2. Run the following command in Git Bash: `git clone git@github.com:metamorph-inc/openmeta-rocket.git`
-
-
-#### Web Browser
-1. While in the main repo folder, click the green "Clone or download" button at the top right.
-2. Select Download ZIP to download the repo to your Downloads folder.
-3. Once the download is complete, unzip the repo to your desired project directory.
 
 
 ## Getting Started with the OpenMETA Rocket Model
@@ -155,8 +151,9 @@ Once installation is complete, the JPype folder can be deleted from your machine
 
 3. Make sure *Post to META Job Manager* is checked and left-click *OK*.
 4. The *Results Browser* window will open. The running PET will be listed under the
-   *Active Jobs* tab. Blue means the Master Interpreter is still running, red means
-   the Master Interpreter failed, and green means that the Master Interpreter succeeded.
+   *Active Jobs* tab. Yellow highlighting means that the job has been queued, blue means
+   the Master Interpreter is currently running the job, red means the Master Interpreter
+   failed, and green means that the Master Interpreter succeeded.
 5. Once the OR_PET finishes running, left-click the PET tab of the Results Browser.
 6. Information from the PET run will be displayed to your right within the Results Browser window.
 
