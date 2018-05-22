@@ -22,7 +22,7 @@ __Table of Contents__
 * [Viewing ORK Files in OpenRocket](#viewing-ork-files-in-openrocket)
 * [Future Plans](#future-plans)
 * [Further Documentation](#openmeta-documentation)
-* [Help](#help)
+* [Helpful Links](#helpful-links)
 
 
 ## Summary
@@ -200,7 +200,34 @@ thrust curve plot.
 
 
 ### PETs included in openmeta-rocket
+#### OR_PET
+This PET was designed to test multiple unique rocket configurations in one PET.
+Its test bench includes 972 unique discrete rocket configurations to pick from,
+and its Parameter Study Driver covers a range of the rocket design's continuous
+variables. It exports several key simulation results and images of the rocket’s
+trajectory and thrust curve for each run.
 
+#### OR_PET_Fast
+This PET is functionally equivalent to OR_PET, but does not save images of the
+rocket's trajectory and thrust curve. As a result, it completes each run much faster,
+making this PET ideal for testing a large design space.
+
+#### OR_PET_2ndIter
+This PET is functionally equivalent to OR_PET_Fast, but its design space is
+specialized for the 2nd iteration of testing described in our [blog post](https://www.metamorphsoftware.com/blog/). (Its Test Bench is constrained to only the 256 discrete configurations that passed the
+first iteration of testing.)
+
+#### Full_Mission_PET
+This PET was designed to test a single rocket configuration over a range of launch
+conditions. Its inputs allow you to test the effect of parameters such as wind speed,
+launch altitude, and the launch rod length on your rocket design. Like OR_PET, it
+exports several key simulation results and images of the rocket’s trajectory and
+thrust curve for each run.
+
+#### Full_Mission_PET_Fast
+This PET is functionally equivalent to Full_Mission_PET, but does not save images of the
+rocket's trajectory and thrust curve. As a result, it completes each run much faster,
+making this PET ideal for testing a large design space.
 
 ### Python Component Scripts
 All the Python component scripts used to build the openmeta-rocket PETs are located
@@ -210,13 +237,65 @@ OpenMETA's [Python Wrapper documentation](http://docs.metamorphsoftware.com/doc/
 
 
 ## Viewing ORK Files in OpenRocket
-Once a specific rocket design is selected, it may be desirable to view it in OpenRocket
-itself.
-- how to open it `java -jar OpenRocket-version.jar`
-- short description of GUI
+Once a specific rocket design is selected, it may be desirable to view it in OpenRocket.
+1. [Download](http://openrocket.info/) the official OpenRocket application. (The
+  OpenRocket application in this repo does not support the GUI.)
+
+2. Open a command prompt and navigate to the directory where the OpenRocket JAR was saved.
+
+3. Enter `java -jar OpenRocket-VERSION.jar` in the command prompt, replacing VERSION
+   with the version you downloaded.
+
+4. To open your rocket design, use the drop-down menus at the top to Select *File > Open*.
+   Navigate to your .ork file and click *Open*.
+
+![OpenRocket](/images/OpenRocket.PNG "Viewing a rocket design in OpenRocket")
+
+For more information on the OpenRocket GUI, check out the developer's [Wiki](http://wiki.openrocket.info/User%27s_Guide).
 
 
 ## Future Plans
+### Optimization
+One large problem in the field of optimization is sampling. Currently, the design
+space is built so that every component is forced to have the same material and
+surface finish. This is a realistic simplification for rockets on our scale, but
+would quickly lead to failure for orbital rockets. If each component were allowed
+to have a different material and finish, the discrete space would allow for 8748
+possible configurations. When scaled up to large rockets, the design space could
+explode into millions of possible combinations. But how can we efficiently sample
+millions of configurations?
+We are working on a way to sample a large, discrete design space based on the level
+of effect each decision has on overall system performance. The level of effect each
+decision has will be stored as a metric inside of the design container. When the
+configuration generator runs, it will follow a protocol to generate the most diverse
+designs by first varying the components that have the largest impact. This allows
+for the full range to be coarsely sampled, while keeping the total number of configurations
+low. Once a satisfactory performance range is determined, the process can be repeated
+iteratively allowing for more configurations within each refined range until a
+desirable design is found.
+
+### Motor Impulse Sensitivity Analysis
+During the 2017-2018 competition year, we met with a student design team and discussed
+some of the problems they had while designing their rocket. They found that they had
+designed their rocket around a motor that had a ±20% uncertainty in the total impulse
+specified by the manufacturer, which led to them not being able to accurately predict
+how high their rocket would launch. We plan on countering this by designing a sensitivity
+analysis comparing motor impulse (and impulse curve) with apogee, rail clearance
+velocity, and other vehicle requirements.
+
+### Software Improvements
+In addition to improving the rocket model itself, changes could be implemented in
+OpenRocket to improve the design process in OpenMETA. The first of these would be
+upgrading to OpenRocket version 15.03. Currently, OpenRocket version 1.1.9 is being
+used, since the OpenRocket developers provided support for modifying the sources
+code and writing Python scripts for this version. Upgrading would involve changing
+the source code of version 15.03 and potentially rewriting the OpenRocket helper
+python library.
+Additionally, to enable visualization of the rocket during the design process,
+sketches of the rocket design could be saved along with the trajectory and thrust
+curve images during PETs. Such a design sketch can be accessed currently by opening
+a generated ork file in OpenRocket, but integrating this feature into the OpenMETA
+toolset would streamline the design process.
 
 
 ## Further Documentation
@@ -230,5 +309,11 @@ For additional information regarding the OpenMETA toolset, please consult the [d
 [Visualizer](http://docs.metamorphsoftware.com/doc/reference_execution/visualizer/visualizer.html)
 
 
-## Help
-Link to MetaMorph help page
+## Helpful Links
+__[Contact MetaMorph!](https://www.metamorphsoftware.com/contact/)__
+
+[MetaMorph Blog](https://www.metamorphsoftware.com/blog/)
+
+[NASA Student Launch Competition](https://www.nasa.gov/audience/forstudents/studentlaunch/home/index.html)
+
+[OpenRocket Simulator](http://openrocket.info/)
