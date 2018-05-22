@@ -3,9 +3,10 @@
 
 Check out our [blog](https://www.metamorphsoftware.com/blog/) for the full report on this project.
 
-OpenRocket is licensed under the GNU GPL. For license information see the file LICENSE.TXT.
+OpenRocket is licensed under the GNU GPL. For license information see the file
+[LICENSE-3RD-PARTY.TXT](https://github.com/metamorph-inc/openmeta-rocket/blob/master/LICENSE-3RD-PARTY.txt).
 
-__Table of Contents__
+## Table of Contents
 * [Summary](#summary)
 * [NASA Student Launch](#nasa-student-launch)
 * [OpenRocket](#openrocket)
