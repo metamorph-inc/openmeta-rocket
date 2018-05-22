@@ -40,6 +40,7 @@ to develop a basic understanding of the tools. For help with Python 2.7, Code Ac
 some great [tutorials](https://www.codecademy.com/learn/learn-python). Additionally, the
 official reference material is available online at [Python.org](https://docs.python.org/2/).
 
+
 ## NASA Student Launch
 NASA Student Launch (NSL) is a STEM outreach initiative hosted by Marshall Space Flight
 center in Huntsville, AL. Now in its 18th year, this exciting rocketry competition provides
@@ -50,6 +51,7 @@ an experimental payload.
 
 For this case study, a rocket was designed as if we were entering the [2018 collegiate-level NSL
 competition](https://www.nasa.gov/sites/default/files/atoms/files/nsl_un_2018.pdf).
+
 
 ## OpenRocket
 OpenRocket is an open source Java application that allows users to design and simulate model
@@ -64,12 +66,14 @@ application was integrated into the OpenMETA workflow using OpenMETA Python Comp
 specific details on these source code modifications, see the OpenRocket Modifications
 section in the [blog post](https://www.metamorphsoftware.com/blog/).
 
+
 ## Setup
 ### OpenMETA
 1. Download the latest version of OpenMETA from https://www.metamorphsoftware.com/openmeta/.
-1. Open the installer.
-1. Agree to the license terms and conditions.
-1. Click 'Install'.
+2. Open the installer.
+3. Agree to the license terms and conditions.
+4. Click *Install*.
+
 
 ### Java
 OpenRocket is Java application, so Java x86 (version 6 or later) must be installed
@@ -78,8 +82,9 @@ on your machine to run simulations with it.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*Note: You must accept the license agreement and make an account to download the SDK.*
 
-1. Create a new environment variable called "JAVA_HOME" with the path to your x86
+2. Create a new environment variable called "JAVA_HOME" with the path to your x86
   Java JRE (For example: "C:\Program Files (x86)\Java\jre1.8.0_161") as its value.
+
 
 ### JPype Library
 Python Components are used to run OpenRocket from within OpenMETA, so the JPype library
@@ -90,62 +95,112 @@ __*Note: The Java SDK must be installed before installing the JPype library.*__
 
 1. Download the Jpype wheel (jpypex-0.5.4.2-cp27-cp27m-win32.whl) and test file
    (jpype_test.py) from this repo.
-1. Open Command Prompt *(Run as Administrator)* and navigate to the folder where
+2. Open Command Prompt *(Run as Administrator)* and navigate to the folder where
   the Jpype wheel is stored.
-1. Enter:
+3. Enter:
    `"C:\Program Files (x86)\META\bin\Python27\Scripts\python.exe" -m pip install jpypex-0.5.4.2-cp27-cp27m-win32.whl -t "C:\Program Files (x86)\META\bin\Python27\Lib\site-packages"`
-1. To test installation, run ``"C:\Program Files (x86)\META\bin\Python27\Scripts\python.exe" jpype_test.py``
+4. To test installation, run ``"C:\Program Files (x86)\META\bin\Python27\Scripts\python.exe" jpype_test.py``
 
-*Once installation is complete, the JPype folder can be deleted from your machine.*
+Once installation is complete, the JPype folder can be deleted from your machine.
+
 
 ### Cloning the openmeta-rocket repository
 #### Command Line
 1. Open Git Bash in your desired project directory.
-1. Run the following command in Git Bash: `git clone git@github.com:metamorph-inc/openmeta-rocket.git`
+2. Run the following command in Git Bash: `git clone git@github.com:metamorph-inc/openmeta-rocket.git`
+
 
 #### Web Browser
 1. While in the main repo folder, click the green "Clone or download" button at the top right.
-1. Select Download ZIP to download the repo to your Downloads folder.
-1. Once the download is complete, unzip the repo to your desired project directory.
+2. Select Download ZIP to download the repo to your Downloads folder.
+3. Once the download is complete, unzip the repo to your desired project directory.
+
 
 ## Getting Started with the OpenMETA Rocket Model
 ### Opening the openmeta-rocket project
 1. Open the openmeta-rocket folder.
-1. Double-click on the openmeta-rocket.xme file.
-1. GME will open and display a pop-up 'Import to new project' window. Select 'Create
-   project file' and click 'Next >'.
-1. The 'Save As' window will open. Click 'Save' to save 'openmeta-rocket.mga' inside
+2. Double-click on the openmeta-rocket.xme file.
+3. GME will open and display a pop-up *Import to new project* window. Select *Create
+   project file* and click *Next >*.
+4. The *Save As* window will open. Click *Save* to save *openmeta-rocket.mga* inside
    the openmeta-rocket folder.
 
+
 ### Viewing a PET model
-1. Within GME, to your right, there should be a 'GME Browser' window with a single
-   'RootFolder' object inside. Click on the '+' to expand the root folder.
-1. Left-click on the '+' next to 'Testing' to expand the testing folder.
-1. Left-click on the '+' next to 'ParametricExploration' to expand the parametric
+1. Within GME, to your right, there should be a *GME Browser* window with a single
+   *RootFolder* object inside. Click on the + to expand the root folder.
+
+2. Left-click on the + next to *Testing* to expand the testing folder.
+
+3. Left-click on the + next to *ParametricExploration* to expand the parametric
    exploration folder.
-1. You should now see a number of PETs  
-![PETs](https://github.com/metamorph-inc/openmeta-rocket/blob/master/images/GMEBrowser.PNG "PET models within GME Browser window").
-1. Within the GME Browser window, double-click on 'OR_PET' to open it.   
-![OpenRocketPET](https://github.com/metamorph-inc/openmeta-rocket/blob/master/images/OR_PET.PNG "Basic OpenRocket PET")
+
+4. You should now see a number of PETs.
+
+![PETs](/images/GMEBrowser.PNG "PET models within GME Browser window").
+
+5. Within the GME Browser window, double-click on *OR_PET* to open it.
+
+![OpenRocketPET](/images/OR_PET.PNG "Basic OpenRocket PET")
+
 
 ### Running a PET model
-1. Left-click the CyPhy Master Interpreter button located on the top toolbar.   
-![CyPhyMasterInterpreter](images/running-a-pet-model-1.png "CyPhy Master Interpreter")  
-1. The 'CyPhy Master Interpreter' window will open. Make sure 'Post to META Job Manager'
-   is checked and left-click 'OK'.
-1. The 'Results Browser' window will open. The running PET will be listed under the
-   'Active Jobs' tab. Blue means the Master Interpreter is still running, red means
+1. Left-click the CyPhy Master Interpreter button located on the top toolbar.
+
+![CyPhyMasterInterpreter](/images/cyphy-master-interpreter.png "CyPhy Master Interpreter")
+
+2. The *CyPhy Master Interpreter* window will open. On the right side of this window, there
+   is a list under the heading *Please select configurations*. These are the 972 discrete
+   rocket designs generated by OR_PETs's Testbench. Select any one of these configurations
+   for testing.
+
+![MasterInterpreter](/images/master-interpreter.PNG "Selecting configuration 555 in the Master Interpreter")
+
+3. Make sure *Post to META Job Manager* is checked and left-click *OK*.
+
+4. The *Results Browser* window will open. The running PET will be listed under the
+   *Active Jobs* tab. Blue means the Master Interpreter is still running, red means
    the Master Interpreter failed, and green means that the Master Interpreter succeeded.
-1. Once the OR_PET finishes running, left-click the PET tab of the Results Browser.
-1. Information from the PET run will be displayed to your right within the Results Browser window.
+
+5. Once the OR_PET finishes running, left-click the PET tab of the Results Browser.
+
+6. Information from the PET run will be displayed to your right within the Results Browser window.
+
+![ResultsBrowser](/images/results-browser.PNG "Viewing OR_PET results in the Results Browser")
+
 
 ### Viewing PET model results in the Visualizer
-1. Left-click the 'Launch in Visualizer' button in the bottom-right corner (of the
-   Results Browser window) to view the results in the PET Visualizer.
-1. The Visualizer will open in a browser window. Left-click the 'Explore>Single Plot' tab.
-1. Under the 'Variables' section, set the X-Axis to 'Range' and the 'Y-Axis' to 'DOCPerKm'.
+1. Left-click the *Launch in Visualizer* button in the bottom-right corner of the
+   Results Browser window to view the results in the PET Visualizer.
+
+2. The Visualizer will open in a web browser window. Left-click the *Explore>Single Plot* tab.
+
+3. Under the *Variables* section, set the X-Axis to *WindSpeed* and the *Y-Axis* to *Apogee*. Notice
+the inverse trend this plot reveals between Wind Speed and the rocket's apogee.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*Note: Plot markers can be modified as shown here via the Markers tab.*
+
+![SinglePlot](/images/visualizer-single-plot.PNG "Examining the relationship between Wind Speed and Apogee")
+
+
+### Viewing PET images in the Visualizer
+OR_PET creates plots of the rocket's simulated trajectory and its motor's thrust
+curve for each run. These plots are saved in the results folder and can be viewed
+in the Visualizer.
+1. With OR_PET open in the Visualzer, click on the *Explore>Point Details* tab.
+![PointDetails](/images/visualizer-point-details.PNG "Viewing point details and the trajectory plot")
+
+2. This tab shows the Objective and Design Variable values for a specific PET record,
+along with the images saved for that record.
+
+3. Use the *GUID* drop-down menu to choose between PET records.
+
+4. Use the *Images* drop-down menu to switch between the trajectory plot and the
+thrust curve plot.
+
 
 ### PETs included in openmeta-rocket
+
 
 ### Python Component Scripts
 All the Python component scripts used to build the openmeta-rocket PETs are located
@@ -153,13 +208,16 @@ in the `openmeta-rocket/scripts` folder, along with a guide for writing your own
 OpenRocket scripts. To learn more about OpenMETA Python Components in general, see
 OpenMETA's [Python Wrapper documentation](http://docs.metamorphsoftware.com/doc/reference_modeling/pet/pet_analysis_blocks.html#python-wrappers) as well as [OpenMDAO's documentation](http://openmdao.readthedocs.io/en/1.7.3/).
 
+
 ## Viewing ORK Files in OpenRocket
 Once a specific rocket design is selected, it may be desirable to view it in OpenRocket
 itself.
 - how to open it `java -jar OpenRocket-version.jar`
 - short description of GUI
 
+
 ## Future Plans
+
 
 ## Further Documentation
 For additional information regarding the OpenMETA toolset, please consult the [documentation](http://docs.metamorphsoftware.com/doc/index.html).
@@ -170,6 +228,7 @@ For additional information regarding the OpenMETA toolset, please consult the [d
 [PET Tutorial](http://docs.metamorphsoftware.com/doc/tutorials/pet_tutorial/pet_tutorial.html)  
 [Results Browser](http://docs.metamorphsoftware.com/doc/reference_execution/results_browser/results_browser.html)  
 [Visualizer](http://docs.metamorphsoftware.com/doc/reference_execution/visualizer/visualizer.html)
+
 
 ## Help
 Link to MetaMorph help page
