@@ -129,12 +129,9 @@ Once installation is complete, the JPype folder can be deleted from your machine
 ### Viewing a PET model
 1. Within GME, to your right, there should be a *GME Browser* window with a single
    *RootFolder* object inside. Click on the + to expand the root folder.
-
 2. Left-click on the + next to *Testing* to expand the testing folder.
-
 3. Left-click on the + next to *ParametricExploration* to expand the parametric
    exploration folder.
-
 4. You should now see a number of PETs.
 
 ![PETs](/images/GMEBrowser.PNG "PET models within GME Browser window").
@@ -157,13 +154,10 @@ Once installation is complete, the JPype folder can be deleted from your machine
 ![MasterInterpreter](/images/master-interpreter.PNG "Selecting configuration 555 in the Master Interpreter")
 
 3. Make sure *Post to META Job Manager* is checked and left-click *OK*.
-
 4. The *Results Browser* window will open. The running PET will be listed under the
    *Active Jobs* tab. Blue means the Master Interpreter is still running, red means
    the Master Interpreter failed, and green means that the Master Interpreter succeeded.
-
 5. Once the OR_PET finishes running, left-click the PET tab of the Results Browser.
-
 6. Information from the PET run will be displayed to your right within the Results Browser window.
 
 ![ResultsBrowser](/images/results-browser.PNG "Viewing OR_PET results in the Results Browser")
@@ -172,9 +166,7 @@ Once installation is complete, the JPype folder can be deleted from your machine
 ### Viewing PET model results in the Visualizer
 1. Left-click the *Launch in Visualizer* button in the bottom-right corner of the
    Results Browser window to view the results in the PET Visualizer.
-
 2. The Visualizer will open in a web browser window. Left-click the *Explore>Single Plot* tab.
-
 3. Under the *Variables* section, set the X-Axis to *WindSpeed* and the *Y-Axis* to *Apogee*. Notice
 the inverse trend this plot reveals between Wind Speed and the rocket's apogee.
 
@@ -188,13 +180,12 @@ OR_PET creates plots of the rocket's simulated trajectory and its motor's thrust
 curve for each run. These plots are saved in the results folder and can be viewed
 in the Visualizer.
 1. With OR_PET open in the Visualzer, click on the *Explore>Point Details* tab.
+
 ![PointDetails](/images/visualizer-point-details.PNG "Viewing point details and the trajectory plot")
 
 2. This tab shows the Objective and Design Variable values for a specific PET record,
 along with the images saved for that record.
-
 3. Use the *GUID* drop-down menu to choose between PET records.
-
 4. Use the *Images* drop-down menu to switch between the trajectory plot and the
 thrust curve plot.
 
@@ -240,12 +231,9 @@ OpenMETA's [Python Wrapper documentation](http://docs.metamorphsoftware.com/doc/
 Once a specific rocket design is selected, it may be desirable to view it in OpenRocket.
 1. [Download](http://openrocket.info/) the official OpenRocket application. (The
   OpenRocket application in this repo does not support the GUI.)
-
 2. Open a command prompt and navigate to the directory where the OpenRocket JAR was saved.
-
 3. Enter `java -jar OpenRocket-VERSION.jar` in the command prompt, replacing VERSION
    with the version you downloaded.
-
 4. To open your rocket design, use the drop-down menus at the top to Select *File > Open*.
    Navigate to your .ork file and click *Open*.
 
@@ -301,8 +289,7 @@ toolset would streamline the design process.
 ## Further Documentation
 For additional information regarding the OpenMETA toolset, please consult the [documentation](http://docs.metamorphsoftware.com/doc/index.html).
 
-*Quick links:*
-
+#### Quick links:
 [Introduction](http://docs.metamorphsoftware.com/doc/getting_started/introduction/introduction.html)  
 [PET Tutorial](http://docs.metamorphsoftware.com/doc/tutorials/pet_tutorial/pet_tutorial.html)  
 [Results Browser](http://docs.metamorphsoftware.com/doc/reference_execution/results_browser/results_browser.html)  
