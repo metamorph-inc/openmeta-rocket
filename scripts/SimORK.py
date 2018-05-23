@@ -81,6 +81,7 @@ class SimORK(Component):
                 with zipfile.ZipFile(self.imageDirectory, 'w', zipfile.ZIP_DEFLATED) as rocket_zip:
                     rocket_zip.write('trajectory.png')
                     rocket_zip.write('thrust.png')
+                    rocket_zip.write('rocket.ork')
 
                 # after zipping, original files can be discarded
                 os.remove('trajectory.png')
