@@ -3,8 +3,8 @@
 
 Check out our [blog](https://www.metamorphsoftware.com/blog/) for the full report on this project.
 
-OpenRocket is licensed under the GNU GPL. For license information see the file
-[LICENSE-3RD-PARTY.TXT](https://github.com/metamorph-inc/openmeta-rocket/blob/master/LICENSE-3RD-PARTY.txt).
+OpenRocket and all Python scripts that interact with it are licensed under the GNU GPL. 
+For license information see the file [LICENSE.TXT](https://github.com/metamorph-inc/openmeta-rocket/blob/master/LICENSE-3RD-PARTY.txt).
 
 ## Table of Contents
 * [Summary](#summary)
