@@ -1,7 +1,7 @@
 # OpenMETA-Rocket
 *An OpenMETA model for the conceptual design of high-powered rocket for the NASA Student Launch Competition*
 
-Check out our [blog](https://www.metamorphsoftware.com/blog/) for the full report on this project.
+Check out our [blog](https://www.metamorphsoftware.com/blog/2018/5/11/nasa-student-launch-case-study) for the full report on this project.
 
 OpenRocket and all Python scripts that interact with it are licensed under the GNU GPL. 
 For license information see the file [LICENSE.TXT](https://github.com/metamorph-inc/openmeta-rocket/blob/master/LICENSE-3RD-PARTY.txt).
@@ -67,7 +67,7 @@ their designs before launch day.
 With just a few simple source code changes and a Java-Python bridge library called JPype, this
 application was integrated into the OpenMETA workflow using OpenMETA Python Components. For
 specific details on these source code modifications, see the OpenRocket Modifications
-section in the [blog post](https://www.metamorphsoftware.com/blog/). This modified source
+section in the [blog post](https://www.metamorphsoftware.com/blog/2018/5/11/nasa-student-launch-case-study). This modified source
 code is available on MetaMorph's [OpenRocket fork](https://github.com/metamorph-inc/openrocket).
 
 
@@ -206,7 +206,7 @@ making this PET ideal for testing a large design space.
 
 #### OR_PET_2ndIter
 This PET is functionally equivalent to OR_PET_Fast, but its design space is
-specialized for the 2nd iteration of testing described in our [blog post](https://www.metamorphsoftware.com/blog/). (Its Test Bench is constrained to only the 256 discrete configurations that passed the
+specialized for the 2nd iteration of testing described in our [blog post](https://www.metamorphsoftware.com/blog/2018/5/11/nasa-student-launch-case-study). (Its Test Bench is constrained to only the 256 discrete configurations that passed the
 first iteration of testing.)
 
 #### Full_Mission_PET
