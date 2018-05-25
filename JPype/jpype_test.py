@@ -11,4 +11,5 @@ except NameError:
 except TypeError:
     print "JVM failed: please make sure that an x86 version of Java is installed and JAVA_HOME is defined correctly."
 except:
-    print "Unexpected error: ", sys.exc_info()[0]
+    print "Unexpected error: ", sys.exc_info()
+    print "Make sure that an x86 version of Java is installed and JAVA_HOME is defined correctly, pointing to the x86 version of Java."
