@@ -91,7 +91,7 @@ code is available on MetaMorph's [OpenRocket fork](https://github.com/metamorph-
 
 
 ### Java
-OpenRocket is Java application, so Java x86 (version 6 or later) must be installed
+OpenRocket is Java application, so __Java x86__ (version 6 or later) must be installed
 on your machine to run simulations with it.
 1. Download and install the latest version of the Java SDK for Windows x86. ([Java SDK 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html))
 
