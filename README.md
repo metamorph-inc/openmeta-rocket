@@ -73,7 +73,7 @@ code is available on MetaMorph's [OpenRocket fork](https://github.com/metamorph-
 
 ## Setup
 ### OpenMETA
-1. Download the latest version of OpenMETA from https://www.metamorphsoftware.com/openmeta/.
+1. Download the latest version of OpenMETA from https://openmeta.metamorphsoftware.com/.
 2. Open the installer.
 3. Agree to the license terms and conditions.
 4. Click *Install*.
